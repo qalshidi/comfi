@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['s2bx',['s2Bx',['../structmhdsim_1_1types_1_1Operators.html#af5b7b97a4f912584f700198d6cd884e5',1,'mhdsim::types::Operators']]],
+  ['s2bz',['s2Bz',['../structmhdsim_1_1types_1_1Operators.html#a4b16beedcbe65197c298db18ac8e65db',1,'mhdsim::types::Operators']]],
+  ['s2f',['s2f',['../structmhdsim_1_1types_1_1Operators.html#acc2bbb405d1d24ff139f689d71c047f0',1,'mhdsim::types::Operators']]],
+  ['s2glm',['s2GLM',['../structmhdsim_1_1types_1_1Operators.html#aba24cd23203c3d54ed7cccee518364bc',1,'mhdsim::types::Operators']]],
+  ['s2nn',['s2Nn',['../structmhdsim_1_1types_1_1Operators.html#af24eb8111a2bed04824bb1a5d51553ea',1,'mhdsim::types::Operators']]],
+  ['s2np',['s2Np',['../structmhdsim_1_1types_1_1Operators.html#a9dbdcbdd341bab5657d957fd9529c510',1,'mhdsim::types::Operators']]],
+  ['s2pf',['s2pf',['../structmhdsim_1_1types_1_1Operators.html#a30abea869c7b9ddc4334105fbe0eb587',1,'mhdsim::types::Operators']]],
+  ['s2tn',['s2Tn',['../structmhdsim_1_1types_1_1Operators.html#ab6f452aee079e5435ffbee7c446ff8c6',1,'mhdsim::types::Operators']]],
+  ['s2tp',['s2Tp',['../structmhdsim_1_1types_1_1Operators.html#a83b334f151e7deb2219850735e63815d',1,'mhdsim::types::Operators']]],
+  ['s2ux',['s2Ux',['../structmhdsim_1_1types_1_1Operators.html#ac28ce5107cc2f5c5197897855ad74d18',1,'mhdsim::types::Operators']]],
+  ['s2uz',['s2Uz',['../structmhdsim_1_1types_1_1Operators.html#aab8f676805e83e8cd36c171edb497bb6',1,'mhdsim::types::Operators']]],
+  ['s2vx',['s2Vx',['../structmhdsim_1_1types_1_1Operators.html#a40e0d13b96bbf6822fe145694151ad67',1,'mhdsim::types::Operators']]],
+  ['s2vz',['s2Vz',['../structmhdsim_1_1types_1_1Operators.html#a8d3997a37c16d5e077a4207b333c606b',1,'mhdsim::types::Operators']]],
+  ['s2xf',['s2xf',['../structmhdsim_1_1types_1_1Operators.html#ac86bcac20ed3f26fb5979bb57941a981',1,'mhdsim::types::Operators']]],
+  ['s2zf',['s2zf',['../structmhdsim_1_1types_1_1Operators.html#aabf65ef94598cbd0e9a8cdc0be6f179c',1,'mhdsim::types::Operators']]],
+  ['sanitycheck',['sanityCheck',['../namespacemhdsim_1_1util.html#adca8d76103a8130a98778505cc46577a',1,'mhdsim::util']]],
+  ['savefield',['saveField',['../namespacemhdsim_1_1util.html#a7ab1ff58e201df428e29d7d44be4e7c3',1,'mhdsim::util::saveField(const arma::vec &amp;x0, const string name, const int timestep)'],['../namespacemhdsim_1_1util.html#ae94e01261387fd7c64f84541097c4390',1,'mhdsim::util::saveField(const vcl_vec &amp;x0, const string name, const int timestep)']]],
+  ['savescalar',['saveScalar',['../namespacemhdsim_1_1util.html#a2342bc1d05f7a0a0bb1858332020313c',1,'mhdsim::util::saveScalar(const arma::vec &amp;x0, const string name, const int timestep)'],['../namespacemhdsim_1_1util.html#ad209f8b46b79ecb2cf475881d7e662a7',1,'mhdsim::util::saveScalar(const vcl_vec &amp;x0, const string name, const int timestep)']]],
+  ['savesolution',['saveSolution',['../namespacemhdsim_1_1util.html#aaf35ba0b0056a7b173316bb14770cdd6',1,'mhdsim::util']]],
+  ['sendtolog',['sendtolog',['../namespacemhdsim_1_1util.html#a25e8e6e7a98b09a14b457c6a71195662',1,'mhdsim::util']]],
+  ['sg',['SG',['../structmhdsim_1_1types_1_1Operators.html#a4ccc7fbeb4d67ef0706fb208b71c5079',1,'mhdsim::types::Operators']]],
+  ['syncspmat',['syncSpMat',['../namespacemhdsim_1_1util.html#a30e36126d85f589d94afbfc7c69aad58',1,'mhdsim::util']]]
+];
