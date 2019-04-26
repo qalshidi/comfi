@@ -1,0 +1,26 @@
+var searchData=
+[
+  ['c2p',['c2p',['../structcomfi_1_1types_1_1Operators.html#afb635c13b7644916eaabc3d200dc9760',1,'comfi::types::Operators']]],
+  ['calcinitialcondition',['calcInitialCondition',['../namespacecomfi_1_1util.html#a0535ca659d289a6967b0289292577059',1,'comfi::util']]],
+  ['calcreconnectionic',['calcReconnectionIC',['../namespacecomfi_1_1util.html#a683efcdbf7714f7ce043426b87f3d21d',1,'comfi::util']]],
+  ['calcshocktubeic',['calcShockTubeIC',['../namespacecomfi_1_1util.html#a3698716c90cdadfbc8f2875b73547bf8',1,'comfi::util']]],
+  ['calcsoleric',['calcSolerIC',['../namespacecomfi_1_1util.html#a14f94a1b9d4e0d2e5d810eb32d04b990',1,'comfi::util']]],
+  ['ch',['ch',['../structcomfi_1_1types_1_1Operators.html#adabcb212bb208f2da72c5600272bb8a2',1,'comfi::types::Operators']]],
+  ['comfi_2eh',['comfi.h',['../comfi_8h.html',1,'']]],
+  ['computerhs_5fbdf2',['computeRHS_BDF2',['../comfi_8h.html#a777a5f01e8d2b19bcadd619095d73721',1,'comfi::routines']]],
+  ['computerhs_5feuler',['computeRHS_Euler',['../comfi_8h.html#af60d846731c79b52def85f1d51150699',1,'comfi::routines']]],
+  ['computerhs_5frk4',['computeRHS_RK4',['../comfi_8h.html#a950eee7c4fc271cc780da32cbb545acc',1,'comfi::routines']]],
+  ['computeri',['computeRi',['../comfi_8h.html#ab6599de8668d2ff1b93464289ea0b9a9',1,'comfi::routines']]],
+  ['context',['Context',['../classcomfi_1_1types_1_1Context.html',1,'comfi::types']]],
+  ['cross1',['cross1',['../structcomfi_1_1types_1_1Operators.html#ae9991a3cc6508f7ae217716f6199935b',1,'comfi::types::Operators']]],
+  ['cross2',['cross2',['../structcomfi_1_1types_1_1Operators.html#afeb990fe9f86bedef0ec05b1a9e1c227',1,'comfi::types::Operators']]],
+  ['cross_5fprod',['cross_prod',['../comfi_8h.html#a6c7786e90e525ff47c4660815b798030',1,'comfi::routines']]],
+  ['curl',['curl',['../structcomfi_1_1types_1_1Operators.html#a28b41e69a7c64d6cb1ca64fe5d9bed71',1,'comfi::types::Operators']]],
+  ['cx_5fmax',['cx_max',['../comfi_8h.html#a49a9b38fb33b2fc27fcbb2c00fa0f8e5',1,'comfi::routines']]],
+  ['cz_5fmax',['cz_max',['../comfi_8h.html#a020b3cdcdc686d2b321fff3283eed9f2',1,'comfi::routines']]],
+  ['comfi',['CoMFi',['../md_README.html',1,'']]],
+  ['operators',['operators',['../namespacecomfi_1_1operators.html',1,'comfi']]],
+  ['sol',['sol',['../namespacecomfi_1_1sol.html',1,'comfi']]],
+  ['types',['types',['../namespacecomfi_1_1types.html',1,'comfi']]],
+  ['util',['util',['../namespacecomfi_1_1util.html',1,'comfi']]]
+];
