@@ -82,39 +82,39 @@ const double  five_sixths = 5.0/6.0;
 
 // Solution index
 /// Result vector top level index
-const unsigned short Bx    = 0;
+const arma::uword Bx    = 0;
 /// Result vector top level index
-const unsigned short Bz    = 1;
+const arma::uword Bz    = 1;
 /// Result vector top level index
-const unsigned short Bp    = 2;
+const arma::uword Bp    = 2;
 /// Result vector top level index
-const unsigned short n_n   = 3;
+const arma::uword n_n   = 3;
 /// Result vector top level index
-const unsigned short Ux    = 4;
+const arma::uword Ux    = 4;
 /// Result vector top level index
-const unsigned short Uz    = 5;
+const arma::uword Uz    = 5;
 /// Result vector top level index
-const unsigned short Up    = 6;
+const arma::uword Up    = 6;
 /// Result vector top level index
-const unsigned short n_p   = 7;
+const arma::uword n_p   = 7;
 /// Result vector top level index
-const unsigned short Vx    = 8;
+const arma::uword Vx    = 8;
 /// Result vector top level index
-const unsigned short Vz    = 9;
+const arma::uword Vz    = 9;
  /// Result vector top level index
-const unsigned short Vp    = 10;
+const arma::uword Vp    = 10;
 /// Result vector top level index
-const unsigned short T_n   = 11;
+const arma::uword T_n   = 11;
  /// Result vector top level index
-const unsigned short T_p   = 12;
+const arma::uword T_p   = 12;
 /// Result vector top level index
-const unsigned short GLM   = 13;
+const arma::uword GLM   = 13;
 /// Field vector top level index
-const unsigned short _x    = 0;
+const arma::uword _x    = 0;
  /// Field vector top level index
-const unsigned short _z    = 1;
+const arma::uword _z    = 1;
 /// Field vector top level index
-const unsigned short _p    = 2;
+const arma::uword _p    = 2;
 
 /*!
  * \brief Find scalar vector index.

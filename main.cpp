@@ -8,7 +8,6 @@
 #include <memory>
 
 // Armadillo includes and preprocessors
-//#define ARMA_DONT_USE_HDF5
 #include <armadillo>
 
 #define VIENNACL_WITH_ARMADILLO
@@ -150,17 +149,13 @@ int main(int argc, char** argv)
   static comfi::types::Operators op(comfi::types::DIMENSIONLESS, comfi::types::DIMENSIONLESS);
   cout << "Done ...";
   viennacl::tools::timer vcl_timer[2]; // timers
-  /*
-  const mhdsim::types::BgData bg;
-  arma::vec x0 = mhdsim::util::fillInitialCondition(bg);
-  */
 
   //auto init = mhdsim::util::calcInitialCondition(op);
   //auto init = mhdsim::util::calcReconnectionIC(op);
   auto init = comfi::util::calcShockTubeIC(op);
   //auto init = comfi::util::calcSolerIC(op);
   arma::vec x0 = std::get<0>(init);
-  const comfi::types::BgData bg = std::get<1>(init);
+  const comfi::types::BgData bg;
 
   unique_ptr<vcl_vec> xn_vcl(new vcl_vec(num_of_elem));
   viennacl::copy(x0, *xn_vcl);
@@ -199,12 +194,12 @@ int main(int argc, char** argv)
     time_elapsed = last_t(last_t.size()-1);
     std::string message = "Resuming simulation, starting steps at ";
     message += std::to_string(start_step);
-    const double V = comfi::util::getmaxV(*xn_vcl, op);
+    const double V = 1; //comfi::util::getmaxV(*xn_vcl, op);
     dt = 0.1*ds/V; // Update CFL
     comfi::util::sendtolog(message, logfilename.str());
   } else {
     comfi::util::saveSolution(*xn_vcl, 0, op); //save initial conditions
-    const double V = comfi::util::getmaxV(*xn_vcl, op);
+    const double V = 1; //comfi::util::getmaxV(*xn_vcl, op);
     dt = 0.1*ds/V; // Update CFL
     dt = 1.e-16;
   }
@@ -260,8 +255,10 @@ int main(int argc, char** argv)
     cout << time_step << ":" ;
     vcl_timer[1].start();
 
-    const double cxmax = viennacl::linalg::max(comfi::routines::cx_max(*xn_vcl,op));
-    const double czmax = viennacl::linalg::max(comfi::routines::cz_max(*xn_vcl,op));
+    //const double cxmax = viennacl::linalg::max(comfi::routines::cx_max(*xn_vcl,op));
+    //const double czmax = viennacl::linalg::max(comfi::routines::cz_max(*xn_vcl,op));
+    const double cxmax = 1.0;
+    const double czmax = 1.0;
     op.ch = (cxmax>czmax)*cxmax + (czmax>=cxmax)*czmax;
     //const arma::sp_mat Ri_cpu = mhdsim::routines::computeRi(*xn_vcl, op);
     //static const arma::sp_mat one = arma::speye(num_of_elem, num_of_elem);
@@ -271,7 +268,6 @@ int main(int argc, char** argv)
 
     //const vcl_vec RHS = mhdsim::routines::computeRHS_RK4(*xn_vcl, dt, time_elapsed, op, bg);
     const vcl_vec RHS = comfi::routines::computeRHS_Euler(*xn_vcl, dt, time_elapsed, op, bg);
-
 
     build_time=vcl_timer[1].get();
     //GMRES
@@ -371,7 +367,7 @@ int main(int argc, char** argv)
   // Save last 3 sol
   comfi::util::saveSolution(*xn_vcl, -1, op);
   comfi::util::saveSolution(*xn1_vcl, -2, op);
-  RHSfinal.save("output/RHSfinal",arma::raw_binary);
+  RHSfinal.save("output/RHSfinal", arma::raw_binary);
 
   return 0;
 }

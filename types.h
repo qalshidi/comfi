@@ -206,6 +206,7 @@ public:
 
   arma::uword nx() { return m_nx; }
   arma::uword nz() { return m_nz; }
+  arma::uword num_of_grid() { return m_nz*m_nx; }
   BoundaryCondition bc_up() { return m_bc_up; }
   BoundaryCondition bc_down() { return m_bc_down; }
   BoundaryCondition bc_right() { return m_bc_right; }

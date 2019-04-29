@@ -337,45 +337,9 @@ void comfi::util::sendtolog(const std::string message, const std::string filenam
     logfile.close();
 }
 
-double comfi::util::getmaxV(const vcl_vec &x0, const comfi::types::Operators &op)
-{
-  const vcl_vec cx   = comfi::routines::cx_max(x0, op);
-  const vcl_vec cz   = comfi::routines::cz_max(x0, op);
-  const vcl_vec cx2  = element_prod(cx, cx);
-  const vcl_vec cz2  = element_prod(cz, cz);
-  const vcl_vec c    = element_sqrt(cx2+cz2);
-  const double  cmax = viennacl::linalg::max(c);
-
-  // resistivity speed
-  const vcl_vec Np = viennacl::linalg::element_fabs(viennacl::linalg::prod(op.Nps, x0));
-  const vcl_vec Nn = viennacl::linalg::element_fabs(viennacl::linalg::prod(op.Nns, x0));
-  const vcl_vec Tp = viennacl::linalg::element_fabs(viennacl::linalg::prod(op.Tps, x0));
-  const vcl_vec c_r  = comfi::sol::resistivity(Np, Nn, Tp, element_fabs(prod(op.Tns,x0)))/ds;
-  const double  rmax = viennacl::linalg::max(c_r);
-
-  // hall speed
-  vcl_vec Jf = viennacl::linalg::prod(op.Bf, x0); //B
-  Jf = viennacl::linalg::prod(op.curl, Jf); // J
-  vcl_vec c_hall = comfi::routines::dot_prod(Jf, Jf, op); //J2
-  c_hall = viennacl::linalg::element_sqrt(c_hall); //sqrt(J2)
-  c_hall = viennacl::linalg::element_div(c_hall, q*Np); //J/qe
-  double hmax = viennacl::linalg::max(c_hall);
-
-  //ionization speed
-  const vcl_vec ionization_speed = element_fabs(dx*(element_prod(Nn, comfi::sol::ionization_coeff(Tp))-element_prod(Np, comfi::sol::recomb_coeff(Tp))));
-  const double imax = viennacl::linalg::max(ionization_speed);
-  std::cout << "Max V: Fast: " << cmax
-            << " Res: " << rmax
-            << " Hall: " << hmax
-            << " Chem: " << imax
-            << " V_0" << std::endl;
-
-  return cmax+rmax+hmax+imax;
-}
-
 double comfi::util::getsumBE(const arma::vec &x0)
 {
-  arma::mat BE  = arma::zeros<arma::mat>(nz,nx);
+  arma::mat BE  = arma::zeros<arma::mat>(nz, nx);
 
   #pragma omp parallel for schedule(static)
   for(uint index=0; index<nx*nz; index++)

@@ -235,12 +235,28 @@ vcl_mat fluxl(const vcl_mat &r);
 void topbc_driver(vcl_vec &Lxn, vcl_vec &Rxn, const double t, const comfi::types::Operators &op);
 
 /*!
- * \brief getCxMax Get horizontal fast mode speed
- * \param xn result arma::vector
- * \param op operators
- * \return scalar arma::vector of horizontal fast mode speeds
+ * \brief Get neutral sound speed
+ * \param xn matrix of results
+ * \param ctx Simulation context
+ * \return vector of neutral sound speed
  */
-vcl_vec fast_speed_x(const vcl_vec &xn, const comfi::types::Operators &op);
+vcl_vec sound_speed_neutral(const vcl_mat &xn, const comfi::types::Context &ctx);
+
+/*!
+ * \brief fast_speed_x Get vertical fast mode speed
+ * \param xn result matrix
+ * \param ctx Simulation context.
+ * \return Column vector of vertical fast mode speed of ions.
+ */
+vcl_vec fast_speed_z(const vcl_mat &xn, const comfi::types::Context &ctx);
+
+/*!
+ * \brief fast_speed_x Get horizontal fast mode speed
+ * \param xn Result matrix.
+ * \param ctx	Simulation context.
+ * \return Column vector of horizontal fast mode speeds.
+ */
+vcl_vec fast_speed_x(const vcl_mat &xn, const comfi::types::Context &ctx);
 
 /*!
  * \brief Get largest vertical speed

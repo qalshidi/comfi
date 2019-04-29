@@ -1,6 +1,8 @@
 ﻿#include "comfi.h"
 #include <armadillo>
-
+#include "viennacl/matrix.hpp"
+#include "viennacl/matrix_proxy.hpp"
+#include "viennacl/forwards.h"
 using namespace arma;
 
 vcl_mat comfi::operators::jm1(const vcl_mat &xn, comfi::types::Context ctx) {
