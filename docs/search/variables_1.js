@@ -7,7 +7,7 @@ var searchData=
   ['bnn',['BNn',['../structcomfi_1_1types_1_1BgData.html#ab7487fb6c9b6108c70c78bdcd167a87c',1,'comfi::types::BgData']]],
   ['bnp',['BNp',['../structcomfi_1_1types_1_1BgData.html#ab9fd922cf50e0999b1280188554a03bb',1,'comfi::types::BgData']]],
   ['bottombc',['BottomBC',['../structcomfi_1_1types_1_1Operators.html#a20f1e4b6bf1a86b343ef2dd5a98f4283',1,'comfi::types::Operators']]],
-  ['bp',['Bp',['../params_8h.html#a1bede94e2530bf010e6a3aa16dc99b88',1,'params.h']]],
-  ['bx',['Bx',['../params_8h.html#a009da45c181dbcebd20d2e42d098b791',1,'params.h']]],
-  ['bz',['Bz',['../params_8h.html#a3336ac02719a9c8d924312c1a37fac5f',1,'params.h']]]
+  ['bp',['Bp',['../params_8h.html#a76298891e413692c6c3f0b2cb81e34d5',1,'params.h']]],
+  ['bx',['Bx',['../params_8h.html#ae3bdf4ec33316afda71bfb1f854bc45b',1,'params.h']]],
+  ['bz',['Bz',['../params_8h.html#a50ee8c4ca37aa4ba070c962b20ef45d8',1,'params.h']]]
 ];

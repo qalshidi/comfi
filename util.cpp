@@ -1,13 +1,24 @@
 #define VIENNACL_WITH_ARMADILLO
+#include <armadillo>
 #include "comfi.h"
 #include "viennacl/vector.hpp"
 #include "viennacl/matrix.hpp"
 #include "viennacl/compressed_matrix.hpp"
 #include "viennacl/linalg/prod.hpp"
 #include "viennacl/tools/timer.hpp"
+#include "viennacl/linalg/maxmin.hpp"
 #include "viennacl/forwards.h"
 
 using namespace viennacl::linalg;
+
+vcl_mat comfi::util::vec_to_mat(const vcl_vec &vec) {
+  arma::vec cpu_vec(vec.size());
+  viennacl::fast_copy(vec, cpu_vec);
+  arma::mat cpu_mat(cpu_vec);
+  vcl_mat return_mat(vec.size(), 1);
+  viennacl::copy(cpu_mat, return_mat);
+  return return_mat;
+}
 
 arma::sp_mat comfi::util::syncSpMat(const arma::umat Avi,
                                     const arma::umat Avj,
@@ -42,8 +53,8 @@ std::tuple<arma::vec, const comfi::types::BgData> comfi::util::calcSolerIC(const
     xn(Up+ij) = v(j)*2.0;
     xn(n_n+ij) = 2.0;
     xn(n_p+ij) = 1.0;
-    xn(T_p+ij) = 1.0;
-    xn(T_n+ij) = 1.0;
+    xn(E_p+ij) = 1.0;
+    xn(E_n+ij) = 1.0;
     xn(Bz+ij) = 1.0;
 
   }
@@ -55,7 +66,40 @@ std::tuple<arma::vec, const comfi::types::BgData> comfi::util::calcSolerIC(const
   return std::make_tuple(xn, bg);
 }
 
-std::tuple<arma::vec, const comfi::types::BgData> comfi::util::calcShockTubeIC(const comfi::types::Operators &op) {
+vcl_mat comfi::util::shock_tube_ic(comfi::types::Context &ctx) {
+  const double n_l = 1.0, p_l = 1.0, n_r = 0.125, p_r = 0.1;
+
+  arma::mat xn = arma::zeros<arma::mat>(ctx.num_of_grid(), ctx.num_of_eq());
+
+  std::cout << "Building initial condition...";
+  #pragma omp parallel for schedule(static)
+  for (uint index = 0; index < ctx.num_of_grid(); index++) {
+    //indexing
+    const uint i=(index)%nx;
+    const uint j=(index)/nx;
+    const arma::uword ij = inds(i, j, ctx);
+
+    if (j > nz/2) {
+      xn(ij, n_p) = n_l;
+      xn(ij, n_n) = n_l;
+      xn(ij, E_n) = p_l/(gammamono-1.0);
+      xn(ij, E_p) = p_l/(gammamono-1.0);
+    } else {
+      xn(ij, E_n) = p_r/(gammamono-1.0);
+      xn(ij, E_p) = p_r/(gammamono-1.0);
+      xn(ij, n_p) = n_r;
+      xn(ij, n_n) = n_r;
+    }
+  }
+  std::cout << "Sod\'s Shock Tube (" << ctx.nx() << "," << ctx.nz() <<
+               ") Size: " << xn.size() << std::endl;
+
+  vcl_mat xn_vcl(ctx.num_of_grid(), ctx.num_of_eq());
+  viennacl::copy(xn, xn_vcl);
+  return xn_vcl;
+}
+
+std::tuple<arma::vec, const comfi::types::BgData> comfi::util::shock_tube_ic(const comfi::types::Operators &op) {
   const double n_l = 1.0, p_l = 1.0, n_r = 0.125, p_r = 0.1;
 
   arma::vec xn = arma::zeros<arma::vec>(num_of_elem);
@@ -70,11 +114,11 @@ std::tuple<arma::vec, const comfi::types::BgData> comfi::util::calcShockTubeIC(c
     if (j > nz/2) {
       xn(n_p+ij) = n_l;
       xn(n_n+ij) = n_l;
-      xn(T_n+ij) = p_l/(gammamono-1.0);
-      xn(T_p+ij) = p_l/n_l;
+      xn(E_n+ij) = p_l/(gammamono-1.0);
+      xn(E_p+ij) = p_l/n_l;
     } else {
-      xn(T_n+ij) = p_r/(gammamono-1.0);
-      xn(T_p+ij) = p_r/n_r;
+      xn(E_n+ij) = p_r/(gammamono-1.0);
+      xn(E_p+ij) = p_r/n_r;
       xn(n_p+ij) = n_r;
       xn(n_n+ij) = n_r;
     }
@@ -121,8 +165,8 @@ std::tuple<arma::vec, const comfi::types::BgData> comfi::util::calcReconnectionI
     bn_p(j, i) = bn_pz(j);
     xn(n_n+ij) = bn_nz(j);
     bn_n(j, i) = bn_nz(j);
-    xn(T_p+ij) = temp(j);
-    xn(T_n+ij) = temp(j);
+    xn(E_p+ij) = temp(j);
+    xn(E_n+ij) = temp(j);
     xn(Bz+ij) = 1.0;//b_z(i);
     xn(Bx+ij) = 0.0;//b_x(j);
   }
@@ -274,8 +318,8 @@ std::tuple<arma::vec, const comfi::types::BgData> comfi::util::calcInitialCondit
     BNp(j, i) = BNpij;
     xn(n_n+ij) = BNnij;
     BNn(j, i) = BNnij;
-    xn(T_p+ij) = T0;
-    xn(T_n+ij) = T0;
+    xn(E_p+ij) = T0;
+    xn(E_n+ij) = T0;
     xn(Vz+ij)  = BNpij*Vi;
     xn(Uz+ij)  = BNnij*Vi;
   }
@@ -303,8 +347,8 @@ arma::vec comfi::util::fillInitialCondition(const comfi::types::BgData &bg)
     const double        BNnij = bg.BNn(j,i);
     xn(n_p+ij) = BNpij;
     xn(n_n+ij) = BNnij;
-    xn(T_p+ij) = T0;
-    xn(T_n+ij) = T0;
+    xn(E_p+ij) = T0;
+    xn(E_n+ij) = T0;
     xn(Bz+ij)  = bg.BBz(i);
     xn(Vz+ij)  = BNpij*Vi;
     xn(Uz+ij)  = BNnij*Vi;
@@ -416,8 +460,8 @@ double comfi::util::getsumUE(const arma::vec &x0)
   const unsigned int  j  =(index)/nx;  //find j
 	const int           ij =ind(n,j);
 
-  const double UEpij = x0(n_p+ij)*x0(T_p+ij)/(gammamono-1.0);
-  const double UEnij = x0(n_n+ij)*x0(T_n+ij)/(gammamono-1.0);
+  const double UEpij = x0(n_p+ij)*x0(E_p+ij)/(gammamono-1.0);
+  const double UEnij = x0(n_n+ij)*x0(E_n+ij)/(gammamono-1.0);
 	E(j,n) = UEpij + UEnij;
   }
 
@@ -430,6 +474,27 @@ double comfi::util::getsumUE(const vcl_vec &x0, const comfi::types::Operators &o
   const vcl_vec iue = element_prod(prod(op.Nps, x0), prod(op.Tps, x0))/(gammamono-1.0);
   const vcl_vec nue = element_prod(prod(op.Nns, x0), prod(op.Tns, x0))/(gammamono-1.0);
   return viennacl::linalg::sum(iue+nue);
+}
+
+bool comfi::util::saveSolution(const vcl_mat &x0, comfi::types::Context &ctx)
+{
+  bool success = true;
+  success *= saveScalar(viennacl::column(x0, n_p), "Np", ctx.time_step());
+  success *= saveScalar(viennacl::column(x0, n_n), "Nn", ctx.time_step());
+  success *= saveScalar(viennacl::column(x0, E_p), "Tp", ctx.time_step());
+  success *= saveScalar(viennacl::column(x0, E_n), "Tn", ctx.time_step());
+  success *= saveScalar(viennacl::column(x0, GLM), "GLM", ctx.time_step());
+  success *= saveScalar(viennacl::column(x0, Vx), "NVx", ctx.time_step());
+  success *= saveScalar(viennacl::column(x0, Vz), "NVz", ctx.time_step());
+  success *= saveScalar(viennacl::column(x0, Vp), "NVp", ctx.time_step());
+  success *= saveScalar(viennacl::column(x0, Ux), "NUx", ctx.time_step());
+  success *= saveScalar(viennacl::column(x0, Uz), "NUz", ctx.time_step());
+  success *= saveScalar(viennacl::column(x0, Up), "NUp", ctx.time_step());
+  success *= saveScalar(viennacl::column(x0, Bx), "Bx", ctx.time_step());
+  success *= saveScalar(viennacl::column(x0, Bz), "Bz", ctx.time_step());
+  success *= saveScalar(viennacl::column(x0, Bp), "Bp", ctx.time_step());
+
+  return success;
 }
 
 bool comfi::util::saveSolution(const vcl_vec &x0, const int &timestep, comfi::types::Operators &op)
@@ -579,4 +644,15 @@ bool comfi::util::sanityCheck(vcl_vec &xn, const comfi::types::Operators &op)
   }
 
   return !((!saneP)|(!saneN)); // return false if either are insane (returns true if completely sane)
+}
+
+double comfi::util::getmaxV(const vcl_mat &x0, comfi::types::Context &ctx) {
+  const double fast_p_x = viennacl::linalg::max(comfi::routines::fast_speed_x(x0, ctx));
+  const double fast_p_z = viennacl::linalg::max(comfi::routines::fast_speed_z(x0, ctx));
+  std::cout << "Fast speed: (" << fast_p_x << "," << fast_p_z << ") | ";
+  const double sound_n = viennacl::linalg::max(comfi::routines::sound_speed_neutral(x0, ctx));
+  std::cout << "Sound speed (n): " << sound_n << " | ";
+
+  std::cout << std::endl;
+  return std::max(std::max(fast_p_x, fast_p_z), sound_n);
 }

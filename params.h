@@ -47,13 +47,13 @@ const double V_0               = B_0/std::sqrt(mu_0*n_0*m_i);
 //const double V_0 = std::sqrt(gammamono*p_0/n_0);
 
 /// Length scale in m
-const double l_0 = V_0;
+const double l_0 = 1.0;
 /// Chromospheric height in the bottom boundary in m
-const double height_start = -10*l_0;
+const double height_start = 0.0;
 /// Chromospheric height in the bottom boundary in m
-const double height_end = 10*l_0;
+const double height_end = 1.0;
 /// Height of box in m
-const double height = height_end-height_start;
+const double height = l_0;
 /// Width of box in m
 const double width = l_0;
 
@@ -104,9 +104,9 @@ const arma::uword Vz    = 9;
  /// Result vector top level index
 const arma::uword Vp    = 10;
 /// Result vector top level index
-const arma::uword T_n   = 11;
+const arma::uword E_n   = 11;
  /// Result vector top level index
-const arma::uword T_p   = 12;
+const arma::uword E_p   = 12;
 /// Result vector top level index
 const arma::uword GLM   = 13;
 /// Field vector top level index

@@ -8,14 +8,14 @@ var searchData=
   ['bnn',['BNn',['../structcomfi_1_1types_1_1BgData.html#ab7487fb6c9b6108c70c78bdcd167a87c',1,'comfi::types::BgData']]],
   ['bnp',['BNp',['../structcomfi_1_1types_1_1BgData.html#ab9fd922cf50e0999b1280188554a03bb',1,'comfi::types::BgData']]],
   ['bottombc',['BottomBC',['../structcomfi_1_1types_1_1Operators.html#a20f1e4b6bf1a86b343ef2dd5a98f4283',1,'comfi::types::Operators::BottomBC()'],['../comfi_8h.html#ae522271ba431eab3a52d5427ebaf9cab',1,'comfi::routines::bottomBC()']]],
-  ['bottombc_5fshock_5ftube',['bottombc_shock_tube',['../comfi_8h.html#a329773e1ef921432eef7a392f9884879',1,'comfi::routines']]],
+  ['bottombc_5fshock_5ftube',['bottombc_shock_tube',['../comfi_8h.html#a024815634746b1ab8d2443aff0a17c23',1,'comfi::routines::bottombc_shock_tube(vcl_mat &amp;Lxn, vcl_mat &amp;Rxn, comfi::types::Context &amp;ctx)'],['../comfi_8h.html#a329773e1ef921432eef7a392f9884879',1,'comfi::routines::bottombc_shock_tube(vcl_vec &amp;Lxn, vcl_vec &amp;Rxn, const comfi::types::Operators &amp;op)']]],
   ['bottombc_5fsoler',['bottombc_soler',['../comfi_8h.html#aa024c5dcc5b8640c9e66b57d2473a0a3',1,'comfi::routines']]],
   ['bottombcsquare',['bottomBCsquare',['../comfi_8h.html#a211c6b3b2dddfa64a314789e0c6308e5',1,'comfi::routines']]],
   ['bottombz',['bottomBz',['../namespacecomfi_1_1operators.html#acd597d9e8f0016c6bd21e06f33d90092',1,'comfi::operators']]],
   ['bottomtn',['bottomTn',['../namespacecomfi_1_1operators.html#a77605e1b9680a30d730bb10f98fa0d17',1,'comfi::operators']]],
   ['bottomtp',['bottomTp',['../namespacecomfi_1_1operators.html#a7cd5cbfb0d4a1b54a042528e689df469',1,'comfi::operators']]],
   ['boundarycondition',['BoundaryCondition',['../namespacecomfi_1_1types.html#a3c49ffcefd8a32399fdc2e020242f2a5',1,'comfi::types']]],
-  ['bp',['Bp',['../params_8h.html#a1bede94e2530bf010e6a3aa16dc99b88',1,'params.h']]],
+  ['bp',['Bp',['../params_8h.html#a76298891e413692c6c3f0b2cb81e34d5',1,'params.h']]],
   ['buildbfield',['buildBfield',['../namespacecomfi_1_1operators.html#aba46ef56525a4f561648d644bca1dcc8',1,'comfi::operators']]],
   ['buildbottombc',['buildBottomBC',['../namespacecomfi_1_1operators.html#a79e6a3423ba2fad61882e2b18b244c4c',1,'comfi::operators']]],
   ['buildbremove',['buildBremove',['../namespacecomfi_1_1operators.html#a02ea7d82d939442a8d9406ac69a97e8b',1,'comfi::operators']]],
@@ -61,6 +61,6 @@ var searchData=
   ['buildtpscalar',['buildTpscalar',['../namespacecomfi_1_1operators.html#a9b97b351941d8daf97000170d85271e3',1,'comfi::operators']]],
   ['buildufield',['buildUfield',['../namespacecomfi_1_1operators.html#a98f3f2aefde1b3b0722d19c3464970c6',1,'comfi::operators']]],
   ['buildvfield',['buildVfield',['../namespacecomfi_1_1operators.html#a5c8c7fca3942e41cc734ba933e6880b5',1,'comfi::operators']]],
-  ['bx',['Bx',['../params_8h.html#a009da45c181dbcebd20d2e42d098b791',1,'params.h']]],
-  ['bz',['Bz',['../params_8h.html#a3336ac02719a9c8d924312c1a37fac5f',1,'params.h']]]
+  ['bx',['Bx',['../params_8h.html#ae3bdf4ec33316afda71bfb1f854bc45b',1,'params.h']]],
+  ['bz',['Bz',['../params_8h.html#a50ee8c4ca37aa4ba070c962b20ef45d8',1,'params.h']]]
 ];

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">CoMFi
-   &#160;<span id="projectnumber">0</span>
+   &#160;<span id="projectnumber">0.0.1</span>
    </div>
    <div id="projectbrief">Collisional Multi-Fluid ion code</div>
   </td>
@@ -85,37 +85,100 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4e44fdc93789559e36ba603f603e0488"><td class="memItemLeft" align="right" valign="top"><a id="a4e44fdc93789559e36ba603f603e0488"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Context</b> (arma::uword nx, arma::uword nz, <a class="el" href="namespacecomfi_1_1types.html#a3c49ffcefd8a32399fdc2e020242f2a5">BoundaryCondition</a> bc_up=<a class="el" href="namespacecomfi_1_1types.html#a3c49ffcefd8a32399fdc2e020242f2a5a73ad77afd6df8f0b7111b992e33b629c">NEUMANN</a>, <a class="el" href="namespacecomfi_1_1types.html#a3c49ffcefd8a32399fdc2e020242f2a5">BoundaryCondition</a> bc_down=<a class="el" href="namespacecomfi_1_1types.html#a3c49ffcefd8a32399fdc2e020242f2a5a73ad77afd6df8f0b7111b992e33b629c">NEUMANN</a>, <a class="el" href="namespacecomfi_1_1types.html#a3c49ffcefd8a32399fdc2e020242f2a5">BoundaryCondition</a> bc_right=<a class="el" href="namespacecomfi_1_1types.html#a3c49ffcefd8a32399fdc2e020242f2a5a73ad77afd6df8f0b7111b992e33b629c">NEUMANN</a>, <a class="el" href="namespacecomfi_1_1types.html#a3c49ffcefd8a32399fdc2e020242f2a5">BoundaryCondition</a> bc_left=<a class="el" href="namespacecomfi_1_1types.html#a3c49ffcefd8a32399fdc2e020242f2a5a73ad77afd6df8f0b7111b992e33b629c">NEUMANN</a>, uint flags=0, bool resumed=false)</td></tr>
 <tr class="separator:a4e44fdc93789559e36ba603f603e0488"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9879c03a5a8bfe5ab2c8345fa547de49"><td class="memItemLeft" align="right" valign="top"><a id="a9879c03a5a8bfe5ab2c8345fa547de49"></a>
-arma::uword&#160;</td><td class="memItemRight" valign="bottom"><b>nx</b> ()</td></tr>
-<tr class="separator:a9879c03a5a8bfe5ab2c8345fa547de49"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac6a00ceb4d7ab58354d4932b899e3f4"><td class="memItemLeft" align="right" valign="top"><a id="aac6a00ceb4d7ab58354d4932b899e3f4"></a>
-arma::uword&#160;</td><td class="memItemRight" valign="bottom"><b>nz</b> ()</td></tr>
-<tr class="separator:aac6a00ceb4d7ab58354d4932b899e3f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd201af512a0e0f4a78ce9440fe29ce4"><td class="memItemLeft" align="right" valign="top"><a id="acd201af512a0e0f4a78ce9440fe29ce4"></a>
-<a class="el" href="namespacecomfi_1_1types.html#a3c49ffcefd8a32399fdc2e020242f2a5">BoundaryCondition</a>&#160;</td><td class="memItemRight" valign="bottom"><b>bc_up</b> ()</td></tr>
-<tr class="separator:acd201af512a0e0f4a78ce9440fe29ce4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad198530ae65cc3fd12b18c4cdd519ba7"><td class="memItemLeft" align="right" valign="top"><a id="ad198530ae65cc3fd12b18c4cdd519ba7"></a>
-<a class="el" href="namespacecomfi_1_1types.html#a3c49ffcefd8a32399fdc2e020242f2a5">BoundaryCondition</a>&#160;</td><td class="memItemRight" valign="bottom"><b>bc_down</b> ()</td></tr>
-<tr class="separator:ad198530ae65cc3fd12b18c4cdd519ba7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a174e5f827bd68a3e3f2f6fb6a6d507"><td class="memItemLeft" align="right" valign="top"><a id="a5a174e5f827bd68a3e3f2f6fb6a6d507"></a>
-<a class="el" href="namespacecomfi_1_1types.html#a3c49ffcefd8a32399fdc2e020242f2a5">BoundaryCondition</a>&#160;</td><td class="memItemRight" valign="bottom"><b>bc_right</b> ()</td></tr>
-<tr class="separator:a5a174e5f827bd68a3e3f2f6fb6a6d507"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad413f74977a99bd0a627e06dcce99e87"><td class="memItemLeft" align="right" valign="top"><a id="ad413f74977a99bd0a627e06dcce99e87"></a>
-<a class="el" href="namespacecomfi_1_1types.html#a3c49ffcefd8a32399fdc2e020242f2a5">BoundaryCondition</a>&#160;</td><td class="memItemRight" valign="bottom"><b>bc_left</b> ()</td></tr>
-<tr class="separator:ad413f74977a99bd0a627e06dcce99e87"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae17ec9df1fe02cc2e0b87cc9e18903b"><td class="memItemLeft" align="right" valign="top"><a id="aae17ec9df1fe02cc2e0b87cc9e18903b"></a>
-uint&#160;</td><td class="memItemRight" valign="bottom"><b>flags</b> ()</td></tr>
-<tr class="separator:aae17ec9df1fe02cc2e0b87cc9e18903b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac99da367a576468dbb1402fe9e69861c"><td class="memItemLeft" align="right" valign="top"><a id="ac99da367a576468dbb1402fe9e69861c"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_resumed</b> ()</td></tr>
-<tr class="separator:ac99da367a576468dbb1402fe9e69861c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a766edbd1c4f0f371e950e4642a36d24f"><td class="memItemLeft" align="right" valign="top"><a id="a766edbd1c4f0f371e950e4642a36d24f"></a>
-arma::uword&#160;</td><td class="memItemRight" valign="bottom"><b>num_of_eq</b> ()</td></tr>
-<tr class="separator:a766edbd1c4f0f371e950e4642a36d24f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ec63b3aab509b493773c0d5bf9a2e07"><td class="memItemLeft" align="right" valign="top"><a id="a1ec63b3aab509b493773c0d5bf9a2e07"></a>
+arma::uword&#160;</td><td class="memItemRight" valign="bottom"><b>nx</b> () const</td></tr>
+<tr class="separator:a1ec63b3aab509b493773c0d5bf9a2e07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e1c4b7f0ceee00d2bca3ea96b5b394a"><td class="memItemLeft" align="right" valign="top"><a id="a4e1c4b7f0ceee00d2bca3ea96b5b394a"></a>
+arma::uword&#160;</td><td class="memItemRight" valign="bottom"><b>nz</b> () const</td></tr>
+<tr class="separator:a4e1c4b7f0ceee00d2bca3ea96b5b394a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c27eb8853b83f303113d9f045bd1edc"><td class="memItemLeft" align="right" valign="top"><a id="a8c27eb8853b83f303113d9f045bd1edc"></a>
+arma::uword&#160;</td><td class="memItemRight" valign="bottom"><b>num_of_grid</b> () const</td></tr>
+<tr class="separator:a8c27eb8853b83f303113d9f045bd1edc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a645bb0d3361b87f0ae1ff82a7d03a28b"><td class="memItemLeft" align="right" valign="top"><a id="a645bb0d3361b87f0ae1ff82a7d03a28b"></a>
+<a class="el" href="namespacecomfi_1_1types.html#a3c49ffcefd8a32399fdc2e020242f2a5">BoundaryCondition</a>&#160;</td><td class="memItemRight" valign="bottom"><b>bc_up</b> () const</td></tr>
+<tr class="separator:a645bb0d3361b87f0ae1ff82a7d03a28b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac91f127bbb3faaf451020011146f33ea"><td class="memItemLeft" align="right" valign="top"><a id="ac91f127bbb3faaf451020011146f33ea"></a>
+<a class="el" href="namespacecomfi_1_1types.html#a3c49ffcefd8a32399fdc2e020242f2a5">BoundaryCondition</a>&#160;</td><td class="memItemRight" valign="bottom"><b>bc_down</b> () const</td></tr>
+<tr class="separator:ac91f127bbb3faaf451020011146f33ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81f6002221aa61e694b2d4a5cbe6aee9"><td class="memItemLeft" align="right" valign="top"><a id="a81f6002221aa61e694b2d4a5cbe6aee9"></a>
+<a class="el" href="namespacecomfi_1_1types.html#a3c49ffcefd8a32399fdc2e020242f2a5">BoundaryCondition</a>&#160;</td><td class="memItemRight" valign="bottom"><b>bc_right</b> () const</td></tr>
+<tr class="separator:a81f6002221aa61e694b2d4a5cbe6aee9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a634e4548db9ecf6466cdf45dc0ab32de"><td class="memItemLeft" align="right" valign="top"><a id="a634e4548db9ecf6466cdf45dc0ab32de"></a>
+<a class="el" href="namespacecomfi_1_1types.html#a3c49ffcefd8a32399fdc2e020242f2a5">BoundaryCondition</a>&#160;</td><td class="memItemRight" valign="bottom"><b>bc_left</b> () const</td></tr>
+<tr class="separator:a634e4548db9ecf6466cdf45dc0ab32de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ae664988accf3e82e92393572b22d97"><td class="memItemLeft" align="right" valign="top"><a id="a3ae664988accf3e82e92393572b22d97"></a>
+uint&#160;</td><td class="memItemRight" valign="bottom"><b>flags</b> () const</td></tr>
+<tr class="separator:a3ae664988accf3e82e92393572b22d97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb379d4d02f6eb04a095291bb31c810b"><td class="memItemLeft" align="right" valign="top"><a id="aeb379d4d02f6eb04a095291bb31c810b"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>is_resumed</b> () const</td></tr>
+<tr class="separator:aeb379d4d02f6eb04a095291bb31c810b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab41f2a1137aa6c0881a56cba5f87aac4"><td class="memItemLeft" align="right" valign="top"><a id="ab41f2a1137aa6c0881a56cba5f87aac4"></a>
+arma::uword&#160;</td><td class="memItemRight" valign="bottom"><b>num_of_eq</b> () const</td></tr>
+<tr class="separator:ab41f2a1137aa6c0881a56cba5f87aac4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3508f442f83c2384a70488a4d6e30fe"><td class="memItemLeft" align="right" valign="top"><a id="af3508f442f83c2384a70488a4d6e30fe"></a>
+viennacl::range&#160;</td><td class="memItemRight" valign="bottom"><b>r</b> () const</td></tr>
+<tr class="separator:af3508f442f83c2384a70488a4d6e30fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60d014de1075d95a1920a6a955aa6f9c"><td class="memItemLeft" align="right" valign="top"><a id="a60d014de1075d95a1920a6a955aa6f9c"></a>
+viennacl::range&#160;</td><td class="memItemRight" valign="bottom"><b>r_grid</b> () const</td></tr>
+<tr class="separator:a60d014de1075d95a1920a6a955aa6f9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa43ba95286bf6a58475b05787d4b48d6"><td class="memItemLeft" align="right" valign="top"><a id="aa43ba95286bf6a58475b05787d4b48d6"></a>
+viennacl::range&#160;</td><td class="memItemRight" valign="bottom"><b>r_Np</b> () const</td></tr>
+<tr class="separator:aa43ba95286bf6a58475b05787d4b48d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab629b186e98bad3dd223aef49e4f2716"><td class="memItemLeft" align="right" valign="top"><a id="ab629b186e98bad3dd223aef49e4f2716"></a>
+viennacl::range&#160;</td><td class="memItemRight" valign="bottom"><b>r_Nn</b> () const</td></tr>
+<tr class="separator:ab629b186e98bad3dd223aef49e4f2716"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b79e7aa07eddb762dd1e12dd2ba3e5c"><td class="memItemLeft" align="right" valign="top"><a id="a8b79e7aa07eddb762dd1e12dd2ba3e5c"></a>
+viennacl::range&#160;</td><td class="memItemRight" valign="bottom"><b>r_NVx</b> () const</td></tr>
+<tr class="separator:a8b79e7aa07eddb762dd1e12dd2ba3e5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad75b1562ba341cbabd0fbfd1a7e317c9"><td class="memItemLeft" align="right" valign="top"><a id="ad75b1562ba341cbabd0fbfd1a7e317c9"></a>
+viennacl::range&#160;</td><td class="memItemRight" valign="bottom"><b>r_NVz</b> () const</td></tr>
+<tr class="separator:ad75b1562ba341cbabd0fbfd1a7e317c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0500081754b363516cc8942538e2634f"><td class="memItemLeft" align="right" valign="top"><a id="a0500081754b363516cc8942538e2634f"></a>
+viennacl::range&#160;</td><td class="memItemRight" valign="bottom"><b>r_NVp</b> () const</td></tr>
+<tr class="separator:a0500081754b363516cc8942538e2634f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d5045b5526a5c50ada34d5c97e7cb5f"><td class="memItemLeft" align="right" valign="top"><a id="a2d5045b5526a5c50ada34d5c97e7cb5f"></a>
+viennacl::range&#160;</td><td class="memItemRight" valign="bottom"><b>r_NUx</b> () const</td></tr>
+<tr class="separator:a2d5045b5526a5c50ada34d5c97e7cb5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a786688a1cc83d849af5a875cdcc97554"><td class="memItemLeft" align="right" valign="top"><a id="a786688a1cc83d849af5a875cdcc97554"></a>
+viennacl::range&#160;</td><td class="memItemRight" valign="bottom"><b>r_NUz</b> () const</td></tr>
+<tr class="separator:a786688a1cc83d849af5a875cdcc97554"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30e4489a24163526397a6dd85e1afcd7"><td class="memItemLeft" align="right" valign="top"><a id="a30e4489a24163526397a6dd85e1afcd7"></a>
+viennacl::range&#160;</td><td class="memItemRight" valign="bottom"><b>r_NUp</b> () const</td></tr>
+<tr class="separator:a30e4489a24163526397a6dd85e1afcd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63d1301fbed88800247efb075c99989e"><td class="memItemLeft" align="right" valign="top"><a id="a63d1301fbed88800247efb075c99989e"></a>
+viennacl::range&#160;</td><td class="memItemRight" valign="bottom"><b>r_Bx</b> () const</td></tr>
+<tr class="separator:a63d1301fbed88800247efb075c99989e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9fe0b94842d4d73688a91e25c21fa30"><td class="memItemLeft" align="right" valign="top"><a id="aa9fe0b94842d4d73688a91e25c21fa30"></a>
+viennacl::range&#160;</td><td class="memItemRight" valign="bottom"><b>r_Bz</b> () const</td></tr>
+<tr class="separator:aa9fe0b94842d4d73688a91e25c21fa30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44f369c146a598255b6a8f31ab148200"><td class="memItemLeft" align="right" valign="top"><a id="a44f369c146a598255b6a8f31ab148200"></a>
+viennacl::range&#160;</td><td class="memItemRight" valign="bottom"><b>r_Bp</b> () const</td></tr>
+<tr class="separator:a44f369c146a598255b6a8f31ab148200"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac20e9b50e339c7469157ceb811d0bc81"><td class="memItemLeft" align="right" valign="top"><a id="ac20e9b50e339c7469157ceb811d0bc81"></a>
+viennacl::range&#160;</td><td class="memItemRight" valign="bottom"><b>r_Ep</b> () const</td></tr>
+<tr class="separator:ac20e9b50e339c7469157ceb811d0bc81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a783be8ae49ab39f0281bfb95c13403f3"><td class="memItemLeft" align="right" valign="top"><a id="a783be8ae49ab39f0281bfb95c13403f3"></a>
+viennacl::range&#160;</td><td class="memItemRight" valign="bottom"><b>r_En</b> () const</td></tr>
+<tr class="separator:a783be8ae49ab39f0281bfb95c13403f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3580e183d10cfc405c4d47b9ce76a97d"><td class="memItemLeft" align="right" valign="top"><a id="a3580e183d10cfc405c4d47b9ce76a97d"></a>
+viennacl::range&#160;</td><td class="memItemRight" valign="bottom"><b>r_GLM</b> () const</td></tr>
+<tr class="separator:a3580e183d10cfc405c4d47b9ce76a97d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeeb985adf05054e758bdb370b4252a92"><td class="memItemLeft" align="right" valign="top"><a id="aeeb985adf05054e758bdb370b4252a92"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>set_dt</b> (double dt, bool advance=true)</td></tr>
+<tr class="separator:aeeb985adf05054e758bdb370b4252a92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2e4fe608a27a05e787d55034eb6c3e9"><td class="memItemLeft" align="right" valign="top"><a id="ad2e4fe608a27a05e787d55034eb6c3e9"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>dt</b> () const</td></tr>
+<tr class="separator:ad2e4fe608a27a05e787d55034eb6c3e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a652a7e8cb39963e3e9b76af93a4ff913"><td class="memItemLeft" align="right" valign="top"><a id="a652a7e8cb39963e3e9b76af93a4ff913"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>time_elapsed</b> () const</td></tr>
+<tr class="separator:a652a7e8cb39963e3e9b76af93a4ff913"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9a3b0556dd3ceda445010ff8c38f4c8"><td class="memItemLeft" align="right" valign="top"><a id="ae9a3b0556dd3ceda445010ff8c38f4c8"></a>
+uint&#160;</td><td class="memItemRight" valign="bottom"><b>time_step</b> () const</td></tr>
+<tr class="separator:ae9a3b0556dd3ceda445010ff8c38f4c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The simulation context. </p>
-<p>Everything needed is in here. </p>
+<p>Everything needed about the simulation is in here. </p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="types_8h_source.html">types.h</a></li>
 </ul>

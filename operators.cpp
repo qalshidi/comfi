@@ -7,9 +7,7 @@ using namespace arma;
 
 vcl_mat comfi::operators::jm1(const vcl_mat &xn, comfi::types::Context ctx) {
   //make sure the dimension exists
-  if (ctx.bc_down() == comfi::types::DIMENSIONLESS) {
-    return xn;
-  }
+  if (ctx.bc_down() == comfi::types::DIMENSIONLESS) { return xn; }
   //shift values
   vcl_mat xn_jm1 = viennacl::zero_matrix<double>(xn.size1(), xn.size2());
   viennacl::range eq(0, xn.size2());
@@ -33,9 +31,7 @@ vcl_mat comfi::operators::jm1(const vcl_mat &xn, comfi::types::Context ctx) {
 
 vcl_mat comfi::operators::jp1(const vcl_mat &xn, comfi::types::Context ctx) {
   //make sure the dimension exists
-  if (ctx.bc_up() == comfi::types::DIMENSIONLESS) {
-    return xn;
-  }
+  if (ctx.bc_up() == comfi::types::DIMENSIONLESS) { return xn; }
   //shift values
   vcl_mat xn_jp1 = viennacl::zero_matrix<double>(xn.size1(), xn.size2());
   viennacl::range eq(0, xn.size2());
@@ -59,9 +55,7 @@ vcl_mat comfi::operators::jp1(const vcl_mat &xn, comfi::types::Context ctx) {
 
 vcl_mat comfi::operators::ip1(const vcl_mat &xn, comfi::types::Context ctx) {
   //make sure the dimension exists
-  if (ctx.bc_right() == comfi::types::DIMENSIONLESS) {
-    return xn;
-  }
+  if (ctx.bc_right() == comfi::types::DIMENSIONLESS) { return xn; }
   //shift values
   vcl_mat xn_ip1 = viennacl::zero_matrix<double>(xn.size1(), xn.size2());
   viennacl::range eq(0, xn.size2());
@@ -88,9 +82,7 @@ vcl_mat comfi::operators::ip1(const vcl_mat &xn, comfi::types::Context ctx) {
 
 vcl_mat comfi::operators::im1(const vcl_mat &xn, comfi::types::Context ctx) {
   //make sure the dimension exists
-  if (ctx.bc_left() == comfi::types::DIMENSIONLESS) {
-    return xn;
-  }
+  if (ctx.bc_left() == comfi::types::DIMENSIONLESS) { return xn; }
   //shift values
   vcl_mat xn_im1 = viennacl::zero_matrix<double>(xn.size1(), xn.size2());
   viennacl::range eq(0, xn.size2());
@@ -161,9 +153,9 @@ const sp_mat comfi::operators::buildPjp1(comfi::types::BoundaryCondition BC)
     vv(p) = proportion;
     p++; vi(p)=Up+ij; vj(p)=Up+ijp1;
     vv(p) = proportion;
-    p++; vi(p)=T_p+ij; vj(p)=T_p+ijp1;
+    p++; vi(p)=E_p+ij; vj(p)=E_p+ijp1;
     vv(p) = proportion;
-    p++; vi(p)=T_n+ij; vj(p)=T_n+ijp1;
+    p++; vi(p)=E_n+ij; vj(p)=E_n+ijp1;
     vv(p) = proportion;
     p++; vi(p)=Bx+ij; vj(p)=Bx+ijp1;
     vv(p) = proportion;
@@ -222,9 +214,9 @@ const sp_mat comfi::operators::buildPjm1(comfi::types::BoundaryCondition BC)
     vv(p) = 1.0;
     //p++; vi(p)=Up+ij; vj(p)=Up+ijm1;
     //vv(p) = 1.0;
-    p++; vi(p)=T_p+ij; vj(p)=T_p+ijm1;
+    p++; vi(p)=E_p+ij; vj(p)=E_p+ijm1;
     vv(p) = 1.0;
-    p++; vi(p)=T_n+ij; vj(p)=T_n+ijm1;
+    p++; vi(p)=E_n+ij; vj(p)=E_n+ijm1;
     vv(p) = 1.0;
     p++; vi(p)=Bz+ij; vj(p)=Bz+ijm1;
     vv(p) = 1.0;
@@ -307,9 +299,9 @@ const sp_mat comfi::operators::buildPip1(comfi::types::BoundaryCondition BC)
     vv(p) = 1.0;
     p++; vi(p)=Up+ij; vj(p)=Up+ip1j;
     vv(p) = 1.0;
-    p++; vi(p)=T_p+ij; vj(p)=T_p+ip1j;
+    p++; vi(p)=E_p+ij; vj(p)=E_p+ip1j;
     vv(p) = 1.0;
-    p++; vi(p)=T_n+ij; vj(p)=T_n+ip1j;
+    p++; vi(p)=E_n+ij; vj(p)=E_n+ip1j;
     vv(p) = 1.0;
     p++; vi(p)=Bz+ij; vj(p)=Bz+ip1j;
     vv(p) = 1.0;
@@ -365,9 +357,9 @@ const sp_mat comfi::operators::buildPim1(comfi::types::BoundaryCondition BC)
     vv(p) = 1.0;
     p++; vi(p)=Up+ij; vj(p)=Up+im1j;
     vv(p) = 1.0;
-    p++; vi(p)=T_p+ij; vj(p)=T_p+im1j;
+    p++; vi(p)=E_p+ij; vj(p)=E_p+im1j;
     vv(p) = 1.0;
-    p++; vi(p)=T_n+ij; vj(p)=T_n+im1j;
+    p++; vi(p)=E_n+ij; vj(p)=E_n+im1j;
     vv(p) = 1.0;
     p++; vi(p)=Bz+ij; vj(p)=Bz+im1j;
     vv(p) = 1.0;
@@ -444,9 +436,9 @@ const sp_mat comfi::operators::buildPip2(comfi::types::BoundaryCondition BC)
     vv(p) = 1.0;
     p++; vi(p)=Up+ij; vj(p)=Up+ip2j;
     vv(p) = 1.0;
-    p++; vi(p)=T_p+ij; vj(p)=T_p+ip2j;
+    p++; vi(p)=E_p+ij; vj(p)=E_p+ip2j;
     vv(p) = 1.0;
-    p++; vi(p)=T_n+ij; vj(p)=T_n+ip2j;
+    p++; vi(p)=E_n+ij; vj(p)=E_n+ip2j;
     vv(p) = 1.0;
     p++; vi(p)=Bz+ij; vj(p)=Bz+ip2j;
     vv(p) = 1.0;
@@ -524,9 +516,9 @@ const sp_mat comfi::operators::buildPim2(comfi::types::BoundaryCondition BC)
     vv(p) = 1.0;
     p++; vi(p)=Up+ij; vj(p)=Up+im2j;
     vv(p) = 1.0;
-    p++; vi(p)=T_p+ij; vj(p)=T_p+im2j;
+    p++; vi(p)=E_p+ij; vj(p)=E_p+im2j;
     vv(p) = 1.0;
-    p++; vi(p)=T_n+ij; vj(p)=T_n+im2j;
+    p++; vi(p)=E_n+ij; vj(p)=E_n+im2j;
     vv(p) = 1.0;
     p++; vi(p)=Bz+ij; vj(p)=Bz+im2j;
     vv(p) = 1.0;
@@ -609,9 +601,9 @@ const sp_mat comfi::operators::buildPjp2(comfi::types::BoundaryCondition BC)
     vv(p) = proportion;
     p++; vi(p)=Up+ij; vj(p)=Up+ijp2;
     vv(p) = proportion;
-    p++; vi(p)=T_p+ij; vj(p)=T_p+ijp2;
+    p++; vi(p)=E_p+ij; vj(p)=E_p+ijp2;
     vv(p) = proportion;
-    p++; vi(p)=T_n+ij; vj(p)=T_n+ijp2;
+    p++; vi(p)=E_n+ij; vj(p)=E_n+ijp2;
     vv(p) = proportion;
     p++; vi(p)=Bx+ij; vj(p)=Bx+ijp2;
     vv(p) = proportion;
@@ -671,9 +663,9 @@ const sp_mat comfi::operators::buildPjm2(comfi::types::BoundaryCondition BC)
     vv(p) = 1.0;
     //p++; vi(p)=Up+ij; vj(p)=Up+ijm2;
     //vv(p) = 1.0;
-    p++; vi(p)=T_p+ij; vj(p)=T_p+ijm2;
+    p++; vi(p)=E_p+ij; vj(p)=E_p+ijm2;
     vv(p) = 1.0;
-    p++; vi(p)=T_n+ij; vj(p)=T_n+ijm2;
+    p++; vi(p)=E_n+ij; vj(p)=E_n+ijm2;
     vv(p) = 1.0;
     p++; vi(p)=Bz+ij; vj(p)=Bz+ijm2;
     vv(p) = 1.0;
@@ -766,9 +758,9 @@ const sp_mat comfi::operators::buildPEigVx()
     vv(p) = 1.0;
     p++; vi(p)=Up+ij; vj(p)=Ux+ij;
     vv(p) = 1.0;
-    p++; vi(p)=T_p+ij; vj(p)=Vx+ij;
+    p++; vi(p)=E_p+ij; vj(p)=Vx+ij;
     vv(p) = 1.0;
-    p++; vi(p)=T_n+ij; vj(p)=Ux+ij;
+    p++; vi(p)=E_n+ij; vj(p)=Ux+ij;
     vv(p) = 1.0;
     p++; vi(p)=Bp+ij; vj(p)=Vx+ij;
     vv(p) = 1.0;
@@ -818,9 +810,9 @@ const sp_mat comfi::operators::buildPEigVz()
     vv(p) = 1.0;
     p++; vi(p)=Up+ij; vj(p)=Uz+ij;
     vv(p) = 1.0;
-    p++; vi(p)=T_p+ij; vj(p)=Vz+ij;
+    p++; vi(p)=E_p+ij; vj(p)=Vz+ij;
     vv(p) = 1.0;
-    p++; vi(p)=T_n+ij; vj(p)=Uz+ij;
+    p++; vi(p)=E_n+ij; vj(p)=Uz+ij;
     vv(p) = 1.0;
     p++; vi(p)=Bp+ij; vj(p)=Vz+ij;
     vv(p) = 1.0;
@@ -870,9 +862,9 @@ const sp_mat comfi::operators::buildPN()
     vv(p) = 1.0;
     p++; vi(p)=Up+ij; vj(p)=n_n+ij;
     vv(p) = 1.0;
-    p++; vi(p)=T_p+ij; vj(p)=n_p+ij;
+    p++; vi(p)=E_p+ij; vj(p)=n_p+ij;
     vv(p) = 1.0;
-    p++; vi(p)=T_n+ij; vj(p)=n_n+ij;
+    p++; vi(p)=E_n+ij; vj(p)=n_n+ij;
     vv(p) = 1.0;
     p++; vi(p)=Bp+ij; vj(p)=n_p+ij;
     vv(p) = 1.0;
@@ -911,7 +903,7 @@ const sp_mat comfi::operators::builds2Tp()
     uvec vi = zeros<uvec>(nnzp);
     uvec vj = zeros<uvec>(nnzp);
     vec  vv = zeros<vec> (nnzp);
-    p++; vi(p)=T_p+ij; vj(p)=sij;
+    p++; vi(p)=E_p+ij; vj(p)=sij;
     vv(p) = 1.0;
 
     // Collect sparse values and locations
@@ -1071,7 +1063,7 @@ const sp_mat comfi::operators::builds2Tn()
     uvec vi = zeros<uvec>(nnzp);
     uvec vj = zeros<uvec>(nnzp);
     vec  vv = zeros<vec> (nnzp);
-    p++; vi(p)=T_n+ij; vj(p)=sij;
+    p++; vi(p)=E_n+ij; vj(p)=sij;
     vv(p) = 1.0;
 
     // Collect sparse values and locations
@@ -1467,7 +1459,7 @@ const sp_mat comfi::operators::buildTpscalar()
     uvec vi = zeros<uvec>(nnzp);
     uvec vj = zeros<uvec>(nnzp);
     vec  vv = zeros<vec> (nnzp);
-    p++; vi(p)=sij; vj(p)=T_p+ij;
+    p++; vi(p)=sij; vj(p)=E_p+ij;
     vv(p) = 1.0;
     // Collect sparse values and locations
     Avi.col(index) = vi;
@@ -1498,7 +1490,7 @@ const sp_mat comfi::operators::buildTnscalar()
     uvec vi = zeros<uvec>(nnzp);
     uvec vj = zeros<uvec>(nnzp);
     vec  vv = zeros<vec> (nnzp);
-    p++; vi(p)=sij; vj(p)=T_n+ij;
+    p++; vi(p)=sij; vj(p)=E_n+ij;
     vv(p) = 1.0;
     // Collect sparse values and locations
     Avi.col(index) = vi;
@@ -1880,13 +1872,13 @@ const sp_mat comfi::operators::buildTopBC()
 
     p++; vi(p)=n_p+ij; vj(p)=n_p+ij;
     vv(p) = 1.0;
-    p++; vi(p)=T_p+ij; vj(p)=T_p+ij;
+    p++; vi(p)=E_p+ij; vj(p)=E_p+ij;
     vv(p) = 1.0;
     p++; vi(p)=Vp+ij; vj(p)=Vp+ij;
     vv(p) = 1.0;
     p++; vi(p)=n_n+ij; vj(p)=n_n+ij;
     vv(p) = 1.0;
-    p++; vi(p)=T_n+ij; vj(p)=T_n+ij;
+    p++; vi(p)=E_n+ij; vj(p)=E_n+ij;
     vv(p) = 1.0;
     p++; vi(p)=Up+ij; vj(p)=Up+ij;
     vv(p) = 1.0;
@@ -1923,13 +1915,13 @@ const sp_mat comfi::operators::buildBottomBC()
 
     p++; vi(p)=n_p+ij; vj(p)=n_p+ij;
     vv(p) = 1.0;
-    p++; vi(p)=T_p+ij; vj(p)=T_p+ij;
+    p++; vi(p)=E_p+ij; vj(p)=E_p+ij;
     vv(p) = 1.0;
     p++; vi(p)=Vp+ij; vj(p)=Vp+ij;
     vv(p) = 1.0;
     p++; vi(p)=n_n+ij; vj(p)=n_n+ij;
     vv(p) = 1.0;
-    p++; vi(p)=T_n+ij; vj(p)=T_n+ij;
+    p++; vi(p)=E_n+ij; vj(p)=E_n+ij;
     vv(p) = 1.0;
     p++; vi(p)=Up+ij; vj(p)=Up+ij;
     vv(p) = 1.0;
@@ -1966,9 +1958,9 @@ const sp_mat comfi::operators::buildT()
     uvec vj = zeros<uvec>(nnzp);
     vec  vv = zeros<vec> (nnzp);
 
-    p++; vi(p)=T_p+ij; vj(p)=T_p+ij;
+    p++; vi(p)=E_p+ij; vj(p)=E_p+ij;
     vv(p) = 1.0;
-    p++; vi(p)=T_n+ij; vj(p)=T_n+ij;
+    p++; vi(p)=E_n+ij; vj(p)=E_n+ij;
     vv(p) = 1.0;
     // Collect sparse values and locations
     Avi.col(index) = vi;
@@ -2492,7 +2484,7 @@ const vcl_sp_mat comfi::operators::bottomTp()
     uvec vj = zeros<uvec>(nnzp);
     vec  vv = zeros<vec> (nnzp);
 
-    p++; vi(p)=T_p+ij; vj(p)=T_p+ij;
+    p++; vi(p)=E_p+ij; vj(p)=E_p+ij;
     vv(p) = 1.0;
 
     // Collect sparse values and locations
@@ -2526,7 +2518,7 @@ const vcl_sp_mat comfi::operators::bottomTn()
     uvec vj = zeros<uvec>(nnzp);
     vec  vv = zeros<vec> (nnzp);
 
-    p++; vi(p)=T_n+ij; vj(p)=T_n+ij;
+    p++; vi(p)=E_n+ij; vj(p)=E_n+ij;
     vv(p) = 1.0;
 
     // Collect sparse values and locations

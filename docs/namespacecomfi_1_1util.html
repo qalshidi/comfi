@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">CoMFi
-   &#160;<span id="projectnumber">0</span>
+   &#160;<span id="projectnumber">0.0.1</span>
    </div>
    <div id="projectbrief">Collisional Multi-Fluid ion code</div>
   </td>
@@ -82,6 +82,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a1b591e6465dea1f591c8b33108b27e19"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomfi_1_1util.html#a1b591e6465dea1f591c8b33108b27e19">gettimestr</a> ()</td></tr>
 <tr class="memdesc:a1b591e6465dea1f591c8b33108b27e19"><td class="mdescLeft">&#160;</td><td class="mdescRight">gettimestr Get current time.  <a href="#a1b591e6465dea1f591c8b33108b27e19">More...</a><br /></td></tr>
 <tr class="separator:a1b591e6465dea1f591c8b33108b27e19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3eb06cddbe2ae5f9ab0878f6ccc0f6d9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomfi_1_1util.html#a3eb06cddbe2ae5f9ab0878f6ccc0f6d9">saveSolution</a> (const <a class="el" href="comfi_8h.html#af269c5f92bf72b2f52a3ec704a049f06">vcl_mat</a> &amp;x0, <a class="el" href="classcomfi_1_1types_1_1Context.html">comfi::types::Context</a> &amp;ctx)</td></tr>
+<tr class="memdesc:a3eb06cddbe2ae5f9ab0878f6ccc0f6d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">saveSolution Saves the solution to the output folder  <a href="#a3eb06cddbe2ae5f9ab0878f6ccc0f6d9">More...</a><br /></td></tr>
+<tr class="separator:a3eb06cddbe2ae5f9ab0878f6ccc0f6d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaf1fc0740e7517b684dc245d66ed4b54"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomfi_1_1util.html#aaf1fc0740e7517b684dc245d66ed4b54">sendtolog</a> (const std::string message, const std::string filename)</td></tr>
 <tr class="memdesc:aaf1fc0740e7517b684dc245d66ed4b54"><td class="mdescLeft">&#160;</td><td class="mdescRight">sendtolog Send message to log file.  <a href="#aaf1fc0740e7517b684dc245d66ed4b54">More...</a><br /></td></tr>
 <tr class="separator:aaf1fc0740e7517b684dc245d66ed4b54"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -94,9 +97,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a14f94a1b9d4e0d2e5d810eb32d04b990"><td class="memItemLeft" align="right" valign="top">std::tuple&lt; arma::vec, const <a class="el" href="structcomfi_1_1types_1_1BgData.html">comfi::types::BgData</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomfi_1_1util.html#a14f94a1b9d4e0d2e5d810eb32d04b990">calcSolerIC</a> (const <a class="el" href="structcomfi_1_1types_1_1Operators.html">comfi::types::Operators</a> &amp;op)</td></tr>
 <tr class="memdesc:a14f94a1b9d4e0d2e5d810eb32d04b990"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the initial condition based on Soler et al 2013.  <a href="#a14f94a1b9d4e0d2e5d810eb32d04b990">More...</a><br /></td></tr>
 <tr class="separator:a14f94a1b9d4e0d2e5d810eb32d04b990"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3698716c90cdadfbc8f2875b73547bf8"><td class="memItemLeft" align="right" valign="top">std::tuple&lt; arma::vec, const <a class="el" href="structcomfi_1_1types_1_1BgData.html">comfi::types::BgData</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomfi_1_1util.html#a3698716c90cdadfbc8f2875b73547bf8">calcShockTubeIC</a> (const <a class="el" href="structcomfi_1_1types_1_1Operators.html">comfi::types::Operators</a> &amp;op)</td></tr>
-<tr class="memdesc:a3698716c90cdadfbc8f2875b73547bf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the initial condition based on Sod's Shock Tube.  <a href="#a3698716c90cdadfbc8f2875b73547bf8">More...</a><br /></td></tr>
-<tr class="separator:a3698716c90cdadfbc8f2875b73547bf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3e58a5a3fd617df95d252abbee4e15f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="comfi_8h.html#af269c5f92bf72b2f52a3ec704a049f06">vcl_mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomfi_1_1util.html#ad3e58a5a3fd617df95d252abbee4e15f">shock_tube_ic</a> (<a class="el" href="classcomfi_1_1types_1_1Context.html">comfi::types::Context</a> &amp;ctx)</td></tr>
+<tr class="memdesc:ad3e58a5a3fd617df95d252abbee4e15f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the initial condition based on Sod's Shock Tube.  <a href="#ad3e58a5a3fd617df95d252abbee4e15f">More...</a><br /></td></tr>
+<tr class="separator:ad3e58a5a3fd617df95d252abbee4e15f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b3f676cd410c53ccd1fe02e21ec9191"><td class="memItemLeft" align="right" valign="top">std::tuple&lt; arma::vec, const <a class="el" href="structcomfi_1_1types_1_1BgData.html">comfi::types::BgData</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomfi_1_1util.html#a5b3f676cd410c53ccd1fe02e21ec9191">shock_tube_ic</a> (const <a class="el" href="structcomfi_1_1types_1_1Operators.html">comfi::types::Operators</a> &amp;op)</td></tr>
+<tr class="memdesc:a5b3f676cd410c53ccd1fe02e21ec9191"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the initial condition based on Sod's Shock Tube.  <a href="#a5b3f676cd410c53ccd1fe02e21ec9191">More...</a><br /></td></tr>
+<tr class="separator:a5b3f676cd410c53ccd1fe02e21ec9191"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0535ca659d289a6967b0289292577059"><td class="memItemLeft" align="right" valign="top">std::tuple&lt; arma::vec, const <a class="el" href="structcomfi_1_1types_1_1BgData.html">comfi::types::BgData</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomfi_1_1util.html#a0535ca659d289a6967b0289292577059">calcInitialCondition</a> (const <a class="el" href="structcomfi_1_1types_1_1Operators.html">types::Operators</a> &amp;op)</td></tr>
 <tr class="memdesc:a0535ca659d289a6967b0289292577059"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the initial condition based on scalar magnetic potential solution.  <a href="#a0535ca659d289a6967b0289292577059">More...</a><br /></td></tr>
 <tr class="separator:a0535ca659d289a6967b0289292577059"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -106,6 +112,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ab874a106cd39bd49da69313831f1af00"><td class="memItemLeft" align="right" valign="top">arma::sp_mat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomfi_1_1util.html#ab874a106cd39bd49da69313831f1af00">syncSpMat</a> (const arma::umat Avi, const arma::umat Avj, const arma::mat Avv, const uint num_of_rows=num_of_elem, const uint num_of_cols=num_of_elem)</td></tr>
 <tr class="memdesc:ab874a106cd39bd49da69313831f1af00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a sparse matrix after async parallel construction of i,j,val components.  <a href="#ab874a106cd39bd49da69313831f1af00">More...</a><br /></td></tr>
 <tr class="separator:ab874a106cd39bd49da69313831f1af00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad42be9a4b486aff5fe357e6297436f4d"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomfi_1_1util.html#ad42be9a4b486aff5fe357e6297436f4d">getmaxV</a> (const <a class="el" href="comfi_8h.html#af269c5f92bf72b2f52a3ec704a049f06">vcl_mat</a> &amp;x0, <a class="el" href="classcomfi_1_1types_1_1Context.html">comfi::types::Context</a> &amp;ctx)</td></tr>
+<tr class="memdesc:ad42be9a4b486aff5fe357e6297436f4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">getmaxV get fast mode speed + local speed OR resistivity speed whichever is faster  <a href="#ad42be9a4b486aff5fe357e6297436f4d">More...</a><br /></td></tr>
+<tr class="separator:ad42be9a4b486aff5fe357e6297436f4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73b70390fc3c4488a2453dc35f302c46"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomfi_1_1util.html#a73b70390fc3c4488a2453dc35f302c46">getmaxV</a> (const <a class="el" href="comfi_8h.html#a6642d3613bf26ca9c62ab358018c0201">vcl_vec</a> &amp;x0, const <a class="el" href="structcomfi_1_1types_1_1Operators.html">comfi::types::Operators</a> &amp;op)</td></tr>
 <tr class="memdesc:a73b70390fc3c4488a2453dc35f302c46"><td class="mdescLeft">&#160;</td><td class="mdescRight">getmaxV get fast mode speed + local speed OR resistivity speed whichever is faster  <a href="#a73b70390fc3c4488a2453dc35f302c46">More...</a><br /></td></tr>
 <tr class="separator:a73b70390fc3c4488a2453dc35f302c46"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -130,6 +139,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a9542bf43dd5d549082e5fbc9013869c3"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomfi_1_1util.html#a9542bf43dd5d549082e5fbc9013869c3">getsumUE</a> (const arma::vec &amp;x0)</td></tr>
 <tr class="memdesc:a9542bf43dd5d549082e5fbc9013869c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the sum of the thermal energy density of all grid cells.  <a href="#a9542bf43dd5d549082e5fbc9013869c3">More...</a><br /></td></tr>
 <tr class="separator:a9542bf43dd5d549082e5fbc9013869c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d43bc0835efddee759a22f80c4b7a48"><td class="memItemLeft" align="right" valign="top"><a class="el" href="comfi_8h.html#af269c5f92bf72b2f52a3ec704a049f06">vcl_mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomfi_1_1util.html#a7d43bc0835efddee759a22f80c4b7a48">vec_to_mat</a> (const <a class="el" href="comfi_8h.html#a6642d3613bf26ca9c62ab358018c0201">vcl_vec</a> &amp;vec)</td></tr>
+<tr class="memdesc:a7d43bc0835efddee759a22f80c4b7a48"><td class="mdescLeft">&#160;</td><td class="mdescRight">vec_to_mat Change a column vector to a viennacl::matrix type with one column  <a href="#a7d43bc0835efddee759a22f80c4b7a48">More...</a><br /></td></tr>
+<tr class="separator:a7d43bc0835efddee759a22f80c4b7a48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19a72d0b5c8d6ee6f97338d489d8d488"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomfi_1_1util.html#a19a72d0b5c8d6ee6f97338d489d8d488">saveField</a> (const arma::vec &amp;x0, const std::string name, const int timestep)</td></tr>
 <tr class="memdesc:a19a72d0b5c8d6ee6f97338d489d8d488"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a binary file of a field arma::vector.  <a href="#a19a72d0b5c8d6ee6f97338d489d8d488">More...</a><br /></td></tr>
 <tr class="separator:a19a72d0b5c8d6ee6f97338d489d8d488"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -203,34 +215,6 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a3698716c90cdadfbc8f2875b73547bf8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3698716c90cdadfbc8f2875b73547bf8">&#9670;&nbsp;</a></span>calcShockTubeIC()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::tuple&lt; arma::vec, const <a class="el" href="structcomfi_1_1types_1_1BgData.html">comfi::types::BgData</a> &gt; comfi::util::calcShockTubeIC </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="structcomfi_1_1types_1_1Operators.html">comfi::types::Operators</a> &amp;&#160;</td>
-          <td class="paramname"><em>op</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Calculate the initial condition based on Sod's Shock Tube. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">bg</td><td>Background data, this will be changed in the function. </td></tr>
-    <tr><td class="paramname">op</td><td>operators </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>initial condition vector </dd></dl>
-
-</div>
-</div>
 <a id="a14f94a1b9d4e0d2e5d810eb32d04b990"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a14f94a1b9d4e0d2e5d810eb32d04b990">&#9670;&nbsp;</a></span>calcSolerIC()</h2>
 
@@ -286,8 +270,46 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ad42be9a4b486aff5fe357e6297436f4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad42be9a4b486aff5fe357e6297436f4d">&#9670;&nbsp;</a></span>getmaxV() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double comfi::util::getmaxV </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="comfi_8h.html#af269c5f92bf72b2f52a3ec704a049f06">vcl_mat</a> &amp;&#160;</td>
+          <td class="paramname"><em>x0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classcomfi_1_1types_1_1Context.html">comfi::types::Context</a> &amp;&#160;</td>
+          <td class="paramname"><em>ctx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>getmaxV get fast mode speed + local speed OR resistivity speed whichever is faster </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x0</td><td>Solution matrix </td></tr>
+    <tr><td class="paramname">ctx</td><td>Simulation context </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Max characteristic speed in normalized units </dd></dl>
+
+</div>
+</div>
 <a id="a73b70390fc3c4488a2453dc35f302c46"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a73b70390fc3c4488a2453dc35f302c46">&#9670;&nbsp;</a></span>getmaxV()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a73b70390fc3c4488a2453dc35f302c46">&#9670;&nbsp;</a></span>getmaxV() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -757,8 +779,46 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a3eb06cddbe2ae5f9ab0878f6ccc0f6d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3eb06cddbe2ae5f9ab0878f6ccc0f6d9">&#9670;&nbsp;</a></span>saveSolution() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool comfi::util::saveSolution </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="comfi_8h.html#af269c5f92bf72b2f52a3ec704a049f06">vcl_mat</a> &amp;&#160;</td>
+          <td class="paramname"><em>x0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classcomfi_1_1types_1_1Context.html">comfi::types::Context</a> &amp;&#160;</td>
+          <td class="paramname"><em>ctx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>saveSolution Saves the solution to the output folder </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x0</td><td>Solution matrix. </td></tr>
+    <tr><td class="paramname">ctx</td><td>Simulation context. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Success or fail. </dd></dl>
+
+</div>
+</div>
 <a id="afefae42f8cf67b91b082fe76452660c0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afefae42f8cf67b91b082fe76452660c0">&#9670;&nbsp;</a></span>saveSolution()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afefae42f8cf67b91b082fe76452660c0">&#9670;&nbsp;</a></span>saveSolution() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -839,6 +899,61 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ad3e58a5a3fd617df95d252abbee4e15f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3e58a5a3fd617df95d252abbee4e15f">&#9670;&nbsp;</a></span>shock_tube_ic() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="comfi_8h.html#af269c5f92bf72b2f52a3ec704a049f06">vcl_mat</a> comfi::util::shock_tube_ic </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classcomfi_1_1types_1_1Context.html">comfi::types::Context</a> &amp;&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculate the initial condition based on Sod's Shock Tube. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>Simulation context </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>initial condition matrix </dd></dl>
+
+</div>
+</div>
+<a id="a5b3f676cd410c53ccd1fe02e21ec9191"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b3f676cd410c53ccd1fe02e21ec9191">&#9670;&nbsp;</a></span>shock_tube_ic() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::tuple&lt; arma::vec, const <a class="el" href="structcomfi_1_1types_1_1BgData.html">comfi::types::BgData</a> &gt; comfi::util::shock_tube_ic </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcomfi_1_1types_1_1Operators.html">comfi::types::Operators</a> &amp;&#160;</td>
+          <td class="paramname"><em>op</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculate the initial condition based on Sod's Shock Tube. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bg</td><td>Background data, this will be changed in the function. </td></tr>
+    <tr><td class="paramname">op</td><td>operators </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>initial condition vector </dd></dl>
+
+</div>
+</div>
 <a id="ab874a106cd39bd49da69313831f1af00"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab874a106cd39bd49da69313831f1af00">&#9670;&nbsp;</a></span>syncSpMat()</h2>
 
@@ -895,6 +1010,33 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>cpu sparse matrix </dd></dl>
+
+</div>
+</div>
+<a id="a7d43bc0835efddee759a22f80c4b7a48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d43bc0835efddee759a22f80c4b7a48">&#9670;&nbsp;</a></span>vec_to_mat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="comfi_8h.html#af269c5f92bf72b2f52a3ec704a049f06">vcl_mat</a> comfi::util::vec_to_mat </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="comfi_8h.html#a6642d3613bf26ca9c62ab358018c0201">vcl_vec</a> &amp;&#160;</td>
+          <td class="paramname"><em>vec</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>vec_to_mat Change a column vector to a viennacl::matrix type with one column </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vec</td><td>viennacl::vector </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>viennacl::matrix of one column </dd></dl>
 
 </div>
 </div>

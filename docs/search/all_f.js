@@ -15,5 +15,7 @@ var searchData=
   ['pjp1',['Pjp1',['../structcomfi_1_1types_1_1Operators.html#a75f050920a9346f9af933d09da577844',1,'comfi::types::Operators']]],
   ['pjp2',['Pjp2',['../structcomfi_1_1types_1_1Operators.html#a7049fa7cd4b34905e93272ad8f637d79',1,'comfi::types::Operators']]],
   ['pn',['PN',['../structcomfi_1_1types_1_1Operators.html#a1d269aa9f7ca69fcce6054880deb4d71',1,'comfi::types::Operators']]],
-  ['polyval',['polyval',['../comfi_8h.html#a27254f63b55b0d87598ace36d8442240',1,'comfi::routines']]]
+  ['polyval',['polyval',['../comfi_8h.html#a27254f63b55b0d87598ace36d8442240',1,'comfi::routines']]],
+  ['pressure_5fn',['pressure_n',['../comfi_8h.html#acde6ef2761e66636dc9c89da72ef79a9',1,'comfi::routines']]],
+  ['pressure_5fp',['pressure_p',['../comfi_8h.html#a14fecac0ef4e8b4a10d2f25177d684da',1,'comfi::routines']]]
 ];

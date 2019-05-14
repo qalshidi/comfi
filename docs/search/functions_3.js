@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['fast_5fspeed_5fx',['fast_speed_x',['../comfi_8h.html#a032cf5a0bea2be256c2eaefd768260cd',1,'comfi::routines']]],
-  ['fast_5fspeed_5fz',['fast_speed_z',['../comfi_8h.html#ad116f0187c200c0bd33198534967e52b',1,'comfi::routines']]],
+  ['fast_5fspeed_5fx',['fast_speed_x',['../comfi_8h.html#a72090920ca2175892d3c8423fce039b6',1,'comfi::routines']]],
+  ['fast_5fspeed_5fz',['fast_speed_z',['../comfi_8h.html#a262706df495898f9ed43645ebfc90b32',1,'comfi::routines::fast_speed_z(const vcl_mat &amp;xn, const comfi::types::Context &amp;ctx)'],['../comfi_8h.html#ad116f0187c200c0bd33198534967e52b',1,'comfi::routines::fast_speed_z(const vcl_vec &amp;xn, const comfi::types::Operators &amp;op)']]],
   ['field_5ffield2scalar',['field_field2scalar',['../namespacecomfi_1_1operators.html#a5c2a43e04aa0808ae7709a63b280f396',1,'comfi::operators']]],
   ['field_5ffielddiv',['field_fieldDiv',['../namespacecomfi_1_1operators.html#a876da59f7a4dc4ca9ad19e31cc1986d7',1,'comfi::operators']]],
   ['field_5fpprojection',['field_pProjection',['../namespacecomfi_1_1operators.html#a9dc6df7dccac13ab875010aa499ba2a1',1,'comfi::operators']]],
@@ -15,5 +15,5 @@ var searchData=
   ['fillinitialcondition',['fillInitialCondition',['../namespacecomfi_1_1util.html#a98997c6cd3a935abdc28a66d7254b33f',1,'comfi::util']]],
   ['fluxl',['fluxl',['../comfi_8h.html#a53569db5c280d3a8b15d787ea9da7ccc',1,'comfi::routines']]],
   ['fx',['Fx',['../comfi_8h.html#a8419d4a1bc0a516078243886f971e925',1,'comfi::routines']]],
-  ['fz',['Fz',['../comfi_8h.html#a3a18e7ecaf9944fc69697c7a514b4958',1,'comfi::routines']]]
+  ['fz',['Fz',['../comfi_8h.html#acc0e1a46f8a66938aa25fd3a2296fef5',1,'comfi::routines::Fz(const vcl_mat &amp;xn, const vcl_mat &amp;xn_ij, comfi::types::Context &amp;ctx)'],['../comfi_8h.html#a3a18e7ecaf9944fc69697c7a514b4958',1,'comfi::routines::Fz(const vcl_vec &amp;xn, const vcl_vec &amp;Npij, const comfi::types::Operators &amp;op)']]]
 ];

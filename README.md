@@ -5,7 +5,8 @@ This project is currently under over-haul to make it more user-friendly and rela
 
 ## Requirements
 
-- A C++11 capable compiler. (Strongly recommended OpenMP also)
+- A C++11 capable compiler.
+- An OpenMP capable compiler. (Not required but strongly recommended)
 - [Armadillo](http://arma.sourceforge.net/)
 - [ViennaCL](http://viennacl.sourceforge.net/)
 - OpenCL and an OpenCL capable CPU/GPU/MIC

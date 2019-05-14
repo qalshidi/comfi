@@ -4,9 +4,6 @@
   */
 #pragma once
 
-// IMPORTANT: Must be set prior to any ViennaCL includes if you want to use ViennaCL algorithms on Armadillo objects
-#define VIENNACL_WITH_ARMADILLO
-
 // std includes
 #include <iostream>
 #include <fstream>
@@ -54,6 +51,13 @@ namespace util
 std::string gettimestr();
 
 /*!
+ * \brief saveSolution Saves the solution to the output folder
+ * \param x0 Solution matrix.
+ * \param ctx Simulation context.
+ * \return Success or fail.
+ */
+bool saveSolution(const vcl_mat &x0, comfi::types::Context &ctx);
+/*!
  * \brief sendtolog Send message to log file.
  * \param message Message std::string to show in log file.
  * \param filename The log filename make sure this is always the same.
@@ -85,11 +89,18 @@ std::tuple<arma::vec, const comfi::types::BgData> calcSolerIC(const comfi::types
 
 /*!
  * \brief Calculate the initial condition based on Sod's Shock Tube.
+ * \param ctx Simulation context
+ * \return initial condition matrix
+ */
+vcl_mat shock_tube_ic(comfi::types::Context &ctx);
+
+/*!
+ * \brief Calculate the initial condition based on Sod's Shock Tube.
  * \param bg Background data, this will be changed in the function.
  * \param op operators
  * \return initial condition vector
  */
-std::tuple<arma::vec, const comfi::types::BgData> calcShockTubeIC(const comfi::types::Operators &op);
+std::tuple<arma::vec, const comfi::types::BgData> shock_tube_ic(const comfi::types::Operators &op);
 
 /*!
  * \brief Calculate the initial condition based on scalar magnetic potential solution.
@@ -119,6 +130,14 @@ bool sanityCheck(vcl_vec &xn, const comfi::types::Operators &op);
  * \return cpu sparse matrix
  */
 arma::sp_mat syncSpMat(const arma::umat Avi, const arma::umat Avj, const arma::mat Avv, const uint num_of_rows =num_of_elem, const uint num_of_cols =num_of_elem);
+
+/*!
+ * \brief getmaxV get fast mode speed + local speed OR resistivity speed whichever is faster
+ * \param x0 Solution matrix
+ * \param ctx Simulation context
+ * \return Max characteristic speed in normalized units
+ */
+double getmaxV(const vcl_mat &x0, comfi::types::Context &ctx);
 
 /*!
  * \brief getmaxV get fast mode speed + local speed OR resistivity speed whichever is faster
@@ -183,6 +202,13 @@ double getsumKE(const arma::vec &x0);
 double getsumUE(const arma::vec &x0);
 
 /*!
+ * \brief vec_to_mat Change a column vector to a viennacl::matrix type with one column
+ * \param vec viennacl::vector
+ * \return viennacl::matrix of one column
+ */
+vcl_mat vec_to_mat(const vcl_vec &vec);
+
+/*!
  * \brief Write a binary file of a field arma::vector. Seperate binary files for each direction.
  * \param x0 result arma::vector
  * \param name Name of field, will be used as filename prefix.
@@ -223,7 +249,38 @@ bool saveScalar(const vcl_vec &x0, const std::string name, const int timestep);
 namespace routines
 {
 
-vcl_mat Re_MUSCL(const vcl_mat &xn, const double t, comfi::types::Context &ctx);
+/*!
+ * \brief pressure_n Returns the plasma pressure based on the type of energy being used
+ * \param xn Solution matrix
+ * \param ctx Simulation context
+ * \return Simulation pressure matrix in (grid, 1) dimensions
+ */
+vcl_mat pressure_p(const vcl_mat &xn, comfi::types::Context &ctx);
+
+/*!
+ * \brief pressure_n Returns the neutral pressure based on the type of energy being used
+ * \param xn Solution matrix
+ * \param ctx Simulation context
+ * \return Simulation pressure matrix in (grid, 1) dimensions
+ */
+vcl_mat pressure_n(const vcl_mat &xn, comfi::types::Context &ctx);
+
+/*!
+ * \brief Fz Get flux values in the z direction.
+ * \param xn Solution matrix in the cell edge.
+ * \param xn_ij Solution matrix in the cell center.
+ * \param ctx Simulation context.
+ * \return Flux function matrix results.
+ */
+vcl_mat Fz(const vcl_mat &xn, const vcl_mat &xn_ij, comfi::types::Context &ctx);
+
+/*!
+ * \brief Re_MUSCL Do flux reconstruction with the MUSCL scheme and any source terms.
+ * \param xn Solution matrix
+ * \param ctx Simulation context
+ * \return Solution.
+ */
+vcl_mat Re_MUSCL(const vcl_mat &xn, comfi::types::Context &ctx);
 
 /*!
  * \brief Flux limiters
@@ -310,6 +367,14 @@ vcl_vec dot_prod(const vcl_vec &f1, const vcl_vec &f2, const comfi::types::Opera
 
 /*!
  * \brief computeRHS_Euler Compute right hand side using Eulerian time stepping.
+ * \param xn Current time step result matrix
+ * \param ctx Simulation context
+ * \return Right hand side result solution matrix
+ */
+vcl_mat computeRHS_Euler(const vcl_mat &xn, comfi::types::Context &ctx);
+
+/*!
+ * \brief computeRHS_Euler Compute right hand side using Eulerian time stepping.
  * \param xn Current time step result arma::vector
  * \param dt Change in time
  * \param t Time elapsed
@@ -376,6 +441,22 @@ void topbc_soler(vcl_vec &Lxn, vcl_vec &Rxn, const comfi::types::Operators &op);
  * \param op Operators
  */
 void topbc_shock_tube(vcl_vec &Lxn, vcl_vec &Rxn, const comfi::types::Operators &op);
+
+/*!
+ * \brief Shock Tube dirichlet boundary conditions
+ * \param Lxn Left state
+ * \param Rxn Right state
+ * \param ctx Context
+ */
+void topbc_shock_tube(vcl_mat &Lxn, vcl_mat &Rxn, comfi::types::Context &ctx);
+
+/*!
+ * \brief Shock Tube dirichlet boundary conditions
+ * \param Lxn Left state
+ * \param Rxn Right state
+ * \param ctx Context
+ */
+void bottombc_shock_tube(vcl_mat &Lxn, vcl_mat &Rxn, comfi::types::Context &ctx);
 
 /*!
  * \brief Shock Tube dirichlet boundary conditions

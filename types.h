@@ -4,7 +4,7 @@
  */
 #pragma once
 
-#include <armadillo>
+#include "params.h"
 #include "comfi.h"
 
 namespace comfi {
@@ -172,10 +172,9 @@ struct Operators{
 };
 
 /*!
- * \brief The simulation context. Everything needed is in here.
+ * \brief The simulation context. Everything needed about the simulation is in here.
  */
 class Context {
-  BgData m_bg;
   const BoundaryCondition m_bc_up = NEUMANN,
                           m_bc_down = NEUMANN,
                           m_bc_right = NEUMANN,
@@ -183,7 +182,26 @@ class Context {
   const uint m_flags;
   const arma::uword m_nx, m_nz;
   const bool m_resumed = false;
-  const ushort m_num_of_eq = 14;
+  const arma::uword m_num_of_eq = 14;
+  viennacl::range m_r_grid;
+  viennacl::range m_r;
+  viennacl::range m_r_Np;
+  viennacl::range m_r_Nn;
+  viennacl::range m_r_NVx;
+  viennacl::range m_r_NVz;
+  viennacl::range m_r_NVp;
+  viennacl::range m_r_NUx;
+  viennacl::range m_r_NUz;
+  viennacl::range m_r_NUp;
+  viennacl::range m_r_Ep;
+  viennacl::range m_r_En;
+  viennacl::range m_r_Bx;
+  viennacl::range m_r_Bz;
+  viennacl::range m_r_Bp;
+  viennacl::range m_r_GLM;
+  double m_dt = 0.0;
+  double m_time_elapsed = 0.0;
+  uint m_time_step = 0;
 
 public:
   Context(arma::uword nx,
@@ -201,19 +219,76 @@ public:
               m_bc_left(bc_left),
               m_flags(flags),
               m_resumed(resumed) {
-    // Intentionally left blank
+  viennacl::range r_grid(0, m_nx*m_nz);
+  m_r_grid = r_grid;
+  viennacl::range r(0, 1);
+  m_r = r;
+  viennacl::range r_Np(n_p, n_p+1);
+  m_r_Np = r_Np;
+  viennacl::range r_Nn(n_n, n_n+1);
+  m_r_Nn = r_Nn;
+  viennacl::range r_Vx(Vx, Vx+1);
+  m_r_NVx = r_Vx;
+  viennacl::range r_Vz(Vz, Vz+1);
+  m_r_NVz = r_Vz;
+  viennacl::range r_Vp(Vp, Vp+1);
+  m_r_NVp = r_Vp;
+  viennacl::range r_Ux(Ux, Ux+1);
+  m_r_NUx = r_Ux;
+  viennacl::range r_Uz(Uz, Uz+1);
+  m_r_NUz = r_Uz;
+  viennacl::range r_Up(Up, Up+1);
+  m_r_NUp = r_Up;
+  viennacl::range r_Ep(E_p, E_p+1);
+  m_r_Ep = r_Ep;
+  viennacl::range r_En(E_n, E_n+1);
+  m_r_En = r_En;
+  viennacl::range r_Bx(Bx, Bx+1);
+  m_r_Bx = r_Bx;
+  viennacl::range r_Bz(Bz, Bz+1);
+  m_r_Bz = r_Bz;
+  viennacl::range r_Bp(Bp, Bp+1);
+  m_r_Bp = r_Bp;
+  viennacl::range r_GLM(GLM, GLM+1);
+  m_r_GLM = r_GLM;
   }
 
-  arma::uword nx() { return m_nx; }
-  arma::uword nz() { return m_nz; }
-  arma::uword num_of_grid() { return m_nz*m_nx; }
-  BoundaryCondition bc_up() { return m_bc_up; }
-  BoundaryCondition bc_down() { return m_bc_down; }
-  BoundaryCondition bc_right() { return m_bc_right; }
-  BoundaryCondition bc_left() { return m_bc_left; }
-  uint flags() { return m_flags; }
-  bool is_resumed() { return m_resumed; }
-  arma::uword num_of_eq() { return m_num_of_eq; }
+  arma::uword nx() const { return m_nx; }
+  arma::uword nz() const { return m_nz; }
+  arma::uword num_of_grid() const { return m_nz*m_nx; }
+  BoundaryCondition bc_up() const { return m_bc_up; }
+  BoundaryCondition bc_down() const { return m_bc_down; }
+  BoundaryCondition bc_right() const { return m_bc_right; }
+  BoundaryCondition bc_left() const { return m_bc_left; }
+  uint flags() const { return m_flags; }
+  bool is_resumed() const  { return m_resumed; }
+  arma::uword num_of_eq() const { return m_num_of_eq; }
+  viennacl::range r() const { return m_r; }
+  viennacl::range r_grid() const { return m_r_grid; }
+  viennacl::range r_Np() const { return m_r_Np; }
+  viennacl::range r_Nn() const { return m_r_Nn; }
+  viennacl::range r_NVx() const { return m_r_NVx; }
+  viennacl::range r_NVz() const { return m_r_NVz; }
+  viennacl::range r_NVp() const { return m_r_NVp; }
+  viennacl::range r_NUx() const { return m_r_NUx; }
+  viennacl::range r_NUz() const { return m_r_NUz; }
+  viennacl::range r_NUp() const { return m_r_NUp; }
+  viennacl::range r_Bx() const { return m_r_Bx; }
+  viennacl::range r_Bz() const { return m_r_Bz; }
+  viennacl::range r_Bp() const { return m_r_Bp; }
+  viennacl::range r_Ep() const { return m_r_Ep; }
+  viennacl::range r_En() const { return m_r_En; }
+  viennacl::range r_GLM() const { return m_r_GLM; }
+  void set_dt(double dt, bool advance = true) {
+    m_dt = dt;
+    if (advance) {
+      m_time_elapsed += dt;
+      m_time_step++;
+    }
+  }
+  double dt() const { return m_dt; }
+  double time_elapsed() const { return m_time_elapsed; }
+  uint time_step() const { return m_time_step; }
 };
 
 } // namespace types

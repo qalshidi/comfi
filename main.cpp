@@ -9,8 +9,6 @@
 
 // Armadillo includes and preprocessors
 #include <armadillo>
-
-#define VIENNACL_WITH_ARMADILLO
 // ViennaCL includes
 #include "viennacl/vector.hpp"
 #include "viennacl/matrix.hpp"
@@ -69,9 +67,8 @@ int main(int argc, char** argv)
   uint   max_time_steps = 1000;
   double max_time = 1.0; //in t_0
   double tolerance = 1.e-6;   //gmres tolerance
-  double dt = 1.e-8;   //start dt
+  double start_dt = 1.e-8;   //start dt
   uint   save_every = 1;       //save solution every X time steps
-  double time_elapsed = 0;
   bool   errors = false;
   bool   resumed = false;   //If this run resumes a previous run
   //BoundaryCondition UpBC = NEUMANN, DownBC= NEUMANN, LeftBC=PERIODIC, RightBC=PERIODIC;
@@ -104,7 +101,7 @@ int main(int argc, char** argv)
         else if (argument == "-start_dt")
         {
             string value = argv[i+1];
-            if (i!=argc-1) { dt = stoi(value,nullptr,10); }
+            if (i!=argc-1) { start_dt = stoi(value,nullptr,10); }
         }
         else if (argument == "-tolerance")
         {
@@ -144,44 +141,39 @@ int main(int argc, char** argv)
   }
 
   //Initiate
-  cout << "Initiating vectors and matrices ... ";
-  //static mhdsim::types::Operators op;
-  static comfi::types::Operators op(comfi::types::DIMENSIONLESS, comfi::types::DIMENSIONLESS);
-  cout << "Done ...";
   viennacl::tools::timer vcl_timer[2]; // timers
 
   //auto init = mhdsim::util::calcInitialCondition(op);
   //auto init = mhdsim::util::calcReconnectionIC(op);
-  auto init = comfi::util::calcShockTubeIC(op);
+  //auto init = comfi::util::calcShockTubeIC(op);
   //auto init = comfi::util::calcSolerIC(op);
-  arma::vec x0 = std::get<0>(init);
-  const comfi::types::BgData bg;
+  //arma::vec x0 = std::get<0>(init);
+  //const comfi::types::BgData bg;
 
-  unique_ptr<vcl_vec> xn_vcl(new vcl_vec(num_of_elem));
-  viennacl::copy(x0, *xn_vcl);
-  unique_ptr<vcl_vec> xn1_vcl(new vcl_vec(num_of_elem));
-  viennacl::copy(x0, *xn1_vcl);
-  arma::vec xn = x0;
-  arma::vec xn1 = x0;
-  arma::vec RHSfinal = arma::zeros<arma::vec>(num_of_eq*nx*nz);
+  comfi::types::Context ctx(nx,
+                            nz);
+  ctx.set_dt(start_dt, false);
+  unique_ptr<vcl_mat> xn_vcl(new vcl_mat(comfi::util::shock_tube_ic(ctx)));
+  unique_ptr<vcl_mat> xn1_vcl(new vcl_mat(*xn_vcl));
+  arma::mat RHSfinal = arma::zeros<arma::mat>(xn_vcl->size1(), xn_vcl->size2());
   cout << "Compiling kernels ... ";
-  std::ifstream phi_file("kernels_ocl/phi.c");
-  string phi_code((std::istreambuf_iterator<char>(phi_file)),
-                   std::istreambuf_iterator<char>()
-                 );
-  std::ifstream eig_file("kernels_ocl/largest_eig.c");
+//  std::ifstream phi_file("kernels_ocl/phi.c");
+//  string phi_code((std::istreambuf_iterator<char>(phi_file)),
+//                   std::istreambuf_iterator<char>()
+//                 );
+  //viennacl::ocl::program & phi_prog = viennacl::ocl::current_context().add_program(phi_code.c_str(), "fluxl"); // compile flux opencl kernel
+  std::ifstream eig_file("kernels_ocl/element_max.c");
   string eig_code((std::istreambuf_iterator<char>(eig_file)),
                    std::istreambuf_iterator<char>()
                  );
-  viennacl::ocl::program & phi_prog = viennacl::ocl::current_context().add_program(phi_code.c_str(), "fluxl"); // compile flux opencl kernel
-  viennacl::ocl::program & eig_prog = viennacl::ocl::current_context().add_program(eig_code.c_str(), "largest_eig"); // compile eigenvalue opencl kernel
+  viennacl::ocl::program & eig_prog = viennacl::ocl::current_context().add_program(eig_code.c_str(), "element_max"); // compile eigenvalue opencl kernel
   cout << "built." << endl;
-
-
 
   //Time Steps
   arma::uword start_step = 0;
   vcl_timer[0].start();
+  // FIX LATER
+  /*
   if (resumed)
   {
     xn.load("input/x0", arma::raw_binary);
@@ -203,6 +195,7 @@ int main(int argc, char** argv)
     dt = 0.1*ds/V; // Update CFL
     dt = 1.e-16;
   }
+  */
   //Physical logging
   arma::vec t = arma::zeros<arma::vec>(max_time_steps); // record time elapsed in t_0
   arma::vec dt_n = arma::zeros<arma::vec>(max_time_steps); // record the changed timestep at step n
@@ -211,55 +204,28 @@ int main(int argc, char** argv)
   arma::vec UE = arma::zeros<arma::vec>(max_time_steps); // record average internal energy
   arma::vec avgdivB = arma::zeros<arma::vec>(max_time_steps); // record average divB
 
-  // Create simulation context
-
-  comfi::types::Context ctx(3, 3,
-                            comfi::types::PERIODIC,
-                            comfi::types::PERIODIC,
-                            comfi::types::PERIODIC,
-                            comfi::types::PERIODIC);
-  arma::mat xxx = {{1, 2},
-                   {2, 3},
-                   {3, 4},
-                   {4, 5},
-                   {5, 6},
-                   {6, 7},
-                   {7, 8},
-                   {8, 9},
-                   {9, 10}};
-  vcl_mat xx(ctx.nx()*ctx.nz(), 2);
-  viennacl::copy(xxx, xx);
-  xx = comfi::operators::jm1(xx, ctx);
-  viennacl::copy(xx, xxx);
-  xxx.print();
-
-  uint time_step = start_step;
-  while ((time_step < max_time_steps) && (time_elapsed < max_time))
+  while ((ctx.time_step() < max_time_steps) && (ctx.time_elapsed() < max_time))
   {
-    const uint relative_step = time_step - start_step;
+    const uint relative_step = ctx.time_step() - start_step;
     double solve_time=0.0, build_time=0.0;
     //Output current parameters from last step
+    // FIX LATER
+    /*
     BE(relative_step) = comfi::util::getsumBE(*xn_vcl, op);
     KE(relative_step) = comfi::util::getsumKE(*xn_vcl, op);
     UE(relative_step) = comfi::util::getsumUE(*xn_vcl, op);
     cout << "Sum BE: " << BE(relative_step) << "\t\t" << "| Sum KE: " << KE(relative_step)
          << "\t| Sum UE: " << UE(relative_step) << endl << "E: " << UE(relative_step)+KE(relative_step)+BE(relative_step)
          << endl << endl;
+         */
 
     //Update loop stuff
-    time_elapsed += dt;
-    t(relative_step) = time_elapsed;
-    dt_n(relative_step) = dt;
-    time_step++;
+    t(relative_step) = ctx.time_elapsed();
+    dt_n(relative_step) = ctx.dt();
 
-    cout << time_step << ":" ;
+    cout << ctx.time_step() << ": " ;
     vcl_timer[1].start();
 
-    //const double cxmax = viennacl::linalg::max(comfi::routines::cx_max(*xn_vcl,op));
-    //const double czmax = viennacl::linalg::max(comfi::routines::cz_max(*xn_vcl,op));
-    const double cxmax = 1.0;
-    const double czmax = 1.0;
-    op.ch = (cxmax>czmax)*cxmax + (czmax>=cxmax)*czmax;
     //const arma::sp_mat Ri_cpu = mhdsim::routines::computeRi(*xn_vcl, op);
     //static const arma::sp_mat one = arma::speye(num_of_elem, num_of_elem);
     //const arma::sp_mat LHS_cpu = one + Ri_cpu*dt; // Euler
@@ -267,7 +233,6 @@ int main(int argc, char** argv)
     //viennacl::copy(LHS_cpu, LHS);
 
     //const vcl_vec RHS = mhdsim::routines::computeRHS_RK4(*xn_vcl, dt, time_elapsed, op, bg);
-    const vcl_vec RHS = comfi::routines::computeRHS_Euler(*xn_vcl, dt, time_elapsed, op, bg);
 
     build_time=vcl_timer[1].get();
     //GMRES
@@ -281,7 +246,8 @@ int main(int argc, char** argv)
     //viennacl::linalg::gmres_tag my_solver_tag(tolerance, 100, 20);
     //viennacl::linalg::bicgstab_tag my_solver_tag(tolerance, 100, 20);
     //unique_ptr<vcl_vec> x0_vcl(new vcl_vec(viennacl::linalg::solve(LHS, RHS, my_solver_tag, vcl_precond)));
-    unique_ptr<vcl_vec> x0_vcl(new vcl_vec(RHS));
+    unique_ptr<vcl_mat> x0_vcl(new vcl_mat(comfi::routines::computeRHS_Euler(*xn_vcl, ctx)));
+    //unique_ptr<vcl_mat> x0_vcl(new vcl_mat(*xn_vcl));
 
     //arma::vec diag_LHS(LHS_cpu.diag());
     //vcl_vec new_LHS(num_of_elem);
@@ -297,7 +263,8 @@ int main(int argc, char** argv)
 //    const double sol_error = my_solver_tag.error();
     double sol_error = 0;
 
-    // Change
+    // FIX LATER
+    /*
     cout << "Del norm2: " << viennacl::linalg::norm_2(*x0_vcl - *xn_vcl);
     // DivB output
     const vcl_vec Bdirty = viennacl::linalg::prod(op.Bf, *x0_vcl);
@@ -305,27 +272,28 @@ int main(int argc, char** argv)
     const double divBsum = viennacl::linalg::inner_prod(divB, divB);
     avgdivB(relative_step) = std::sqrt(divBsum)/num_of_grid;
     cout << " | Avg divB: " << avgdivB(relative_step) << endl;
+    */
 
-    //const double V = mhdsim::util::getmaxV(*x0_vcl, op);
-    cout << "Fast speed: "  << czmax << " V_0" << endl;
-    dt = 0.8*0.5*ds/std::sqrt(czmax*czmax+cxmax*cxmax);
-    //dt = 0.8*0.5/collisionrate;
+    const double V = comfi::util::getmaxV(*x0_vcl, ctx);
+    cout << "Char speed: "  << V << " V_0" << endl;
+    ctx.set_dt(0.8*0.5*ds/V);
 
-    cout << "dt: " << dt << " t_0";
-    cout << "\t| Time: " << time_elapsed << " t_0";
-    //cout << "\t| Max V: " << V << " V_0" << endl;
+    cout << "dt: " << ctx.dt() << " t_0";
+    cout << "\t| Time: " << ctx.time_elapsed() << " t_0" << endl;
 
     //mhdsim::util::saveSolution(x0_vcl, -1, op);
     //mhdsim::util::saveSolution(xn_vcl, -2, op);
     //mhdsim::util::saveSolution(xn1_vcl, -3, op);
 
     //Save solution every save_every steps
-    if ((time_step%save_every) == 0)
+    if ((ctx.time_step()%save_every) == 0)
     {
-      comfi::util::saveSolution(*x0_vcl, time_step, op);
+      comfi::util::saveSolution(*x0_vcl, ctx);
     }
 
     //Check whether steps should stop
+    // FIX LATER
+    /*
     if (sol_error > 1.e-3)
     {
       viennacl::fast_copy(RHS, RHSfinal);
@@ -335,19 +303,23 @@ int main(int argc, char** argv)
     }
     if (dt == 0.0 || !std::isfinite(dt))
     {
-      viennacl::fast_copy(RHS,RHSfinal);
+      viennacl::copy(RHS, RHSfinal);
       cout << "Stopped due to dt == 0.0 or nan" << endl;
       stringstream logmessage;
-      logmessage << "Stopped due to dt == 0.0 or nan at step " << time_step << endl;
+      logmessage << "Stopped due to dt == 0.0 or nan at step " << ctx.time_step() << endl;
       comfi::util::sendtolog(logmessage.str(),logfilename.str());
       errors = true; break;
     }
+    */
+    // FIX LATER
+    /*
     if (!comfi::util::sanityCheck(*x0_vcl, op)) //not sane
     {
       cout << "Stopped due to negative pressure(s)." << endl;
       comfi::util::sendtolog("Stopped due to negative pressure(s).",logfilename.str());
       errors = true; //break;
     }
+    */
 
     xn1_vcl = std::move(xn_vcl);
     xn_vcl = std::move(x0_vcl);
@@ -365,8 +337,11 @@ int main(int argc, char** argv)
   cout << "Total exec time: " << vcl_timer[0].get() << endl;
 
   // Save last 3 sol
+  //FIX LATER
+  /*
   comfi::util::saveSolution(*xn_vcl, -1, op);
   comfi::util::saveSolution(*xn1_vcl, -2, op);
+  */
   RHSfinal.save("output/RHSfinal", arma::raw_binary);
 
   return 0;
