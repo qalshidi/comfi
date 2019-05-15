@@ -679,65 +679,34 @@ vcl_mat comfi::routines::Fz(const vcl_mat &xn, const vcl_mat &xn_ij, comfi::type
 {
   vcl_mat F = viennacl::zero_matrix<double>(xn.size1(), xn.size2());
 
-  //F = element_prod(element_div(prod(op.PEVz,xn), prod(op.PN, xn)), xn) // local speed eigen values
-  // Variables
-  vcl_mat NV_x(xn.size1(), 1);
-  vcl_mat NV_z(xn.size1(), 1);
-  vcl_mat NV_p(xn.size1(), 1);
-  vcl_mat NU_x(xn.size1(), 1);
-  vcl_mat NU_z(xn.size1(), 1);
-  vcl_mat NU_p(xn.size1(), 1);
-  vcl_mat N_p(xn.size1(), 1);
-  vcl_mat N_n(xn.size1(), 1);
-  vcl_mat E_p(xn.size1(), 1);
-  vcl_mat E_n(xn.size1(), 1);
-  vcl_mat B_x(xn.size1(), 1);
-  vcl_mat B_z(xn.size1(), 1);
-  vcl_mat B_p(xn.size1(), 1);
-  vcl_mat GLM(xn.size1(), 1);
-  project(NV_x, ctx.r_grid(), ctx.r()) = project(xn, ctx.r_grid(), ctx.r_NVx());
-  project(NV_z, ctx.r_grid(), ctx.r()) = project(xn, ctx.r_grid(), ctx.r_NVz());
-  project(NV_p, ctx.r_grid(), ctx.r()) = project(xn, ctx.r_grid(), ctx.r_NVp());
-  project(NU_x, ctx.r_grid(), ctx.r()) = project(xn, ctx.r_grid(), ctx.r_NUx());
-  project(NU_z, ctx.r_grid(), ctx.r()) = project(xn, ctx.r_grid(), ctx.r_NUz());
-  project(NU_p, ctx.r_grid(), ctx.r()) = project(xn, ctx.r_grid(), ctx.r_NUp());
-  project(N_p, ctx.r_grid(), ctx.r()) = project(xn, ctx.r_grid(), ctx.r_Np());
-  project(N_n, ctx.r_grid(), ctx.r()) = project(xn, ctx.r_grid(), ctx.r_Nn());
-  project(E_p, ctx.r_grid(), ctx.r()) = project(xn, ctx.r_grid(), ctx.r_Ep());
-  project(E_n, ctx.r_grid(), ctx.r()) = project(xn, ctx.r_grid(), ctx.r_En());
-  project(B_x, ctx.r_grid(), ctx.r()) = project(xn, ctx.r_grid(), ctx.r_Bx());
-  project(B_z, ctx.r_grid(), ctx.r()) = project(xn, ctx.r_grid(), ctx.r_Bz());
-  project(B_p, ctx.r_grid(), ctx.r()) = project(xn, ctx.r_grid(), ctx.r_Bp());
-  project(GLM, ctx.r_grid(), ctx.r()) = project(xn, ctx.r_grid(), ctx.r_GLM());
-
   vcl_mat V_x(xn.size1(), 1);
   vcl_mat U_x(xn.size1(), 1);
   vcl_mat V_z(xn.size1(), 1);
   vcl_mat U_z(xn.size1(), 1);
   vcl_mat V_p(xn.size1(), 1);
   vcl_mat U_p(xn.size1(), 1);
-  V_x = element_div(NV_x, N_p);
-  U_x = element_div(NU_x, N_n);
-  V_z = element_div(NV_z, N_p);
-  U_z = element_div(NU_z, N_n);
-  V_p = element_div(NV_p, N_p);
-  U_p = element_div(NU_p, N_n);
+  V_x = element_div(ctx.v_NVx(xn), ctx.v_Np(xn));
+  U_x = element_div(ctx.v_NUx(xn), ctx.v_Nn(xn));
+  V_z = element_div(ctx.v_NVz(xn), ctx.v_Np(xn));
+  U_z = element_div(ctx.v_NUz(xn), ctx.v_Nn(xn));
+  V_p = element_div(ctx.v_NVp(xn), ctx.v_Np(xn));
+  U_p = element_div(ctx.v_NUp(xn), ctx.v_Nn(xn));
 
   // Local speed flux -> quantity*Vz
-  viennacl::project(F, ctx.r_grid(), ctx.r_Np()) = element_prod(N_p, V_z);
-  viennacl::project(F, ctx.r_grid(), ctx.r_Nn()) = element_prod(N_n, U_z);
-  viennacl::project(F, ctx.r_grid(), ctx.r_NVx()) = element_prod(NV_x, V_z);
-  viennacl::project(F, ctx.r_grid(), ctx.r_NVz()) = element_prod(NV_z, V_z);
-  viennacl::project(F, ctx.r_grid(), ctx.r_NVp()) = element_prod(NV_p, V_z);
-  viennacl::project(F, ctx.r_grid(), ctx.r_NUx()) = element_prod(NU_x, U_z);
-  viennacl::project(F, ctx.r_grid(), ctx.r_NUz()) = element_prod(NU_z, U_z);
-  viennacl::project(F, ctx.r_grid(), ctx.r_NUp()) = element_prod(NU_p, U_z);
-  viennacl::project(F, ctx.r_grid(), ctx.r_Ep()) = element_prod(E_p, V_z);
-  viennacl::project(F, ctx.r_grid(), ctx.r_En()) = element_prod(E_n, U_z);
+  viennacl::project(F, ctx.r_grid(), ctx.r_Np()) = element_prod(ctx.v_Np(xn), V_z);
+  viennacl::project(F, ctx.r_grid(), ctx.r_Nn()) = element_prod(ctx.v_Nn(xn), U_z);
+  viennacl::project(F, ctx.r_grid(), ctx.r_NVx()) = element_prod(ctx.v_NVx(xn), V_z);
+  viennacl::project(F, ctx.r_grid(), ctx.r_NVz()) = element_prod(ctx.v_NVz(xn), V_z);
+  viennacl::project(F, ctx.r_grid(), ctx.r_NVp()) = element_prod(ctx.v_NVp(xn), V_z);
+  viennacl::project(F, ctx.r_grid(), ctx.r_NUx()) = element_prod(ctx.v_NUx(xn), U_z);
+  viennacl::project(F, ctx.r_grid(), ctx.r_NUz()) = element_prod(ctx.v_NUz(xn), U_z);
+  viennacl::project(F, ctx.r_grid(), ctx.r_NUp()) = element_prod(ctx.v_NUp(xn), U_z);
+  viennacl::project(F, ctx.r_grid(), ctx.r_Ep()) = element_prod(ctx.v_Ep(xn), V_z);
+  viennacl::project(F, ctx.r_grid(), ctx.r_En()) = element_prod(ctx.v_En(xn), U_z);
 
   // Induction VB-BV
-  viennacl::project(F, ctx.r_grid(), ctx.r_Bx()) = element_prod(V_z, B_x) - element_prod(B_z, V_x);
-  viennacl::project(F, ctx.r_grid(), ctx.r_Bp()) = element_prod(V_z, B_p) - element_prod(B_z, V_p);
+  viennacl::project(F, ctx.r_grid(), ctx.r_Bx()) = element_prod(V_z, ctx.v_Bx(xn)) - element_prod(ctx.v_Bz(xn), V_x);
+  viennacl::project(F, ctx.r_grid(), ctx.r_Bp()) = element_prod(V_z, ctx.v_Bp(xn)) - element_prod(ctx.v_Bz(xn), V_p);
 
   // General Lagrange Multiplier
   viennacl::project(F, ctx.r_grid(), ctx.r_Bz()) = GLM;
@@ -749,20 +718,20 @@ vcl_mat comfi::routines::Fz(const vcl_mat &xn, const vcl_mat &xn_ij, comfi::type
   viennacl::project(F, ctx.r_grid(), ctx.r_NUz()) += Pn;
 
   // Magnetic pressure
-  viennacl::project(F, ctx.r_grid(), ctx.r_NVz()) += 0.5*(element_prod(B_x, B_x)
-                                                          +element_prod(B_z, B_z)
-                                                          +element_prod(B_p, B_p));
-  viennacl::project(F, ctx.r_grid(), ctx.r_NVz()) -= element_prod(B_z, B_z);
-  viennacl::project(F, ctx.r_grid(), ctx.r_NVx()) -= element_prod(B_z, B_x);
-  viennacl::project(F, ctx.r_grid(), ctx.r_NVp()) -= element_prod(B_z, B_p);
+  viennacl::project(F, ctx.r_grid(), ctx.r_NVz()) += 0.5*(element_prod(ctx.v_Bx(xn), ctx.v_Bx(xn))
+                                                          +element_prod(ctx.v_Bz(xn), ctx.v_Bz(xn))
+                                                          +element_prod(ctx.v_Bp(xn), ctx.v_Bp(xn)));
+  viennacl::project(F, ctx.r_grid(), ctx.r_NVz()) -= element_prod(ctx.v_Bz(xn), ctx.v_Bz(xn));
+  viennacl::project(F, ctx.r_grid(), ctx.r_NVx()) -= element_prod(ctx.v_Bz(xn), ctx.v_Bx(xn));
+  viennacl::project(F, ctx.r_grid(), ctx.r_NVp()) -= element_prod(ctx.v_Bz(xn), ctx.v_Bp(xn));
 
   // Energy flux
-  viennacl::project(F, ctx.r_grid(), ctx.r_Ep()) += Pp;
-  viennacl::project(F, ctx.r_grid(), ctx.r_En()) += Pn;
+  viennacl::project(F, ctx.r_grid(), ctx.r_Ep()) += element_prod(Pp, V_z);
+  viennacl::project(F, ctx.r_grid(), ctx.r_En()) += element_prod(Pn, U_z);
 
   // Flux part of GLM
   const double ch = ds/ctx.dt();
-  viennacl::project(F, ctx.r_grid(), ctx.r_GLM()) = ch*ch*B_z;
+  viennacl::project(F, ctx.r_grid(), ctx.r_GLM()) = ch*ch*ctx.v_Bz(xn);
 
     //+ prod(op.s2Tn, PnUz)
     //+ prod(op.s2Vz, Pp)              // thermal pressure ion

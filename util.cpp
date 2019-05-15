@@ -1,4 +1,3 @@
-#define VIENNACL_WITH_ARMADILLO
 #include <armadillo>
 #include "comfi.h"
 #include "viennacl/vector.hpp"

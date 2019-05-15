@@ -25,7 +25,7 @@
 #include "viennacl/tools/timer.hpp"
 #include "viennacl/forwards.h"
 
-// Algorithm and function includes
+// Main CoMFi include
 #include "comfi.h"
 
 using namespace std;
@@ -37,7 +37,7 @@ int main(int argc, char** argv)
   stringstream logfilename;
   logfilename << "log/" << starttime << ".log";
 
-  cout << "===Begin Solar Chromosphere MHD Simulation===" << endl;
+  cout << "===Begin CoMFi Simulation===" << endl;
   #ifdef VIENNACL_WITH_OPENCL
       cout << "Device Info: " << endl << viennacl::ocl::current_device().info();
   #endif
