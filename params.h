@@ -6,7 +6,7 @@
 
 #include <cmath>
 #include <armadillo>
-#include "comfi.h"
+#include "comfi.hpp"
 
 const unsigned short num_of_eq  = 14;
 const unsigned short DOF        = 3;

@@ -1051,17 +1051,41 @@ void topbc_driver(vcl_vec &Lxn, vcl_vec &Rxn, const double t, const comfi::types
  * \brief Get neutral sound speed
  * \param xn matrix of results
  * \param ctx Simulation context
+ * \return vector (vcl_mat) of neutral sound speed
+ */
+vcl_mat sound_speed_neutral_mat(const vcl_mat &xn, comfi::types::Context &ctx);
+
+/*!
+ * \brief Get neutral sound speed
+ * \param xn matrix of results
+ * \param ctx Simulation context
  * \return vector of neutral sound speed
  */
 vcl_vec sound_speed_neutral(const vcl_mat &xn, const comfi::types::Context &ctx);
 
 /*!
- * \brief fast_speed_x Get vertical fast mode speed
+ * \brief fast_speed_z Get vertical fast mode speed
+ * \param xn result matrix
+ * \param ctx Simulation context.
+ * \return Column vector vcl_mat of vertical fast mode speed of ions.
+ */
+vcl_mat fast_speed_z_mat(const vcl_mat &xn, comfi::types::Context &ctx);
+
+/*!
+ * \brief fast_speed_z Get vertical fast mode speed
  * \param xn result matrix
  * \param ctx Simulation context.
  * \return Column vector of vertical fast mode speed of ions.
  */
-vcl_vec fast_speed_z(const vcl_mat &xn, const comfi::types::Context &ctx);
+vcl_vec fast_speed_z(const vcl_mat &xn, comfi::types::Context &ctx);
+
+/*!
+ * \brief fast_speed_x Get horizontal fast mode speed
+ * \param xn Result matrix.
+ * \param ctx	Simulation context.
+ * \return Column vector (vcl_mat) of horizontal fast mode speeds.
+ */
+vcl_mat fast_speed_x_mat(const vcl_mat &xn, comfi::types::Context &ctx);
 
 /*!
  * \brief fast_speed_x Get horizontal fast mode speed
@@ -1069,7 +1093,7 @@ vcl_vec fast_speed_z(const vcl_mat &xn, const comfi::types::Context &ctx);
  * \param ctx	Simulation context.
  * \return Column vector of horizontal fast mode speeds.
  */
-vcl_vec fast_speed_x(const vcl_mat &xn, const comfi::types::Context &ctx);
+vcl_vec fast_speed_x(const vcl_mat &xn, comfi::types::Context &ctx);
 
 /*!
  * \brief Get largest vertical speed

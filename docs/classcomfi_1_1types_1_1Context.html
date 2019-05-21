@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>comfi</b></li><li class="navelem"><a class="el" href="namespacecomfi_1_1types.html">types</a></li><li class="navelem"><a class="el" href="classcomfi_1_1types_1_1Context.html">Context</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespacecomfi.html">comfi</a></li><li class="navelem"><a class="el" href="namespacecomfi_1_1types.html">types</a></li><li class="navelem"><a class="el" href="classcomfi_1_1types_1_1Context.html">Context</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -78,7 +78,7 @@ $(function() {
 <p>The simulation context.  
  <a href="classcomfi_1_1types_1_1Context.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="types_8h_source.html">types.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="comfi_8hpp_source.html">comfi.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -175,12 +175,54 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>time_elapsed</b> ()
 <tr class="memitem:ae9a3b0556dd3ceda445010ff8c38f4c8"><td class="memItemLeft" align="right" valign="top"><a id="ae9a3b0556dd3ceda445010ff8c38f4c8"></a>
 uint&#160;</td><td class="memItemRight" valign="bottom"><b>time_step</b> () const</td></tr>
 <tr class="separator:ae9a3b0556dd3ceda445010ff8c38f4c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b5251787369d588f12c609cdca780f2"><td class="memItemLeft" align="right" valign="top"><a id="a9b5251787369d588f12c609cdca780f2"></a>
+viennacl::matrix_range&lt; <a class="el" href="comfi_8hpp.html#a30f5152afa8c2a2d152c897c0ed82eb1">vcl_mat</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>v_Np</b> (const <a class="el" href="comfi_8hpp.html#a30f5152afa8c2a2d152c897c0ed82eb1">vcl_mat</a> &amp;xn)</td></tr>
+<tr class="separator:a9b5251787369d588f12c609cdca780f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96ccc0268c68a15d8aa3f5509ef845df"><td class="memItemLeft" align="right" valign="top"><a id="a96ccc0268c68a15d8aa3f5509ef845df"></a>
+viennacl::matrix_range&lt; <a class="el" href="comfi_8hpp.html#a30f5152afa8c2a2d152c897c0ed82eb1">vcl_mat</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>v_Nn</b> (const <a class="el" href="comfi_8hpp.html#a30f5152afa8c2a2d152c897c0ed82eb1">vcl_mat</a> &amp;xn)</td></tr>
+<tr class="separator:a96ccc0268c68a15d8aa3f5509ef845df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96b550e282f1502741e22549bda4f1bd"><td class="memItemLeft" align="right" valign="top"><a id="a96b550e282f1502741e22549bda4f1bd"></a>
+viennacl::matrix_range&lt; <a class="el" href="comfi_8hpp.html#a30f5152afa8c2a2d152c897c0ed82eb1">vcl_mat</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>v_NVx</b> (const <a class="el" href="comfi_8hpp.html#a30f5152afa8c2a2d152c897c0ed82eb1">vcl_mat</a> &amp;xn)</td></tr>
+<tr class="separator:a96b550e282f1502741e22549bda4f1bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89e5ca36edd351ccd89282550f98dc7b"><td class="memItemLeft" align="right" valign="top"><a id="a89e5ca36edd351ccd89282550f98dc7b"></a>
+viennacl::matrix_range&lt; <a class="el" href="comfi_8hpp.html#a30f5152afa8c2a2d152c897c0ed82eb1">vcl_mat</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>v_NVz</b> (const <a class="el" href="comfi_8hpp.html#a30f5152afa8c2a2d152c897c0ed82eb1">vcl_mat</a> &amp;xn)</td></tr>
+<tr class="separator:a89e5ca36edd351ccd89282550f98dc7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc7c8a9824b218c38df599a5faa4b68a"><td class="memItemLeft" align="right" valign="top"><a id="afc7c8a9824b218c38df599a5faa4b68a"></a>
+viennacl::matrix_range&lt; <a class="el" href="comfi_8hpp.html#a30f5152afa8c2a2d152c897c0ed82eb1">vcl_mat</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>v_NVp</b> (const <a class="el" href="comfi_8hpp.html#a30f5152afa8c2a2d152c897c0ed82eb1">vcl_mat</a> &amp;xn)</td></tr>
+<tr class="separator:afc7c8a9824b218c38df599a5faa4b68a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b9ebc7112042aec56ee83b52ac081d0"><td class="memItemLeft" align="right" valign="top"><a id="a4b9ebc7112042aec56ee83b52ac081d0"></a>
+viennacl::matrix_range&lt; <a class="el" href="comfi_8hpp.html#a30f5152afa8c2a2d152c897c0ed82eb1">vcl_mat</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>v_NUx</b> (const <a class="el" href="comfi_8hpp.html#a30f5152afa8c2a2d152c897c0ed82eb1">vcl_mat</a> &amp;xn)</td></tr>
+<tr class="separator:a4b9ebc7112042aec56ee83b52ac081d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace9f16751844ec64c9c4c2e89942f846"><td class="memItemLeft" align="right" valign="top"><a id="ace9f16751844ec64c9c4c2e89942f846"></a>
+viennacl::matrix_range&lt; <a class="el" href="comfi_8hpp.html#a30f5152afa8c2a2d152c897c0ed82eb1">vcl_mat</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>v_NUz</b> (const <a class="el" href="comfi_8hpp.html#a30f5152afa8c2a2d152c897c0ed82eb1">vcl_mat</a> &amp;xn)</td></tr>
+<tr class="separator:ace9f16751844ec64c9c4c2e89942f846"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb2aa369a561f221e20d7e00ff9d4113"><td class="memItemLeft" align="right" valign="top"><a id="adb2aa369a561f221e20d7e00ff9d4113"></a>
+viennacl::matrix_range&lt; <a class="el" href="comfi_8hpp.html#a30f5152afa8c2a2d152c897c0ed82eb1">vcl_mat</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>v_NUp</b> (const <a class="el" href="comfi_8hpp.html#a30f5152afa8c2a2d152c897c0ed82eb1">vcl_mat</a> &amp;xn)</td></tr>
+<tr class="separator:adb2aa369a561f221e20d7e00ff9d4113"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf23fd4dc36227a8a747b0023aa05bea"><td class="memItemLeft" align="right" valign="top"><a id="adf23fd4dc36227a8a747b0023aa05bea"></a>
+viennacl::matrix_range&lt; <a class="el" href="comfi_8hpp.html#a30f5152afa8c2a2d152c897c0ed82eb1">vcl_mat</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>v_Bx</b> (const <a class="el" href="comfi_8hpp.html#a30f5152afa8c2a2d152c897c0ed82eb1">vcl_mat</a> &amp;xn)</td></tr>
+<tr class="separator:adf23fd4dc36227a8a747b0023aa05bea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea3ec90d5586e4766814b5f7c7aeb53d"><td class="memItemLeft" align="right" valign="top"><a id="aea3ec90d5586e4766814b5f7c7aeb53d"></a>
+viennacl::matrix_range&lt; <a class="el" href="comfi_8hpp.html#a30f5152afa8c2a2d152c897c0ed82eb1">vcl_mat</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>v_Bz</b> (const <a class="el" href="comfi_8hpp.html#a30f5152afa8c2a2d152c897c0ed82eb1">vcl_mat</a> &amp;xn)</td></tr>
+<tr class="separator:aea3ec90d5586e4766814b5f7c7aeb53d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3e9f27b69de935d6ce77ade0f948c94"><td class="memItemLeft" align="right" valign="top"><a id="aa3e9f27b69de935d6ce77ade0f948c94"></a>
+viennacl::matrix_range&lt; <a class="el" href="comfi_8hpp.html#a30f5152afa8c2a2d152c897c0ed82eb1">vcl_mat</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>v_Bp</b> (const <a class="el" href="comfi_8hpp.html#a30f5152afa8c2a2d152c897c0ed82eb1">vcl_mat</a> &amp;xn)</td></tr>
+<tr class="separator:aa3e9f27b69de935d6ce77ade0f948c94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60f8dd87b495ab09980bd4ed0fd3023b"><td class="memItemLeft" align="right" valign="top"><a id="a60f8dd87b495ab09980bd4ed0fd3023b"></a>
+viennacl::matrix_range&lt; <a class="el" href="comfi_8hpp.html#a30f5152afa8c2a2d152c897c0ed82eb1">vcl_mat</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>v_GLM</b> (const <a class="el" href="comfi_8hpp.html#a30f5152afa8c2a2d152c897c0ed82eb1">vcl_mat</a> &amp;xn)</td></tr>
+<tr class="separator:a60f8dd87b495ab09980bd4ed0fd3023b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9ef5b3d0124faf68f068dc33ea513f7"><td class="memItemLeft" align="right" valign="top"><a id="aa9ef5b3d0124faf68f068dc33ea513f7"></a>
+viennacl::matrix_range&lt; <a class="el" href="comfi_8hpp.html#a30f5152afa8c2a2d152c897c0ed82eb1">vcl_mat</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>v_Ep</b> (const <a class="el" href="comfi_8hpp.html#a30f5152afa8c2a2d152c897c0ed82eb1">vcl_mat</a> &amp;xn)</td></tr>
+<tr class="separator:aa9ef5b3d0124faf68f068dc33ea513f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c9750a2daee5e4ba1ef0c7c284a5c83"><td class="memItemLeft" align="right" valign="top"><a id="a9c9750a2daee5e4ba1ef0c7c284a5c83"></a>
+viennacl::matrix_range&lt; <a class="el" href="comfi_8hpp.html#a30f5152afa8c2a2d152c897c0ed82eb1">vcl_mat</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>v_En</b> (const <a class="el" href="comfi_8hpp.html#a30f5152afa8c2a2d152c897c0ed82eb1">vcl_mat</a> &amp;xn)</td></tr>
+<tr class="separator:a9c9750a2daee5e4ba1ef0c7c284a5c83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The simulation context. </p>
 <p>Everything needed about the simulation is in here. </p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="types_8h_source.html">types.h</a></li>
+<li><a class="el" href="comfi_8hpp_source.html">comfi.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

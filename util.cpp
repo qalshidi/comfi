@@ -1,5 +1,5 @@
 #include <armadillo>
-#include "comfi.h"
+#include "comfi.hpp"
 #include "viennacl/vector.hpp"
 #include "viennacl/matrix.hpp"
 #include "viennacl/compressed_matrix.hpp"
@@ -66,7 +66,7 @@ std::tuple<arma::vec, const comfi::types::BgData> comfi::util::calcSolerIC(const
 }
 
 vcl_mat comfi::util::shock_tube_ic(comfi::types::Context &ctx) {
-  const double n_l = 1.0, p_l = 1.0, n_r = 0.125, p_r = 0.1;
+  const double b_l = 1.0, n_l = 1.0, p_l = 1.0, b_r = -1.0, n_r = 0.125, p_r = 0.1;
 
   arma::mat xn = arma::zeros<arma::mat>(ctx.num_of_grid(), ctx.num_of_eq());
 
@@ -83,11 +83,13 @@ vcl_mat comfi::util::shock_tube_ic(comfi::types::Context &ctx) {
       xn(ij, n_n) = n_l;
       xn(ij, E_n) = p_l/(gammamono-1.0);
       xn(ij, E_p) = p_l/(gammamono-1.0);
+      xn(ij, Bp) = b_l;
     } else {
       xn(ij, E_n) = p_r/(gammamono-1.0);
       xn(ij, E_p) = p_r/(gammamono-1.0);
       xn(ij, n_p) = n_r;
       xn(ij, n_n) = n_r;
+      xn(ij, Bp) = b_r;
     }
   }
   std::cout << "Sod\'s Shock Tube (" << ctx.nx() << "," << ctx.nz() <<
@@ -646,12 +648,20 @@ bool comfi::util::sanityCheck(vcl_vec &xn, const comfi::types::Operators &op)
 }
 
 double comfi::util::getmaxV(const vcl_mat &x0, comfi::types::Context &ctx) {
-  const double fast_p_x = viennacl::linalg::max(comfi::routines::fast_speed_x(x0, ctx));
-  const double fast_p_z = viennacl::linalg::max(comfi::routines::fast_speed_z(x0, ctx));
-  std::cout << "Fast speed: (" << fast_p_x << "," << fast_p_z << ") | ";
-  const double sound_n = viennacl::linalg::max(comfi::routines::sound_speed_neutral(x0, ctx));
-  std::cout << "Sound speed (n): " << sound_n << " | ";
+  using namespace viennacl::linalg;
+  vcl_vec Np = viennacl::column(x0, n_p);
+  vcl_vec Nn = viennacl::column(x0, n_n);
+  vcl_vec NVx = viennacl::column(x0, Vx);
+  vcl_vec NUx = viennacl::column(x0, Ux);
+  vcl_vec NUz = viennacl::column(x0, Uz);
+  vcl_vec NVz = viennacl::column(x0, Vz);
+  const double fast_p_x = viennacl::linalg::max(element_fabs(element_div(NVx, Np))+comfi::routines::fast_speed_x(x0, ctx));
+  const double fast_p_z = viennacl::linalg::max(element_fabs(element_div(NVz, Np))+comfi::routines::fast_speed_z(x0, ctx));
+  std::cout << "Max speed: (" << fast_p_x << "," << fast_p_z << ") | ";
+  const double sound_n_x = viennacl::linalg::max(element_fabs(element_div(NUx, Nn))+comfi::routines::sound_speed_neutral(x0, ctx));
+  const double sound_n_z = viennacl::linalg::max(element_fabs(element_div(NUz, Nn))+comfi::routines::sound_speed_neutral(x0, ctx));
+  std::cout << "Max speed (n): (" << sound_n_x << "," << sound_n_z << ") | ";
 
   std::cout << std::endl;
-  return std::max(std::max(fast_p_x, fast_p_z), sound_n);
+  return std::max(std::max(fast_p_x, fast_p_z), std::max(sound_n_x, sound_n_z));
 }

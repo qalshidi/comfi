@@ -22,6 +22,7 @@ var searchData=
   ['sendtolog',['sendtolog',['../namespacecomfi_1_1util.html#aaf1fc0740e7517b684dc245d66ed4b54',1,'comfi::util']]],
   ['sg',['SG',['../structcomfi_1_1types_1_1Operators.html#a579625a4dfa3206b973dcd48f7b1e26a',1,'comfi::types::Operators']]],
   ['shock_5ftube_5fic',['shock_tube_ic',['../namespacecomfi_1_1util.html#ad3e58a5a3fd617df95d252abbee4e15f',1,'comfi::util::shock_tube_ic(comfi::types::Context &amp;ctx)'],['../namespacecomfi_1_1util.html#a5b3f676cd410c53ccd1fe02e21ec9191',1,'comfi::util::shock_tube_ic(const comfi::types::Operators &amp;op)']]],
-  ['sound_5fspeed_5fneutral',['sound_speed_neutral',['../comfi_8h.html#ac17b7218f1ece6ef4512a47acdd74351',1,'comfi::routines']]],
+  ['sound_5fspeed_5fneutral',['sound_speed_neutral',['../namespacecomfi_1_1routines.html#ac17b7218f1ece6ef4512a47acdd74351',1,'comfi::routines']]],
+  ['sound_5fspeed_5fneutral_5fmat',['sound_speed_neutral_mat',['../namespacecomfi_1_1routines.html#a922451da6995e5dc3fbc5264f579826a',1,'comfi::routines']]],
   ['syncspmat',['syncSpMat',['../namespacecomfi_1_1util.html#ab874a106cd39bd49da69313831f1af00',1,'comfi::util']]]
 ];

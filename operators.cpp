@@ -1,4 +1,4 @@
-﻿#include "comfi.h"
+﻿#include "comfi.hpp"
 #include <armadillo>
 #include "viennacl/matrix.hpp"
 #include "viennacl/matrix_proxy.hpp"

@@ -26,7 +26,7 @@
 #include "viennacl/forwards.h"
 
 // Main CoMFi include
-#include "comfi.h"
+#include "comfi.hpp"
 
 using namespace std;
 
@@ -157,11 +157,11 @@ int main(int argc, char** argv)
   unique_ptr<vcl_mat> xn1_vcl(new vcl_mat(*xn_vcl));
   arma::mat RHSfinal = arma::zeros<arma::mat>(xn_vcl->size1(), xn_vcl->size2());
   cout << "Compiling kernels ... ";
-//  std::ifstream phi_file("kernels_ocl/phi.c");
-//  string phi_code((std::istreambuf_iterator<char>(phi_file)),
-//                   std::istreambuf_iterator<char>()
-//                 );
-  //viennacl::ocl::program & phi_prog = viennacl::ocl::current_context().add_program(phi_code.c_str(), "fluxl"); // compile flux opencl kernel
+  std::ifstream phi_file("kernels_ocl/phi.c");
+  string phi_code((std::istreambuf_iterator<char>(phi_file)),
+                   std::istreambuf_iterator<char>()
+                 );
+  viennacl::ocl::program & phi_prog = viennacl::ocl::current_context().add_program(phi_code.c_str(), "fluxl"); // compile flux opencl kernel
   std::ifstream eig_file("kernels_ocl/element_max.c");
   string eig_code((std::istreambuf_iterator<char>(eig_file)),
                    std::istreambuf_iterator<char>()
