@@ -66,7 +66,7 @@ std::tuple<arma::vec, const comfi::types::BgData> comfi::util::calcSolerIC(const
 }
 
 vcl_mat comfi::util::shock_tube_ic(comfi::types::Context &ctx) {
-  const double b_l = 1.0, n_l = 1.0, p_l = 1.0, b_r = -1.0, n_r = 0.125, p_r = 0.1;
+  const double b = 0.75, b_l = 1.0, n_l = 1.0, p_l = 1.0, b_r = -1.0, n_r = 0.125, p_r = 0.1;
 
   arma::mat xn = arma::zeros<arma::mat>(ctx.num_of_grid(), ctx.num_of_eq());
 
@@ -84,12 +84,14 @@ vcl_mat comfi::util::shock_tube_ic(comfi::types::Context &ctx) {
       xn(ij, E_n) = p_l/(gammamono-1.0);
       xn(ij, E_p) = p_l/(gammamono-1.0);
       xn(ij, Bp) = b_l;
+      xn(ij, Bz) = b;
     } else {
       xn(ij, E_n) = p_r/(gammamono-1.0);
       xn(ij, E_p) = p_r/(gammamono-1.0);
       xn(ij, n_p) = n_r;
       xn(ij, n_n) = n_r;
       xn(ij, Bp) = b_r;
+      xn(ij, Bz) = b;
     }
   }
   std::cout << "Sod\'s Shock Tube (" << ctx.nx() << "," << ctx.nz() <<
@@ -477,23 +479,25 @@ double comfi::util::getsumUE(const vcl_vec &x0, const comfi::types::Operators &o
   return viennacl::linalg::sum(iue+nue);
 }
 
-bool comfi::util::saveSolution(const vcl_mat &x0, comfi::types::Context &ctx)
+bool comfi::util::saveSolution(const vcl_mat &x0, comfi::types::Context &ctx, const bool final)
 {
   bool success = true;
-  success *= saveScalar(viennacl::column(x0, n_p), "Np", ctx.time_step());
-  success *= saveScalar(viennacl::column(x0, n_n), "Nn", ctx.time_step());
-  success *= saveScalar(viennacl::column(x0, E_p), "Tp", ctx.time_step());
-  success *= saveScalar(viennacl::column(x0, E_n), "Tn", ctx.time_step());
-  success *= saveScalar(viennacl::column(x0, GLM), "GLM", ctx.time_step());
-  success *= saveScalar(viennacl::column(x0, Vx), "NVx", ctx.time_step());
-  success *= saveScalar(viennacl::column(x0, Vz), "NVz", ctx.time_step());
-  success *= saveScalar(viennacl::column(x0, Vp), "NVp", ctx.time_step());
-  success *= saveScalar(viennacl::column(x0, Ux), "NUx", ctx.time_step());
-  success *= saveScalar(viennacl::column(x0, Uz), "NUz", ctx.time_step());
-  success *= saveScalar(viennacl::column(x0, Up), "NUp", ctx.time_step());
-  success *= saveScalar(viennacl::column(x0, Bx), "Bx", ctx.time_step());
-  success *= saveScalar(viennacl::column(x0, Bz), "Bz", ctx.time_step());
-  success *= saveScalar(viennacl::column(x0, Bp), "Bp", ctx.time_step());
+  int timestep = ctx.time_step();
+  if (final) { timestep = -1; }
+  success *= saveScalar(viennacl::column(x0, n_p), "Np", timestep);
+  success *= saveScalar(viennacl::column(x0, n_n), "Nn", timestep);
+  success *= saveScalar(viennacl::column(x0, E_p), "Tp", timestep);
+  success *= saveScalar(viennacl::column(x0, E_n), "Tn", timestep);
+  success *= saveScalar(viennacl::column(x0, GLM), "GLM", timestep);
+  success *= saveScalar(viennacl::column(x0, Vx), "NVx", timestep);
+  success *= saveScalar(viennacl::column(x0, Vz), "NVz", timestep);
+  success *= saveScalar(viennacl::column(x0, Vp), "NVp", timestep);
+  success *= saveScalar(viennacl::column(x0, Ux), "NUx", timestep);
+  success *= saveScalar(viennacl::column(x0, Uz), "NUz", timestep);
+  success *= saveScalar(viennacl::column(x0, Up), "NUp", timestep);
+  success *= saveScalar(viennacl::column(x0, Bx), "Bx", timestep);
+  success *= saveScalar(viennacl::column(x0, Bz), "Bz", timestep);
+  success *= saveScalar(viennacl::column(x0, Bp), "Bp", timestep);
 
   return success;
 }
@@ -655,13 +659,20 @@ double comfi::util::getmaxV(const vcl_mat &x0, comfi::types::Context &ctx) {
   vcl_vec NUx = viennacl::column(x0, Ux);
   vcl_vec NUz = viennacl::column(x0, Uz);
   vcl_vec NVz = viennacl::column(x0, Vz);
-  const double fast_p_x = viennacl::linalg::max(element_fabs(element_div(NVx, Np))+comfi::routines::fast_speed_x(x0, ctx));
-  const double fast_p_z = viennacl::linalg::max(element_fabs(element_div(NVz, Np))+comfi::routines::fast_speed_z(x0, ctx));
-  std::cout << "Max speed: (" << fast_p_x << "," << fast_p_z << ") | ";
-  const double sound_n_x = viennacl::linalg::max(element_fabs(element_div(NUx, Nn))+comfi::routines::sound_speed_neutral(x0, ctx));
-  const double sound_n_z = viennacl::linalg::max(element_fabs(element_div(NUz, Nn))+comfi::routines::sound_speed_neutral(x0, ctx));
-  std::cout << "Max speed (n): (" << sound_n_x << "," << sound_n_z << ") | ";
-
+  const double local_p_x = viennacl::linalg::max(element_fabs(element_div(NVx, Np)));
+  const double local_p_z = viennacl::linalg::max(element_fabs(element_div(NVz, Np)));
+  const double local_n_x = viennacl::linalg::max(element_fabs(element_div(NUx, Nn)));
+  const double local_n_z = viennacl::linalg::max(element_fabs(element_div(NUz, Nn)));
+  std::cout << "Max local (p): (" << local_p_x << "," << local_p_z << ") | ";
+  std::cout << "Max local (n): (" << local_n_x << "," << local_n_z << ")" << std::endl;
+  const double fast_p_x = viennacl::linalg::max(comfi::routines::fast_speed_x(x0, ctx));
+  const double fast_p_z = viennacl::linalg::max(comfi::routines::fast_speed_z(x0, ctx));
+  std::cout << "Max fast (p): (" << fast_p_x << "," << fast_p_z << ") | ";
+  const double sound_n_x = viennacl::linalg::max(comfi::routines::sound_speed_neutral(x0, ctx));
+  const double sound_n_z = viennacl::linalg::max(comfi::routines::sound_speed_neutral(x0, ctx));
+  std::cout << "Max sound speed (n): (" << sound_n_x << "," << sound_n_z << ")";
   std::cout << std::endl;
-  return std::max(std::max(fast_p_x, fast_p_z), std::max(sound_n_x, sound_n_z));
+
+  return std::max(std::max(std::max(local_p_x, fast_p_x), std::max(local_p_z, fast_p_z)),
+                  std::max(std::max(sound_n_x, local_n_x), std::max(sound_n_z, local_n_z)));
 }

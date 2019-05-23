@@ -338,10 +338,7 @@ int main(int argc, char** argv)
 
   // Save last 3 sol
   //FIX LATER
-  /*
-  comfi::util::saveSolution(*xn_vcl, -1, op);
-  comfi::util::saveSolution(*xn1_vcl, -2, op);
-  */
+  comfi::util::saveSolution(*xn_vcl, ctx, true);
   RHSfinal.save("output/RHSfinal", arma::raw_binary);
 
   return 0;

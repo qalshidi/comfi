@@ -807,9 +807,11 @@ std::string gettimestr();
  * \brief saveSolution Saves the solution to the output folder
  * \param x0 Solution matrix.
  * \param ctx Simulation context.
+ * \param final If this is the final solution then save under -1.
  * \return Success or fail.
  */
-bool saveSolution(const vcl_mat &x0, comfi::types::Context &ctx);
+bool saveSolution(const vcl_mat &x0, comfi::types::Context &ctx, const bool final = false);
+
 /*!
  * \brief sendtolog Send message to log file.
  * \param message Message std::string to show in log file.

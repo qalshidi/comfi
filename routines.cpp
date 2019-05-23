@@ -322,7 +322,6 @@ vcl_mat comfi::routines::Re_MUSCL(const vcl_mat &xn, comfi::types::Context &ctx)
   viennacl::ocl::enqueue(element_max(Leig_jph_p, Reig_jph_p,
                                      a_jph_p,
                                      cl_uint(Leig_jph_p.size1())));
-  /*
   Leig_iph_p = element_fabs(element_div(ctx.v_NVx(Lxn_iph), ctx.v_Np(Lxn_iph)));
   viennacl::ocl::enqueue(element_max(Leig_iph_p, a_iph_p,
                                      a_iph_p,
@@ -362,7 +361,6 @@ vcl_mat comfi::routines::Re_MUSCL(const vcl_mat &xn, comfi::types::Context &ctx)
   viennacl::ocl::enqueue(element_max(Reig_jmh_p, a_jmh_p,
                                      a_jmh_p,
                                      cl_uint(Reig_jmh_p.size1())));
-                                     */
 
   vcl_mat Leig_iph_n = comfi::routines::sound_speed_neutral_mat(Lxn_iph, ctx);
   vcl_mat Reig_iph_n = comfi::routines::sound_speed_neutral_mat(Rxn_iph, ctx);
@@ -397,7 +395,6 @@ vcl_mat comfi::routines::Re_MUSCL(const vcl_mat &xn, comfi::types::Context &ctx)
                                        cl_uint(Leig_jph_n.size1())));
   }
 
-  /*
   Reig_jph_n = element_fabs(element_div(ctx.v_NUz(Rxn_jph), ctx.v_Nn(Rxn_jph)));
   viennacl::ocl::enqueue(element_max(Reig_jph_n, a_jph_n,
                                      a_jph_n,
@@ -437,7 +434,6 @@ vcl_mat comfi::routines::Re_MUSCL(const vcl_mat &xn, comfi::types::Context &ctx)
   viennacl::ocl::enqueue(element_max(Leig_iph_n, a_iph_n,
                                      a_iph_n,
                                      cl_uint(Leig_iph_n.size1())));
-*/
   static vcl_mat p = viennacl::zero_matrix<double>(1, ctx.num_of_eq());
   static vcl_mat n = viennacl::zero_matrix<double>(1, ctx.num_of_eq());
   static bool unit_vecs_unfilled = true;
@@ -786,15 +782,17 @@ vcl_mat comfi::routines::Fz(const vcl_mat &xn, const vcl_mat &xn_ij, comfi::type
   ctx.v_NUz(F) += Pn;
 
   // Magnetic pressure
-  ctx.v_NVz(F) += 0.5*(element_prod(ctx.v_Bx(xn), ctx.v_Bx(xn))
+  vcl_mat pmag = 0.5*(element_prod(ctx.v_Bx(xn), ctx.v_Bx(xn))
                        +element_prod(ctx.v_Bz(xn), ctx.v_Bz(xn))
                        +element_prod(ctx.v_Bp(xn), ctx.v_Bp(xn)));
+  ctx.v_NVz(F) += pmag;
   ctx.v_NVz(F) -= element_prod(ctx.v_Bz(xn), ctx.v_Bz(xn));
   ctx.v_NVx(F) -= element_prod(ctx.v_Bz(xn), ctx.v_Bx(xn));
   ctx.v_NVp(F) -= element_prod(ctx.v_Bz(xn), ctx.v_Bp(xn));
 
   // Energy flux
-  ctx.v_Ep(F) += element_prod(Pp, V_z);
+  vcl_mat bdotv = element_prod(V_x, ctx.v_Bx(xn)) + element_prod(V_z, ctx.v_Bz(xn)) + element_prod(V_p, ctx.v_Bp(xn));
+  ctx.v_Ep(F) += element_prod(Pp+pmag, V_z) - element_prod(ctx.v_Bz(xn), bdotv);
   ctx.v_En(F) += element_prod(Pn, U_z);
 
   // Flux part of GLM

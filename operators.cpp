@@ -7,55 +7,66 @@ using namespace arma;
 
 vcl_mat comfi::operators::jm1(const vcl_mat &xn, comfi::types::Context ctx) {
   //make sure the dimension exists
-  if (ctx.bc_down() == comfi::types::DIMENSIONLESS) { return xn; }
+  if ((ctx.bc_down() == comfi::types::DIMENSIONLESS) ||
+      (ctx.nz() == 1)) {
+    return xn;
+  }
   //shift values
   vcl_mat xn_jm1 = viennacl::zero_matrix<double>(xn.size1(), xn.size2());
-  viennacl::range eq(0, xn.size2());
-  viennacl::range jm1(0, xn.size1()-ctx.nx());
-  viennacl::range j(ctx.nx(), xn.size1());
+  static viennacl::range eq(0, xn.size2());
+  static viennacl::range jm1(0, xn.size1()-ctx.nx());
+  static viennacl::range j(ctx.nx(), xn.size1());
   viennacl::project(xn_jm1, j, eq) = viennacl::project(xn, jm1, eq);
   //boundary conditions
   if (ctx.bc_down() == comfi::types::NEUMANN) {
-    viennacl::range eq(0, xn.size2());
-    viennacl::range edge(0, ctx.nx());
+    static viennacl::range eq(0, xn.size2());
+    static viennacl::range edge(0, ctx.nx());
     viennacl::project(xn_jm1, edge, eq) = viennacl::project(xn, edge, eq);
   }
   if (ctx.bc_down() == comfi::types::PERIODIC) {
-    viennacl::range eq(0, xn.size2());
-    viennacl::range start(xn.size1()-ctx.nx(), xn.size1());
-    viennacl::range edge(0, ctx.nx());
+    static viennacl::range eq(0, xn.size2());
+    static viennacl::range start(xn.size1()-ctx.nx(), xn.size1());
+    static viennacl::range edge(0, ctx.nx());
     viennacl::project(xn_jm1, edge, eq) = viennacl::project(xn, start, eq);
   }
+
   return xn_jm1;
 }
 
 vcl_mat comfi::operators::jp1(const vcl_mat &xn, comfi::types::Context ctx) {
   //make sure the dimension exists
-  if (ctx.bc_up() == comfi::types::DIMENSIONLESS) { return xn; }
+  if ((ctx.bc_up() == comfi::types::DIMENSIONLESS) ||
+      (ctx.nz() == 1)) {
+    return xn;
+  }
   //shift values
   vcl_mat xn_jp1 = viennacl::zero_matrix<double>(xn.size1(), xn.size2());
-  viennacl::range eq(0, xn.size2());
-  viennacl::range jp1(inds(0, 1, ctx), xn.size1());
-  viennacl::range j(0, xn.size1()-ctx.nx());
+  static viennacl::range eq(0, xn.size2());
+  static viennacl::range jp1(inds(0, 1, ctx), xn.size1());
+  static viennacl::range j(0, xn.size1()-ctx.nx());
   viennacl::project(xn_jp1, j, eq) = viennacl::project(xn, jp1, eq);
   //boundary conditions
   if (ctx.bc_up() == comfi::types::NEUMANN) {
-    viennacl::range eq(0, xn.size2());
-    viennacl::range edge(xn.size1()-ctx.nx(), xn.size1());
+    static viennacl::range eq(0, xn.size2());
+    static viennacl::range edge(xn.size1()-ctx.nx(), xn.size1());
     viennacl::project(xn_jp1, edge, eq) = viennacl::project(xn, edge, eq);
   }
   if (ctx.bc_up() == comfi::types::PERIODIC) {
-    viennacl::range eq(0, xn.size2());
-    viennacl::range edge(xn.size1()-ctx.nx(), xn.size1());
-    viennacl::range start(0, ctx.nx());
+    static viennacl::range eq(0, xn.size2());
+    static viennacl::range edge(xn.size1()-ctx.nx(), xn.size1());
+    static viennacl::range start(0, ctx.nx());
     viennacl::project(xn_jp1, edge, eq) = viennacl::project(xn, start, eq);
   }
+
   return xn_jp1;
 }
 
 vcl_mat comfi::operators::ip1(const vcl_mat &xn, comfi::types::Context ctx) {
   //make sure the dimension exists
-  if (ctx.bc_right() == comfi::types::DIMENSIONLESS) { return xn; }
+  if ((ctx.bc_right() == comfi::types::DIMENSIONLESS) ||
+      (ctx.nx() == 1)) {
+    return xn;
+  }
   //shift values
   vcl_mat xn_ip1 = viennacl::zero_matrix<double>(xn.size1(), xn.size2());
   viennacl::range eq(0, xn.size2());
@@ -82,7 +93,10 @@ vcl_mat comfi::operators::ip1(const vcl_mat &xn, comfi::types::Context ctx) {
 
 vcl_mat comfi::operators::im1(const vcl_mat &xn, comfi::types::Context ctx) {
   //make sure the dimension exists
-  if (ctx.bc_left() == comfi::types::DIMENSIONLESS) { return xn; }
+  if ((ctx.bc_left() == comfi::types::DIMENSIONLESS) ||
+      (ctx.nx() == 1)) {
+    return xn;
+  }
   //shift values
   vcl_mat xn_im1 = viennacl::zero_matrix<double>(xn.size1(), xn.size2());
   viennacl::range eq(0, xn.size2());
@@ -104,6 +118,7 @@ vcl_mat comfi::operators::im1(const vcl_mat &xn, comfi::types::Context ctx) {
     viennacl::slice start(0, ctx.nx(), ctx.nz());
     viennacl::project(xn_im1, start, eq) = viennacl::project(xn, edge, eq);
   }
+
   return xn_im1;
 }
 

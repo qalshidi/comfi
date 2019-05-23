@@ -17,7 +17,7 @@ const double  B_0 = 1;
 /// num of grid points in horizontal direction
 const uint nx = 1;
 /// num of grid points in vertical direction
-const uint nz = 1001;
+const uint nz = 501;
 
 const unsigned int num_of_grid = nx*nz;
 const unsigned int num_of_elem = num_of_eq*nx*nz;
@@ -25,7 +25,8 @@ const unsigned int num_of_species = 2;
 
 // Normalization and constants (SI units)
 /// ratio of specific heats
-const double gammamono = 5.0/3.0;
+//const double gammamono = 5.0/3.0;
+const double gammamono = 2.0;
 /// π
 const double  pi                = arma::datum::pi;
 /// mass of proton in kg
