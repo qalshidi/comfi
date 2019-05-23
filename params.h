@@ -15,9 +15,9 @@ const double  n_0 = 1;
 /// in T
 const double  B_0 = 1;
 /// num of grid points in horizontal direction
-const uint nx = 1;
+const uint nx = 64;
 /// num of grid points in vertical direction
-const uint nz = 501;
+const uint nz = 64;
 
 const unsigned int num_of_grid = nx*nz;
 const unsigned int num_of_elem = num_of_eq*nx*nz;
@@ -25,8 +25,8 @@ const unsigned int num_of_species = 2;
 
 // Normalization and constants (SI units)
 /// ratio of specific heats
-//const double gammamono = 5.0/3.0;
-const double gammamono = 2.0;
+const double gammamono = 5.0/3.0;
+//const double gammamono = 2.0;
 /// π
 const double  pi                = arma::datum::pi;
 /// mass of proton in kg
@@ -69,8 +69,7 @@ const double kappa_0           = q_0*l_0/T_0;
 
 const double dx = (width/nx)/l_0; const double dz = (height/nz)/l_0;
 const double dx2 = dx*dx; const double dz2 = dz*dz;
-//const double ds = dx*(dx<=dz)+dz*(dz<dx);
-const double ds = dz;
+const double ds = dx*(dx<=dz)+dz*(dz<dx);
 
 /// isothermal temp IC
 const double T0 = 6580.0/T_0;

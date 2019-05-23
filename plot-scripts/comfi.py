@@ -43,7 +43,10 @@ class Results:
         return np.array(self.file['/'+str(step)+'/'+varname])
     def get_time_vector(self):
         return np.array(self.file['t'][0, :])
-
+    def pressure_p(self, step):
+        k_e = self.get_var('NVx', step)**2 + self.get_var('NVz', step)**2 + self.get_var('NVp', step)**2
+        b_e = 0.5*(self.get_var('Bx', step)**2 + self.get_var('Bz', step)**2 + self.get_var('Bp', step)**2)
+        return (5./3. - 1.)*(self.get_var('Tp', step)-k_e-b_e)
     def nu_in(self, step):
         """ Returns the ion neutral collision frequency """
         sigma_in = 1.16e-18 # m-2

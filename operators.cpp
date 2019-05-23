@@ -12,7 +12,7 @@ vcl_mat comfi::operators::jm1(const vcl_mat &xn, comfi::types::Context ctx) {
     return xn;
   }
   //shift values
-  vcl_mat xn_jm1 = viennacl::zero_matrix<double>(xn.size1(), xn.size2());
+  vcl_mat xn_jm1(xn.size1(), xn.size2());
   static viennacl::range eq(0, xn.size2());
   static viennacl::range jm1(0, xn.size1()-ctx.nx());
   static viennacl::range j(ctx.nx(), xn.size1());
@@ -40,7 +40,7 @@ vcl_mat comfi::operators::jp1(const vcl_mat &xn, comfi::types::Context ctx) {
     return xn;
   }
   //shift values
-  vcl_mat xn_jp1 = viennacl::zero_matrix<double>(xn.size1(), xn.size2());
+  vcl_mat xn_jp1(xn.size1(), xn.size2());
   static viennacl::range eq(0, xn.size2());
   static viennacl::range jp1(inds(0, 1, ctx), xn.size1());
   static viennacl::range j(0, xn.size1()-ctx.nx());
@@ -68,14 +68,25 @@ vcl_mat comfi::operators::ip1(const vcl_mat &xn, comfi::types::Context ctx) {
     return xn;
   }
   //shift values
-  vcl_mat xn_ip1 = viennacl::zero_matrix<double>(xn.size1(), xn.size2());
+  vcl_mat xn_ip1(xn.size1(), xn.size2());
   viennacl::range eq(0, xn.size2());
-  #pragma omp parallel for
+  viennacl::range ip1[ctx.nz()];
+  viennacl::range i[ctx.nz()];
+  #pragma omp parallel for schedule(dynamic)
+  for(uint j = 0; j < ctx.nz(); j++) {
+    ip1[j] = viennacl::range(inds(1, j, ctx), inds(ctx.nx()-1, j, ctx)+1);
+    i[j] = viennacl::range(inds(0, j, ctx), inds(ctx.nx()-2, j, ctx)+1);
+  }
+  for(uint j = 0; j < ctx.nz(); j++) {
+    viennacl::project(xn_ip1, i[j], eq) = viennacl::project(xn, ip1[j], eq);
+  }
+  /*
   for(uint j = 0; j < ctx.nz(); j++) {
     viennacl::range ip1(inds(1, j, ctx), inds(ctx.nx()-1, j, ctx)+1);
     viennacl::range i(inds(0, j, ctx), inds(ctx.nx()-2, j, ctx)+1);
     viennacl::project(xn_ip1, i, eq) = viennacl::project(xn, ip1, eq);
   }
+  */
   //boundary conditions
   if (ctx.bc_right() == comfi::types::NEUMANN) {
     viennacl::slice eq(0, 1, xn.size2());
@@ -98,13 +109,17 @@ vcl_mat comfi::operators::im1(const vcl_mat &xn, comfi::types::Context ctx) {
     return xn;
   }
   //shift values
-  vcl_mat xn_im1 = viennacl::zero_matrix<double>(xn.size1(), xn.size2());
+  vcl_mat xn_im1(xn.size1(), xn.size2());
   viennacl::range eq(0, xn.size2());
-  #pragma omp parallel for
+  viennacl::range im1[ctx.nz()];
+  viennacl::range i[ctx.nz()];
+  #pragma omp parallel for schedule(dynamic)
   for(uint j = 0; j < ctx.nz(); j++) {
-    viennacl::range im1(inds(0, j, ctx), inds(ctx.nx()-2, j, ctx)+1);
-    viennacl::range i(inds(1, j, ctx), inds(ctx.nx()-1, j, ctx)+1);
-    viennacl::project(xn_im1, i, eq) = viennacl::project(xn, im1, eq);
+    im1[j] = viennacl::range(inds(0, j, ctx), inds(ctx.nx()-2, j, ctx)+1);
+    i[j] = viennacl::range(inds(1, j, ctx), inds(ctx.nx()-1, j, ctx)+1);
+  }
+  for(uint j = 0; j < ctx.nz(); j++) {
+    viennacl::project(xn_im1, i[j], eq) = viennacl::project(xn, im1[j], eq);
   }
   //boundary conditions
   if (ctx.bc_left() == comfi::types::NEUMANN) {

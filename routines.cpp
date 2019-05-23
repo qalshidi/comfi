@@ -456,12 +456,14 @@ vcl_mat comfi::routines::Re_MUSCL(const vcl_mat &xn, comfi::types::Context &ctx)
   }
 
   // LAX-FRIEDRICHS FLUX
-  /*
-  const vcl_vec Fximh = 0.5*(mhdsim::routines::Fx(Lxn_imh, sNp, op)+mhdsim::routines::Fx(Rxn_imh, sNp, op))
-                      - element_prod(a_imh,(Rxn_imh - Lxn_imh));
-  const vcl_vec Fxiph = 0.5*(mhdsim::routines::Fx(Lxn_iph, sNp, op)+mhdsim::routines::Fx(Rxn_iph, sNp, op))
-                      - element_prod(a_iph,(Rxn_iph-Lxn_iph));
-  */
+  vcl_mat a_imh = prod(a_imh_p, p)
+                 +prod(a_imh_n, n);
+  const vcl_mat Fximh = 0.5*(comfi::routines::Fx(Lxn_imh, xn, ctx)+comfi::routines::Fx(Rxn_imh, xn, ctx))
+                             -element_prod(a_imh, (Rxn_imh-Lxn_imh));
+  vcl_mat a_iph = prod(a_iph_p, p)
+                 +prod(a_iph_n, n);
+  const vcl_mat Fxiph = 0.5*(comfi::routines::Fx(Lxn_iph, xn, ctx)+comfi::routines::Fx(Rxn_iph, xn, ctx))
+                             -element_prod(a_iph, (Rxn_iph-Lxn_iph));
   vcl_mat a_jmh = prod(a_jmh_p, p)
                  +prod(a_jmh_n, n);
   const vcl_mat Fzjmh = 0.5*(comfi::routines::Fz(Lxn_jmh, xn, ctx)+comfi::routines::Fz(Rxn_jmh, xn, ctx))
@@ -472,7 +474,7 @@ vcl_mat comfi::routines::Re_MUSCL(const vcl_mat &xn, comfi::types::Context &ctx)
   const vcl_mat Fzjph = 0.5*(comfi::routines::Fz(Lxn_jph, xn, ctx)+comfi::routines::Fz(Rxn_jph, xn, ctx))
                              -element_prod(a_jph, (Rxn_jph-Lxn_jph));
 
-  return //-1.0*(Fxiph-Fximh)/dx
+  return -1.0*(Fxiph-Fximh)/dx
          -1.0*(Fzjph-Fzjmh)/dz;
          //+ prod(op.f2V, v_collission_source)
          //- prod(op.f2U, v_collission_source)
@@ -495,18 +497,26 @@ vcl_mat comfi::routines::Re_MUSCL(const vcl_mat &xn, comfi::types::Context &ctx)
          //- prod(op.f2B,gradrescrossJ);
 }
 
-/*
-vcl_vec comfi::routines::computeRHS_RK4(const vcl_vec &xn, const double dt, const double t, const comfi::types::Operators &op, const comfi::types::BgData &bg)
+vcl_mat comfi::routines::computeRHS_RK4(const vcl_mat &xn, comfi::types::Context &ctx)
 {
+  const double dt = ctx.dt();
   // RK-4
-  const vcl_vec k1 = Re_MUSCL(xn,t,op,bg)*dt; //return xn+k1;
-  const vcl_vec k2 = Re_MUSCL(xn+0.5*k1,t+0.5*dt,op,bg)*dt;
-  const vcl_vec k3 = Re_MUSCL(xn+0.5*k2,t+0.5*dt,op,bg)*dt;
-  const vcl_vec k4 = Re_MUSCL(xn+k3,t+dt,op,bg)*dt;
+  const vcl_mat k1 = Re_MUSCL(xn, ctx)*dt; //return xn+k1;
+  //const vcl_mat k2 = Re_MUSCL(xn+0.5*k1,t+0.5*dt,op,bg)*dt;
+  const vcl_mat k2 = Re_MUSCL(xn+0.5*k1, ctx)*dt;
+  //const vcl_mat k3 = Re_MUSCL(xn+0.5*k2,t+0.5*dt,op,bg)*dt;
+  const vcl_mat k3 = Re_MUSCL(xn+0.5*k2, ctx)*dt;
+  //const vcl_mat k4 = Re_MUSCL(xn+k3,t+dt,op,bg)*dt;
+  const vcl_mat k4 = Re_MUSCL(xn+k3, ctx)*dt;
 
-  return xn + (k1+2.0*k2+2.0*k3+k4)/6.0;
+  vcl_mat result = xn + (k1+2.0*k2+2.0*k3+k4)/6.0;
+  // GLM exact solution
+  const double a = 0.5;
+  const double ch = ds/ctx.dt();
+  ctx.v_GLM(result) *= std::exp(-a*ch/(ds/ctx.dt()));
+
+  return result;
 }
-*/
 /*const vcl_vec mhdsim::routines::computeRHS_RK4SI(const vcl_vec &xn, const sp_mat_vcl &Ri, const double dt, const double t, const mhdsim::types::Operators &op, const BgData &bg)
 {
   // RK-4
@@ -735,6 +745,69 @@ vcl_vec comfi::routines::Fx(const vcl_vec &xn, const vcl_vec &Npij, const comfi:
     + prod(op.f2B, BxJ_JxBoverN)
     - two_thirds*prod(op.s2Tp,resBcrossJ)    //ohmic heating
     + prod(op.s2GLM,Bx)*op.ch*op.ch;
+
+  return F;
+}
+
+vcl_mat comfi::routines::Fx(const vcl_mat &xn, const vcl_mat &xn_ij, comfi::types::Context &ctx)
+{
+  vcl_mat F = viennacl::zero_matrix<double>(xn.size1(), xn.size2());
+
+  vcl_mat V_x(xn.size1(), 1);
+  vcl_mat U_x(xn.size1(), 1);
+  vcl_mat V_z(xn.size1(), 1);
+  vcl_mat U_z(xn.size1(), 1);
+  vcl_mat V_p(xn.size1(), 1);
+  vcl_mat U_p(xn.size1(), 1);
+  V_x = element_div(ctx.v_NVx(xn), ctx.v_Np(xn));
+  U_x = element_div(ctx.v_NUx(xn), ctx.v_Nn(xn));
+  V_z = element_div(ctx.v_NVz(xn), ctx.v_Np(xn));
+  U_z = element_div(ctx.v_NUz(xn), ctx.v_Nn(xn));
+  V_p = element_div(ctx.v_NVp(xn), ctx.v_Np(xn));
+  U_p = element_div(ctx.v_NUp(xn), ctx.v_Nn(xn));
+
+  // Local speed flux -> quantity*Vz
+  ctx.v_Np(F) = element_prod(ctx.v_Np(xn), V_x);
+  ctx.v_Nn(F) = element_prod(ctx.v_Nn(xn), U_x);
+  ctx.v_NVx(F) = element_prod(ctx.v_NVx(xn), V_x);
+  ctx.v_NVz(F) = element_prod(ctx.v_NVz(xn), V_x);
+  ctx.v_NVp(F) = element_prod(ctx.v_NVp(xn), V_x);
+  ctx.v_NUx(F) =  element_prod(ctx.v_NUx(xn), U_x);
+  ctx.v_NUz(F) = element_prod(ctx.v_NUz(xn), U_x);
+  ctx.v_NUp(F) = element_prod(ctx.v_NUp(xn), U_x);
+  ctx.v_Ep(F) = element_prod(ctx.v_Ep(xn), V_x);
+  ctx.v_En(F) = element_prod(ctx.v_En(xn), U_x);
+
+  // Induction VB-BV
+  ctx.v_Bz(F) = element_prod(V_x, ctx.v_Bz(xn)) - element_prod(ctx.v_Bx(xn), V_z);
+  ctx.v_Bp(F) = element_prod(V_x, ctx.v_Bp(xn)) - element_prod(ctx.v_Bx(xn), V_p);
+
+  // General Lagrange Multiplier
+  ctx.v_Bx(F) = ctx.v_GLM(xn);
+
+  // Thermal pressure
+  vcl_mat Pp = comfi::routines::pressure_p(xn, ctx);
+  ctx.v_NVx(F) += Pp;
+  vcl_mat Pn = comfi::routines::pressure_n(xn, ctx);
+  ctx.v_NUx(F) += Pn;
+
+  // Magnetic pressure
+  vcl_mat pmag = 0.5*(element_prod(ctx.v_Bx(xn), ctx.v_Bx(xn))
+                       +element_prod(ctx.v_Bz(xn), ctx.v_Bz(xn))
+                       +element_prod(ctx.v_Bp(xn), ctx.v_Bp(xn)));
+  ctx.v_NVx(F) += pmag;
+  ctx.v_NVz(F) -= element_prod(ctx.v_Bz(xn), ctx.v_Bz(xn));
+  ctx.v_NVx(F) -= element_prod(ctx.v_Bz(xn), ctx.v_Bx(xn));
+  ctx.v_NVp(F) -= element_prod(ctx.v_Bz(xn), ctx.v_Bp(xn));
+
+  // Energy flux
+  vcl_mat bdotv = element_prod(V_x, ctx.v_Bx(xn)) + element_prod(V_z, ctx.v_Bz(xn)) + element_prod(V_p, ctx.v_Bp(xn));
+  ctx.v_Ep(F) += element_prod(Pp+pmag, V_x) - element_prod(ctx.v_Bx(xn), bdotv);
+  ctx.v_En(F) += element_prod(Pn, U_x);
+
+  // Flux part of GLM
+  const double ch = ds/ctx.dt();
+  ctx.v_GLM(F) = ch*ch*ctx.v_Bx(xn);
 
   return F;
 }

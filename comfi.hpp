@@ -843,6 +843,13 @@ std::tuple<arma::vec, const comfi::types::BgData> calcReconnectionIC(const comfi
 std::tuple<arma::vec, const comfi::types::BgData> calcSolerIC(const comfi::types::Operators &op);
 
 /*!
+ * \brief Calculate the initial condition based on Orszang-Tang Vortex.
+ * \param ctx Simulation context
+ * \return initial condition matrix
+ */
+vcl_mat ot_vortex_ic(comfi::types::Context &ctx);
+
+/*!
  * \brief Calculate the initial condition based on Sod's Shock Tube.
  * \param ctx Simulation context
  * \return initial condition matrix
@@ -1024,6 +1031,15 @@ vcl_mat pressure_p(const vcl_mat &xn, comfi::types::Context &ctx);
 vcl_mat pressure_n(const vcl_mat &xn, comfi::types::Context &ctx);
 
 /*!
+ * \brief Fx Get flux values in the x direction.
+ * \param xn Solution matrix in the cell edge.
+ * \param xn_ij Solution matrix in the cell center.
+ * \param ctx Simulation context.
+ * \return Flux function matrix results.
+ */
+vcl_mat Fx(const vcl_mat &xn, const vcl_mat &xn_ij, comfi::types::Context &ctx);
+
+/*!
  * \brief Fz Get flux values in the z direction.
  * \param xn Solution matrix in the cell edge.
  * \param xn_ij Solution matrix in the cell center.
@@ -1165,6 +1181,17 @@ vcl_mat computeRHS_Euler(const vcl_mat &xn, comfi::types::Context &ctx);
  * \return Right hand side result arma::vector
  */
 vcl_vec computeRHS_Euler(const vcl_vec &xn, const double dt, const double t, const comfi::types::Operators &op, const comfi::types::BgData &bg);
+
+/*!
+ * \brief computeRHS_RK4 Compute right hand side using Runge-Kutta 4 time stepping.
+ * \param xn Current time step result arma::vector
+ * \param dt Change in time
+ * \param t Time elapsed
+ * \param op operators
+ * \param bg Background data
+ * \return  Right hand side result arma::vector
+ */
+vcl_mat computeRHS_RK4(const vcl_mat &xn, comfi::types::Context &ctx);
 
 /*!
  * \brief computeRHS_RK4 Compute right hand side using Runge-Kutta 4 time stepping.

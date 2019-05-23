@@ -65,6 +65,39 @@ std::tuple<arma::vec, const comfi::types::BgData> comfi::util::calcSolerIC(const
   return std::make_tuple(xn, bg);
 }
 
+vcl_mat comfi::util::ot_vortex_ic(comfi::types::Context &ctx) {
+  const double b = 1.0/std::sqrt(4.0*arma::datum::pi),
+               n = 25.0/(36.0*arma::datum::pi),
+               p = 5.0/(12.0*arma::datum::pi);
+
+  arma::mat xn = arma::zeros<arma::mat>(ctx.num_of_grid(), ctx.num_of_eq());
+
+  std::cout << "Building initial condition...";
+  #pragma omp parallel for schedule(static)
+  for (uint index = 0; index < ctx.num_of_grid(); index++) {
+    //indexing
+    const uint i=(index)%nx;
+    const uint j=(index)/nx;
+    const arma::uword ij = inds(i, j, ctx);
+
+    xn(ij, n_p) = n;
+    xn(ij, n_n) = n;
+    xn(ij, E_p) = p/(gammamono-1.0);
+    xn(ij, E_n) = p/(gammamono-1.0);
+    xn(ij, Bp) = b;
+    xn(ij, Bx) = -b*std::sin(2.0*arma::datum::pi*j*dz);
+    xn(ij, Bz) = b*std::sin(4.0*arma::datum::pi*i*dx);
+    xn(ij, Vx) = -1.0*n*std::sin(2.0*arma::datum::pi*j*dz);
+    xn(ij, Vz) = n*std::sin(2.0*arma::datum::pi*i*dx);
+  }
+  std::cout << "Orszang-Tang Vortex Initial Conditions: (" << ctx.nx() << "," << ctx.nz() <<
+               ") Size: " << xn.size() << std::endl;
+
+  vcl_mat xn_vcl(ctx.num_of_grid(), ctx.num_of_eq());
+  viennacl::copy(xn, xn_vcl);
+  return xn_vcl;
+}
+
 vcl_mat comfi::util::shock_tube_ic(comfi::types::Context &ctx) {
   const double b = 0.75, b_l = 1.0, n_l = 1.0, p_l = 1.0, b_r = -1.0, n_r = 0.125, p_r = 0.1;
 
@@ -83,14 +116,14 @@ vcl_mat comfi::util::shock_tube_ic(comfi::types::Context &ctx) {
       xn(ij, n_n) = n_l;
       xn(ij, E_n) = p_l/(gammamono-1.0);
       xn(ij, E_p) = p_l/(gammamono-1.0);
-      xn(ij, Bp) = b_l;
+      xn(ij, Bx) = b_l;
       xn(ij, Bz) = b;
     } else {
       xn(ij, E_n) = p_r/(gammamono-1.0);
       xn(ij, E_p) = p_r/(gammamono-1.0);
       xn(ij, n_p) = n_r;
       xn(ij, n_n) = n_r;
-      xn(ij, Bp) = b_r;
+      xn(ij, Bx) = b_r;
       xn(ij, Bz) = b;
     }
   }
@@ -673,6 +706,10 @@ double comfi::util::getmaxV(const vcl_mat &x0, comfi::types::Context &ctx) {
   std::cout << "Max sound speed (n): (" << sound_n_x << "," << sound_n_z << ")";
   std::cout << std::endl;
 
+  /*
   return std::max(std::max(std::max(local_p_x, fast_p_x), std::max(local_p_z, fast_p_z)),
                   std::max(std::max(sound_n_x, local_n_x), std::max(sound_n_z, local_n_z)));
+                  */
+  return std::max(std::max(local_p_x+fast_p_x, local_p_z+fast_p_z),
+                  std::max(sound_n_x+local_n_x, sound_n_z+local_n_z));
 }
