@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 3.1)
 project (comfi C CXX)
 set (CMAKE_CXX_STANDARD 11)
 
-set(COMFI_SOURCES types.cpp operators.cpp util.cpp routines.cpp main.cpp)
+file(GLOB COMFI_SOURCES "src/*cpp")
 include_directories("${PROJECT_SOURCE_DIR}")
 
 #detect openmp
