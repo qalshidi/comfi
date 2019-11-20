@@ -49,3 +49,8 @@ set_target_properties(comfi PROPERTIES LINKER_LANGUAGE CXX)
 target_link_libraries (comfi ${OpenCL_LIBRARIES} ${ARMADILLO_LIBRARIES} ${HDF5_LIBRARIES})
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/comfi)
+
+# Make the directory structure in the binary directory
+file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/comfi/output)
+file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/comfi/input)
+file(COPY kernels_ocl DESTINATION ${PROJECT_BINARY_DIR}/comfi) 

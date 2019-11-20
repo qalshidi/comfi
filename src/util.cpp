@@ -684,6 +684,55 @@ bool comfi::util::sanityCheck(vcl_vec &xn, const comfi::types::Operators &op)
   return !((!saneP)|(!saneN)); // return false if either are insane (returns true if completely sane)
 }
 
+void comfi::util::interpret_arguments(comfi::util::Settings &settings, int argc, char** argv) {
+  if (argc != 1) // if arguments were passed
+  {
+    // parse arguments
+    for(int i=1; i < argc; i++)
+    {
+      if(argv[i][0] == '-') // if starts with hyphen
+      {
+        if (i != argc-1) {
+          std::string argument = argv[i];
+          if (argument == "-max_time_steps") {
+            std::string value = argv[i+1];
+            settings.max_time_steps = stoi(value,nullptr,10);
+          } else if (argument == "-max_time") {
+            std::string value = argv[i+1];
+            settings.max_time = std::stod(value);
+          } else if (argument == "-save_dt") {
+            std::string value = argv[i+1];
+            settings.save_dt = stoi(value,nullptr,10);
+          } else if (argument == "-save_dn") {
+            std::string value = argv[i+1];
+            settings.save_dn = stoi(value,nullptr,10);
+          } else if (argument == "-tolerance")
+          {
+            std::string value = argv[i+1];
+            settings.tolerance = std::stod(value);
+          } else if (argument == "-leftbc") {
+            // TODO
+            std::string value = argv[i+1];
+          } else if (argument == "-rightbc") {
+            // TODO
+            std::string value = argv[i+1];
+          } else if (argument == "-upbc") {
+            // TODO
+            std::string value = argv[i+1];
+          } else if (argument == "-downbc") {
+            // TODO
+            std::string value = argv[i+1];
+          } else if (argument == "-resume") {
+            settings.resumed = true;
+          } else {
+            std::cerr << "The command line option \'" << argument << "\' is not recognized. Using defaults for unspecified parameters." << std::endl;
+          }
+        }
+      }
+    }
+  }
+}
+
 double comfi::util::getmaxV(const vcl_mat &x0, comfi::types::Context &ctx) {
   using namespace viennacl::linalg;
   vcl_vec Np = viennacl::column(x0, n_p);
@@ -713,3 +762,10 @@ double comfi::util::getmaxV(const vcl_mat &x0, comfi::types::Context &ctx) {
   return std::max(std::max(local_p_x+fast_p_x, local_p_z+fast_p_z),
                   std::max(sound_n_x+local_n_x, sound_n_z+local_n_z));
 }
+
+/*
+vim: tabstop=2
+vim: shiftwidth=2
+vim: smarttab
+vim: expandtab
+*/

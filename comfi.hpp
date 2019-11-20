@@ -310,13 +310,16 @@ public:
   viennacl::range r_Ep() const { return m_r_Ep; }
   viennacl::range r_En() const { return m_r_En; }
   viennacl::range r_GLM() const { return m_r_GLM; }
-  void set_dt(double dt, bool advance = true) {
+
+  void set_dt(double dt) {
     m_dt = dt;
-    if (advance) {
-      m_time_elapsed += dt;
-      m_time_step++;
-    }
   }
+
+  void advance() {
+    m_time_elapsed += m_dt;
+    m_time_step++;
+  }
+
   double dt() const { return m_dt; }
   double time_elapsed() const { return m_time_elapsed; }
   uint time_step() const { return m_time_step; }
@@ -980,6 +983,24 @@ vcl_mat vec_to_mat(const vcl_vec &vec);
 bool saveField(const arma::vec &x0, const std::string name, const int timestep);
 
 /*!
+ * \struct Settings
+ * \brief The settings for the simulation (used in main loop) are here.
+ */
+struct Settings {
+  int max_time_steps = -1;
+  double max_time = -1.0; //in t_0
+  double tolerance = 1.e-6;   //gmres tolerance
+  int save_dn = -1;       //save solution every X time steps
+  double save_dt = -1;       //save solution every X time steps
+  bool resumed = false;   //If this run resumes a previous run
+};
+
+/*!
+ * \brief Read the arguments passed to the executable and change the Settings struct.
+ */
+void interpret_arguments(Settings &settings, int argc, char** argv);
+
+/*!
  * \brief saveScalar Write a binary file of a scalar arma::vector.
  * \param x0 result arma::vector
  * \param name Name of scalar, will be used as filename prefix.
@@ -1556,3 +1577,10 @@ inline arma::uword inds(const arma::uword &i, const arma::uword &j, comfi::types
 {
   return i+j*ctx.nx();
 }
+
+/*
+vim: tabstop=2
+vim: shiftwidth=2
+vim: smarttab
+vim: expandtab
+*/
