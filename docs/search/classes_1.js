@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['operators',['Operators',['../structcomfi_1_1types_1_1Operators.html',1,'comfi::types']]]
+  ['results',['Results',['../classcomfi_1_1Results.html',1,'comfi']]]
 ];

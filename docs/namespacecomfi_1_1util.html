@@ -71,7 +71,6 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">comfi::util Namespace Reference</div>  </div>
@@ -81,12 +80,6 @@ $(function() {
 <p>Utility functions.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcomfi_1_1util_1_1Settings.html">Settings</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The settings for the simulation (used in main loop) are here.  <a href="structcomfi_1_1util_1_1Settings.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a1b591e6465dea1f591c8b33108b27e19"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomfi_1_1util.html#a1b591e6465dea1f591c8b33108b27e19">gettimestr</a> ()</td></tr>
@@ -107,37 +100,16 @@ Functions</h2></td></tr>
 <tr class="memitem:ad42be9a4b486aff5fe357e6297436f4d"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomfi_1_1util.html#ad42be9a4b486aff5fe357e6297436f4d">getmaxV</a> (const <a class="el" href="comfi_8hpp.html#a30f5152afa8c2a2d152c897c0ed82eb1">vcl_mat</a> &amp;x0, <a class="el" href="classcomfi_1_1types_1_1Context.html">comfi::types::Context</a> &amp;ctx)</td></tr>
 <tr class="memdesc:ad42be9a4b486aff5fe357e6297436f4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">getmaxV get fast mode speed + local speed OR resistivity speed whichever is faster  <a href="#ad42be9a4b486aff5fe357e6297436f4d">More...</a><br /></td></tr>
 <tr class="separator:ad42be9a4b486aff5fe357e6297436f4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afefae42f8cf67b91b082fe76452660c0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomfi_1_1util.html#afefae42f8cf67b91b082fe76452660c0">saveSolution</a> (const <a class="el" href="comfi_8hpp.html#a6642d3613bf26ca9c62ab358018c0201">vcl_vec</a> &amp;x0, const int &amp;timestep, <a class="el" href="structcomfi_1_1types_1_1Operators.html">comfi::types::Operators</a> &amp;op)</td></tr>
-<tr class="memdesc:afefae42f8cf67b91b082fe76452660c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">saveSolution Save solution into seperate binary files for each unknown.  <a href="#afefae42f8cf67b91b082fe76452660c0">More...</a><br /></td></tr>
-<tr class="separator:afefae42f8cf67b91b082fe76452660c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf5813e02fda59f6780630a23a1cdc35"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomfi_1_1util.html#acf5813e02fda59f6780630a23a1cdc35">getsumBE</a> (const <a class="el" href="comfi_8hpp.html#a6642d3613bf26ca9c62ab358018c0201">vcl_vec</a> &amp;x0, const <a class="el" href="structcomfi_1_1types_1_1Operators.html">comfi::types::Operators</a> &amp;op)</td></tr>
-<tr class="memdesc:acf5813e02fda59f6780630a23a1cdc35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the magnetic field energy density sum of all grid cells.  <a href="#acf5813e02fda59f6780630a23a1cdc35">More...</a><br /></td></tr>
-<tr class="separator:acf5813e02fda59f6780630a23a1cdc35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adfd0e4ec0685d0b916b2b857288428c5"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomfi_1_1util.html#adfd0e4ec0685d0b916b2b857288428c5">getsumKE</a> (const <a class="el" href="comfi_8hpp.html#a6642d3613bf26ca9c62ab358018c0201">vcl_vec</a> &amp;x0, const <a class="el" href="structcomfi_1_1types_1_1Operators.html">comfi::types::Operators</a> &amp;op)</td></tr>
-<tr class="memdesc:adfd0e4ec0685d0b916b2b857288428c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the kinetic energy density sum of all grid cells.  <a href="#adfd0e4ec0685d0b916b2b857288428c5">More...</a><br /></td></tr>
-<tr class="separator:adfd0e4ec0685d0b916b2b857288428c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63ae3ce4db1a5739683f4294586b2618"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomfi_1_1util.html#a63ae3ce4db1a5739683f4294586b2618">getsumUE</a> (const <a class="el" href="comfi_8hpp.html#a6642d3613bf26ca9c62ab358018c0201">vcl_vec</a> &amp;x0, const <a class="el" href="structcomfi_1_1types_1_1Operators.html">comfi::types::Operators</a> &amp;op)</td></tr>
-<tr class="memdesc:a63ae3ce4db1a5739683f4294586b2618"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the thermal energy density sum of all grid cells.  <a href="#a63ae3ce4db1a5739683f4294586b2618">More...</a><br /></td></tr>
-<tr class="separator:a63ae3ce4db1a5739683f4294586b2618"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6c2a660295fa994c0dc8adcaec876d9"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomfi_1_1util.html#ac6c2a660295fa994c0dc8adcaec876d9">getsumBE</a> (const arma::vec &amp;x0)</td></tr>
-<tr class="memdesc:ac6c2a660295fa994c0dc8adcaec876d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the magnetic field energy density sum of all grid cells.  <a href="#ac6c2a660295fa994c0dc8adcaec876d9">More...</a><br /></td></tr>
-<tr class="separator:ac6c2a660295fa994c0dc8adcaec876d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4c1b6dbaeee28373a0171059b8f0f55"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomfi_1_1util.html#aa4c1b6dbaeee28373a0171059b8f0f55">getsumKE</a> (const arma::vec &amp;x0)</td></tr>
-<tr class="memdesc:aa4c1b6dbaeee28373a0171059b8f0f55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the sum of the kinetic energy of all grid cells.  <a href="#aa4c1b6dbaeee28373a0171059b8f0f55">More...</a><br /></td></tr>
-<tr class="separator:aa4c1b6dbaeee28373a0171059b8f0f55"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9542bf43dd5d549082e5fbc9013869c3"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomfi_1_1util.html#a9542bf43dd5d549082e5fbc9013869c3">getsumUE</a> (const arma::vec &amp;x0)</td></tr>
-<tr class="memdesc:a9542bf43dd5d549082e5fbc9013869c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the sum of the thermal energy density of all grid cells.  <a href="#a9542bf43dd5d549082e5fbc9013869c3">More...</a><br /></td></tr>
-<tr class="separator:a9542bf43dd5d549082e5fbc9013869c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7d43bc0835efddee759a22f80c4b7a48"><td class="memItemLeft" align="right" valign="top"><a class="el" href="comfi_8hpp.html#a30f5152afa8c2a2d152c897c0ed82eb1">vcl_mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomfi_1_1util.html#a7d43bc0835efddee759a22f80c4b7a48">vec_to_mat</a> (const <a class="el" href="comfi_8hpp.html#a6642d3613bf26ca9c62ab358018c0201">vcl_vec</a> &amp;vec)</td></tr>
 <tr class="memdesc:a7d43bc0835efddee759a22f80c4b7a48"><td class="mdescLeft">&#160;</td><td class="mdescRight">vec_to_mat Change a column vector to a viennacl::matrix type with one column  <a href="#a7d43bc0835efddee759a22f80c4b7a48">More...</a><br /></td></tr>
 <tr class="separator:a7d43bc0835efddee759a22f80c4b7a48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19a72d0b5c8d6ee6f97338d489d8d488"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomfi_1_1util.html#a19a72d0b5c8d6ee6f97338d489d8d488">saveField</a> (const arma::vec &amp;x0, const std::string name, const int timestep)</td></tr>
 <tr class="memdesc:a19a72d0b5c8d6ee6f97338d489d8d488"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a binary file of a field arma::vector.  <a href="#a19a72d0b5c8d6ee6f97338d489d8d488">More...</a><br /></td></tr>
 <tr class="separator:a19a72d0b5c8d6ee6f97338d489d8d488"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d5387eb704d756f0eb5f40bc186e849"><td class="memItemLeft" align="right" valign="top"><a id="a1d5387eb704d756f0eb5f40bc186e849"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomfi_1_1util.html#a1d5387eb704d756f0eb5f40bc186e849">interpret_arguments</a> (<a class="el" href="structcomfi_1_1util_1_1Settings.html">Settings</a> &amp;settings, int argc, char **argv)</td></tr>
-<tr class="memdesc:a1d5387eb704d756f0eb5f40bc186e849"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the arguments passed to the executable and change the <a class="el" href="structcomfi_1_1util_1_1Settings.html" title="The settings for the simulation (used in main loop) are here. ">Settings</a> struct. <br /></td></tr>
-<tr class="separator:a1d5387eb704d756f0eb5f40bc186e849"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f58e3b111f6b261072a1b3c4df7cdf7"><td class="memItemLeft" align="right" valign="top"><a id="a6f58e3b111f6b261072a1b3c4df7cdf7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomfi_1_1util.html#a6f58e3b111f6b261072a1b3c4df7cdf7">interpret_arguments</a> (<a class="el" href="structcomfi_1_1types_1_1Settings.html">comfi::types::Settings</a> &amp;settings, int argc, char **argv)</td></tr>
+<tr class="memdesc:a6f58e3b111f6b261072a1b3c4df7cdf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the arguments passed to the executable and change the Settings struct. <br /></td></tr>
+<tr class="separator:a6f58e3b111f6b261072a1b3c4df7cdf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6116a3c147557931649942854f3e9cb5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomfi_1_1util.html#a6116a3c147557931649942854f3e9cb5">saveScalar</a> (const arma::vec &amp;x0, const std::string name, const int timestep)</td></tr>
 <tr class="memdesc:a6116a3c147557931649942854f3e9cb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">saveScalar Write a binary file of a scalar arma::vector.  <a href="#a6116a3c147557931649942854f3e9cb5">More...</a><br /></td></tr>
 <tr class="separator:a6116a3c147557931649942854f3e9cb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -187,201 +159,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="name
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Max characteristic speed in normalized units </dd></dl>
-
-</div>
-</div>
-<a id="acf5813e02fda59f6780630a23a1cdc35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acf5813e02fda59f6780630a23a1cdc35">&#9670;&nbsp;</a></span>getsumBE() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double comfi::util::getsumBE </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="comfi_8hpp.html#a6642d3613bf26ca9c62ab358018c0201">vcl_vec</a> &amp;&#160;</td>
-          <td class="paramname"><em>x0</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structcomfi_1_1types_1_1Operators.html">comfi::types::Operators</a> &amp;&#160;</td>
-          <td class="paramname"><em>op</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Calculate the magnetic field energy density sum of all grid cells. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">x0</td><td>result vcl_vec </td></tr>
-    <tr><td class="paramname">op</td><td>operators </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>sum of all magnetic field energy densities </dd></dl>
-
-</div>
-</div>
-<a id="ac6c2a660295fa994c0dc8adcaec876d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6c2a660295fa994c0dc8adcaec876d9">&#9670;&nbsp;</a></span>getsumBE() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double comfi::util::getsumBE </td>
-          <td>(</td>
-          <td class="paramtype">const arma::vec &amp;&#160;</td>
-          <td class="paramname"><em>x0</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Calculate the magnetic field energy density sum of all grid cells. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">x0</td><td>result arma::vector </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Sum of all magnetic field energy densities. </dd></dl>
-
-</div>
-</div>
-<a id="adfd0e4ec0685d0b916b2b857288428c5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adfd0e4ec0685d0b916b2b857288428c5">&#9670;&nbsp;</a></span>getsumKE() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double comfi::util::getsumKE </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="comfi_8hpp.html#a6642d3613bf26ca9c62ab358018c0201">vcl_vec</a> &amp;&#160;</td>
-          <td class="paramname"><em>x0</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structcomfi_1_1types_1_1Operators.html">comfi::types::Operators</a> &amp;&#160;</td>
-          <td class="paramname"><em>op</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Calculate the kinetic energy density sum of all grid cells. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">x0</td><td>result vcl_vec </td></tr>
-    <tr><td class="paramname">op</td><td>operators </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>sum of all kinetic energy densities </dd></dl>
-
-</div>
-</div>
-<a id="aa4c1b6dbaeee28373a0171059b8f0f55"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa4c1b6dbaeee28373a0171059b8f0f55">&#9670;&nbsp;</a></span>getsumKE() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double comfi::util::getsumKE </td>
-          <td>(</td>
-          <td class="paramtype">const arma::vec &amp;&#160;</td>
-          <td class="paramname"><em>x0</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Calculate the sum of the kinetic energy of all grid cells. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">x0</td><td>result arma::vector </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Sum of all kinetic energy densities (all species). </dd></dl>
-
-</div>
-</div>
-<a id="a63ae3ce4db1a5739683f4294586b2618"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a63ae3ce4db1a5739683f4294586b2618">&#9670;&nbsp;</a></span>getsumUE() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double comfi::util::getsumUE </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="comfi_8hpp.html#a6642d3613bf26ca9c62ab358018c0201">vcl_vec</a> &amp;&#160;</td>
-          <td class="paramname"><em>x0</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structcomfi_1_1types_1_1Operators.html">comfi::types::Operators</a> &amp;&#160;</td>
-          <td class="paramname"><em>op</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Calculate the thermal energy density sum of all grid cells. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">x0</td><td>result vcl_vec </td></tr>
-    <tr><td class="paramname">op</td><td>operators </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>sum of all thermal energy densities </dd></dl>
-
-</div>
-</div>
-<a id="a9542bf43dd5d549082e5fbc9013869c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9542bf43dd5d549082e5fbc9013869c3">&#9670;&nbsp;</a></span>getsumUE() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double comfi::util::getsumUE </td>
-          <td>(</td>
-          <td class="paramtype">const arma::vec &amp;&#160;</td>
-          <td class="paramname"><em>x0</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Calculate the sum of the thermal energy density of all grid cells. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">x0</td><td>result arma::vector </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Sum of all thermal energy densities (all species). </dd></dl>
 
 </div>
 </div>
@@ -613,7 +390,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="name
 </div>
 </div>
 <a id="a48b64e43499277730f4beff82a491980"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a48b64e43499277730f4beff82a491980">&#9670;&nbsp;</a></span>saveSolution() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a48b64e43499277730f4beff82a491980">&#9670;&nbsp;</a></span>saveSolution()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -654,51 +431,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="name
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Success or fail. </dd></dl>
-
-</div>
-</div>
-<a id="afefae42f8cf67b91b082fe76452660c0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afefae42f8cf67b91b082fe76452660c0">&#9670;&nbsp;</a></span>saveSolution() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool comfi::util::saveSolution </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="comfi_8hpp.html#a6642d3613bf26ca9c62ab358018c0201">vcl_vec</a> &amp;&#160;</td>
-          <td class="paramname"><em>x0</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int &amp;&#160;</td>
-          <td class="paramname"><em>timestep</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structcomfi_1_1types_1_1Operators.html">comfi::types::Operators</a> &amp;&#160;</td>
-          <td class="paramname"><em>op</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>saveSolution Save solution into seperate binary files for each unknown. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">x0</td><td>result arma::vector </td></tr>
-    <tr><td class="paramname">timestep</td><td>The time step of the solution </td></tr>
-    <tr><td class="paramname">op</td><td>operators </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if no errors. </dd></dl>
 
 </div>
 </div>

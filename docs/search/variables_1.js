@@ -5,9 +5,7 @@ var searchData=
   ['bc_5fleft',['bc_left',['../classcomfi_1_1types_1_1Context.html#a33a2241c146b1a8f40e91a2e6b2c80ff',1,'comfi::types::Context']]],
   ['bc_5fright',['bc_right',['../classcomfi_1_1types_1_1Context.html#aee8cb80e10b35fa72b19820b7f0c076f',1,'comfi::types::Context']]],
   ['bc_5fup',['bc_up',['../classcomfi_1_1types_1_1Context.html#a9d489ecdb1e87341af00fb6476406425',1,'comfi::types::Context']]],
-  ['bf',['Bf',['../structcomfi_1_1types_1_1Operators.html#ade88a590d3f0841580d83b0f5538742f',1,'comfi::types::Operators']]],
-  ['bottombc',['BottomBC',['../structcomfi_1_1types_1_1Operators.html#a20f1e4b6bf1a86b343ef2dd5a98f4283',1,'comfi::types::Operators']]],
-  ['bp',['Bp',['../params_8h.html#a76298891e413692c6c3f0b2cb81e34d5',1,'params.h']]],
-  ['bx',['Bx',['../params_8h.html#ae3bdf4ec33316afda71bfb1f854bc45b',1,'params.h']]],
-  ['bz',['Bz',['../params_8h.html#a50ee8c4ca37aa4ba070c962b20ef45d8',1,'params.h']]]
+  ['bp',['Bp',['../classcomfi_1_1types_1_1Context.html#a9e7639b838eaddfbf10e1a1dac8155dd',1,'comfi::types::Context']]],
+  ['bx',['Bx',['../classcomfi_1_1types_1_1Context.html#a56f3a79d4a648716740a2494840f2431',1,'comfi::types::Context']]],
+  ['bz',['Bz',['../classcomfi_1_1types_1_1Context.html#a064c197c1ed44a0b7bd15c8351476281',1,'comfi::types::Context']]]
 ];

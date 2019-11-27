@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['results',['Results',['../classcomfi_1_1Results.html',1,'comfi']]]
+  ['settings',['Settings',['../structcomfi_1_1types_1_1Settings.html',1,'comfi::types']]]
 ];

@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['k_5fb',['k_b',['../classcomfi_1_1types_1_1Context.html#ac7bd75d1ac7d9915bb528622b139ccdc',1,'comfi::types::Context']]],
-  ['kappa_5f0',['kappa_0',['../classcomfi_1_1types_1_1Context.html#a72f7a9da9ed93ef0b1e108158a9fb05d',1,'comfi::types::Context']]]
+  ['m_5fe',['m_e',['../classcomfi_1_1types_1_1Context.html#a2da0e99400cba0c3805c4beb62ceb17f',1,'comfi::types::Context']]],
+  ['m_5fi',['m_i',['../classcomfi_1_1types_1_1Context.html#ab8abd05e2d902d266363606214cfce5b',1,'comfi::types::Context']]],
+  ['max_5ftime',['max_time',['../structcomfi_1_1types_1_1Settings.html#a4ca46307d3a523ebbb1f619b4a124254',1,'comfi::types::Settings']]],
+  ['max_5ftime_5fsteps',['max_time_steps',['../structcomfi_1_1types_1_1Settings.html#a97fe5695852ac6ebeaeb32f866b5a78d',1,'comfi::types::Settings']]],
+  ['mu_5f0',['mu_0',['../classcomfi_1_1types_1_1Context.html#ac511d3860e84d61bbdf6ef1572cf0b85',1,'comfi::types::Context']]]
 ];
