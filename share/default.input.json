@@ -1,0 +1,21 @@
+{
+	"nx": 64,
+	"nz" : 64,
+	"norm": {
+		"B_0": 1.0,
+		"n_0": 1.0,
+		"l_0": 1.0
+	}
+	"width": 1.0,
+	"height": 1.0,
+	"options": {
+		"max_time_steps": 100,
+		"max_time": -1.0,
+		"save_dt": -1.0,
+		"save_dn": 10
+	}
+	"bc_left": "periodic",
+	"bc_right": "periodic",
+	"bc_up": "periodic",
+	"bc_down": "periodic"
+}
