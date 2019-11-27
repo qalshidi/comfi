@@ -1,19 +1,5 @@
 var searchData=
 [
-  ['s2bx',['s2Bx',['../structcomfi_1_1types_1_1Operators.html#ab83a6024307c896c306eb71f8ccbc604',1,'comfi::types::Operators']]],
-  ['s2bz',['s2Bz',['../structcomfi_1_1types_1_1Operators.html#a917f93b90925e1f9aace964fdd17b039',1,'comfi::types::Operators']]],
-  ['s2f',['s2f',['../structcomfi_1_1types_1_1Operators.html#aeeb5111e66ee463865bf5284fd75dd56',1,'comfi::types::Operators']]],
-  ['s2glm',['s2GLM',['../structcomfi_1_1types_1_1Operators.html#ab25ffdb2fdac436b994965400f7ca0f8',1,'comfi::types::Operators']]],
-  ['s2nn',['s2Nn',['../structcomfi_1_1types_1_1Operators.html#abe04d7124a68111f3f4642915bc74fd2',1,'comfi::types::Operators']]],
-  ['s2np',['s2Np',['../structcomfi_1_1types_1_1Operators.html#a313ebb1478ed51e1719dba31e7098eb6',1,'comfi::types::Operators']]],
-  ['s2pf',['s2pf',['../structcomfi_1_1types_1_1Operators.html#a7ae86972ddcb95260f695d64bc928a21',1,'comfi::types::Operators']]],
-  ['s2tn',['s2Tn',['../structcomfi_1_1types_1_1Operators.html#a9e14f77aa7a0efba4eead81efb02864c',1,'comfi::types::Operators']]],
-  ['s2tp',['s2Tp',['../structcomfi_1_1types_1_1Operators.html#a86bc21248d4b5cc06c29a8cfbdfa32d5',1,'comfi::types::Operators']]],
-  ['s2ux',['s2Ux',['../structcomfi_1_1types_1_1Operators.html#a77bc171e65a01335a117d7e285cc4e68',1,'comfi::types::Operators']]],
-  ['s2uz',['s2Uz',['../structcomfi_1_1types_1_1Operators.html#a556dd80edcaea8ab76739e2da58b2d7c',1,'comfi::types::Operators']]],
-  ['s2vx',['s2Vx',['../structcomfi_1_1types_1_1Operators.html#a1ef39fedcdc0c7213aa85051710b5fb3',1,'comfi::types::Operators']]],
-  ['s2vz',['s2Vz',['../structcomfi_1_1types_1_1Operators.html#a1bbc6219b120e10715bc15d225f8fbe4',1,'comfi::types::Operators']]],
-  ['s2xf',['s2xf',['../structcomfi_1_1types_1_1Operators.html#a0e4c1c28fd6763fcd6426c3eed02c718',1,'comfi::types::Operators']]],
-  ['s2zf',['s2zf',['../structcomfi_1_1types_1_1Operators.html#a2334284f7ae30ac236e347179611b087',1,'comfi::types::Operators']]],
-  ['sg',['SG',['../structcomfi_1_1types_1_1Operators.html#a579625a4dfa3206b973dcd48f7b1e26a',1,'comfi::types::Operators']]]
+  ['q',['q',['../classcomfi_1_1types_1_1Context.html#a3bca1bf696354d107b15acb7ab24d913',1,'comfi::types::Context']]],
+  ['q_5f0',['q_0',['../classcomfi_1_1types_1_1Context.html#a57c0ab53ee82cb811c0a1d7f26d22d60',1,'comfi::types::Context']]]
 ];

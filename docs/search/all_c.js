@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['m_5fe',['m_e',['../params_8h.html#af913577defdcc179f5db61d8bd22a1e8',1,'params.h']]],
-  ['m_5fi',['m_i',['../params_8h.html#a95e34675200d9d1e335e011232398b33',1,'params.h']]],
-  ['mirror',['MIRROR',['../namespacecomfi_1_1types.html#a3c49ffcefd8a32399fdc2e020242f2a5acb4729d1583f8cfd5114cdab1f1f4d0a',1,'comfi::types']]],
-  ['mu_5f0',['mu_0',['../params_8h.html#a5c043f2d3f53c186d2312b3788f2700d',1,'params.h']]]
+  ['l_5f0',['l_0',['../classcomfi_1_1types_1_1Context.html#acde86f3a3f1d446419a0b8ac15e7808a',1,'comfi::types::Context']]],
+  ['load',['load',['../namespacecomfi.html#aac87d753cbd3ef2771f1cbca6468d11c',1,'comfi']]]
 ];

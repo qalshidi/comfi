@@ -1,9 +1,10 @@
 var searchData=
 [
+  ['p_5f0',['p_0',['../classcomfi_1_1types_1_1Context.html#ad668798f0ad39fe33cd8b42df248c705',1,'comfi::types::Context']]],
   ['pevx',['PEVx',['../structcomfi_1_1types_1_1Operators.html#a0cf446dae10c32fade3c77d5e33be9cf',1,'comfi::types::Operators']]],
   ['pevz',['PEVz',['../structcomfi_1_1types_1_1Operators.html#a00405909979c6775e4557c5c71972811',1,'comfi::types::Operators']]],
   ['pfbb',['pFBB',['../structcomfi_1_1types_1_1Operators.html#a20d5e9c830559ab0ab2c3d7cafd94cb6',1,'comfi::types::Operators']]],
-  ['pi',['pi',['../params_8h.html#a43016d873124d39034edb8cd164794db',1,'params.h']]],
+  ['pi',['pi',['../classcomfi_1_1types_1_1Context.html#a08af0cbaa5dda9cc9ea5752051c8b934',1,'comfi::types::Context']]],
   ['pim1',['Pim1',['../structcomfi_1_1types_1_1Operators.html#a1c2377ce7a1367a049bbd3daff7c184e',1,'comfi::types::Operators']]],
   ['pim2',['Pim2',['../structcomfi_1_1types_1_1Operators.html#afe2eadf1155b72e9bc0818b664066bb1',1,'comfi::types::Operators']]],
   ['pip1',['Pip1',['../structcomfi_1_1types_1_1Operators.html#aa6cbaea286271f50dca28e8664108be6',1,'comfi::types::Operators']]],

@@ -1,7 +1,21 @@
 var searchData=
 [
-  ['uf',['Uf',['../structcomfi_1_1types_1_1Operators.html#acdaef9f9c847c2c59b3e941b1cb2fd45',1,'comfi::types::Operators']]],
-  ['up',['Up',['../params_8h.html#a1afbb1c97066266ffa99f50755a3d584',1,'params.h']]],
-  ['ux',['Ux',['../params_8h.html#af94f691eb09200e3925fe9f99e1d5f80',1,'params.h']]],
-  ['uz',['Uz',['../params_8h.html#abd9a481bc7d06b2272b91d558eaa58de',1,'params.h']]]
+  ['s2bx',['s2Bx',['../structcomfi_1_1types_1_1Operators.html#ab83a6024307c896c306eb71f8ccbc604',1,'comfi::types::Operators']]],
+  ['s2bz',['s2Bz',['../structcomfi_1_1types_1_1Operators.html#a917f93b90925e1f9aace964fdd17b039',1,'comfi::types::Operators']]],
+  ['s2f',['s2f',['../structcomfi_1_1types_1_1Operators.html#aeeb5111e66ee463865bf5284fd75dd56',1,'comfi::types::Operators']]],
+  ['s2glm',['s2GLM',['../structcomfi_1_1types_1_1Operators.html#ab25ffdb2fdac436b994965400f7ca0f8',1,'comfi::types::Operators']]],
+  ['s2nn',['s2Nn',['../structcomfi_1_1types_1_1Operators.html#abe04d7124a68111f3f4642915bc74fd2',1,'comfi::types::Operators']]],
+  ['s2np',['s2Np',['../structcomfi_1_1types_1_1Operators.html#a313ebb1478ed51e1719dba31e7098eb6',1,'comfi::types::Operators']]],
+  ['s2pf',['s2pf',['../structcomfi_1_1types_1_1Operators.html#a7ae86972ddcb95260f695d64bc928a21',1,'comfi::types::Operators']]],
+  ['s2tn',['s2Tn',['../structcomfi_1_1types_1_1Operators.html#a9e14f77aa7a0efba4eead81efb02864c',1,'comfi::types::Operators']]],
+  ['s2tp',['s2Tp',['../structcomfi_1_1types_1_1Operators.html#a86bc21248d4b5cc06c29a8cfbdfa32d5',1,'comfi::types::Operators']]],
+  ['s2ux',['s2Ux',['../structcomfi_1_1types_1_1Operators.html#a77bc171e65a01335a117d7e285cc4e68',1,'comfi::types::Operators']]],
+  ['s2uz',['s2Uz',['../structcomfi_1_1types_1_1Operators.html#a556dd80edcaea8ab76739e2da58b2d7c',1,'comfi::types::Operators']]],
+  ['s2vx',['s2Vx',['../structcomfi_1_1types_1_1Operators.html#a1ef39fedcdc0c7213aa85051710b5fb3',1,'comfi::types::Operators']]],
+  ['s2vz',['s2Vz',['../structcomfi_1_1types_1_1Operators.html#a1bbc6219b120e10715bc15d225f8fbe4',1,'comfi::types::Operators']]],
+  ['s2xf',['s2xf',['../structcomfi_1_1types_1_1Operators.html#a0e4c1c28fd6763fcd6426c3eed02c718',1,'comfi::types::Operators']]],
+  ['s2zf',['s2zf',['../structcomfi_1_1types_1_1Operators.html#a2334284f7ae30ac236e347179611b087',1,'comfi::types::Operators']]],
+  ['save_5fdn',['save_dn',['../structcomfi_1_1util_1_1Settings.html#a8fcd026eacedf4857345b989ce279f1a',1,'comfi::util::Settings']]],
+  ['save_5fdt',['save_dt',['../structcomfi_1_1util_1_1Settings.html#aa561d6bedc250f281805ec21550f67ed',1,'comfi::util::Settings']]],
+  ['sg',['SG',['../structcomfi_1_1types_1_1Operators.html#a579625a4dfa3206b973dcd48f7b1e26a',1,'comfi::types::Operators']]]
 ];

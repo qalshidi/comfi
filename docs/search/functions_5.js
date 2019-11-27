@@ -1,9 +1,12 @@
 var searchData=
 [
-  ['im1',['im1',['../namespacecomfi_1_1operators.html#a9ed6e260500aa2ca6dd306a6d4912f70',1,'comfi::operators']]],
-  ['ind',['ind',['../params_8h.html#aa2649d7d731739907ee661ba220721d4',1,'ind(const arma::uword &amp;var, const arma::uword &amp;i, const arma::uword &amp;j):&#160;params.h'],['../params_8h.html#a4b68202cff0f62886c6de894588582d9',1,'ind(const uint i, const uint j):&#160;params.h'],['../params_8h.html#a01875ec3010a49eb0fcd36e01e731c4a',1,'ind(const arma::urowvec &amp;i, const arma::urowvec &amp;j):&#160;params.h'],['../params_8h.html#a2adab7c033aaa7fd7b3c8acb73871262',1,'ind(const arma::urowvec &amp;i, const arma::urowvec &amp;j, const uint &amp;unknown):&#160;params.h']]],
-  ['indf',['indf',['../params_8h.html#af0295288f1048fc2fc33b007f7baa1b3',1,'params.h']]],
-  ['inds',['inds',['../comfi_8hpp.html#ac6b0b5a0cca10c5cabadbe0337ec839b',1,'inds(const arma::uword &amp;i, const arma::uword &amp;j, comfi::types::Context &amp;ctx):&#160;comfi.hpp'],['../params_8h.html#a750627e619517225ef7d0dde351481b0',1,'inds(const arma::uword i, const arma::uword j):&#160;params.h']]],
-  ['ionization_5fcoeff',['ionization_coeff',['../namespacecomfi_1_1sol.html#adcf8344a12cc559ee8e1e75e44213588',1,'comfi::sol']]],
-  ['ip1',['ip1',['../namespacecomfi_1_1operators.html#a906643bda5cd9d27a35f9a82ce4abd9c',1,'comfi::operators']]]
+  ['getdownbc',['getDownBC',['../structcomfi_1_1types_1_1Operators.html#a908f3281cc124bc725bbcedfaaf1e9f7',1,'comfi::types::Operators']]],
+  ['getleftbc',['getLeftBC',['../structcomfi_1_1types_1_1Operators.html#a7fa81c1238ba19fd233b1bd344ba0a39',1,'comfi::types::Operators']]],
+  ['getmaxv',['getmaxV',['../namespacecomfi_1_1util.html#ad42be9a4b486aff5fe357e6297436f4d',1,'comfi::util']]],
+  ['getrightbc',['getRightBC',['../structcomfi_1_1types_1_1Operators.html#ad3130ab33f8d88fe8333eaf70ecef5e8',1,'comfi::types::Operators']]],
+  ['getsumbe',['getsumBE',['../namespacecomfi_1_1util.html#acf5813e02fda59f6780630a23a1cdc35',1,'comfi::util::getsumBE(const vcl_vec &amp;x0, const comfi::types::Operators &amp;op)'],['../namespacecomfi_1_1util.html#ac6c2a660295fa994c0dc8adcaec876d9',1,'comfi::util::getsumBE(const arma::vec &amp;x0)']]],
+  ['getsumke',['getsumKE',['../namespacecomfi_1_1util.html#adfd0e4ec0685d0b916b2b857288428c5',1,'comfi::util::getsumKE(const vcl_vec &amp;x0, const comfi::types::Operators &amp;op)'],['../namespacecomfi_1_1util.html#aa4c1b6dbaeee28373a0171059b8f0f55',1,'comfi::util::getsumKE(const arma::vec &amp;x0)']]],
+  ['getsumue',['getsumUE',['../namespacecomfi_1_1util.html#a63ae3ce4db1a5739683f4294586b2618',1,'comfi::util::getsumUE(const vcl_vec &amp;x0, const comfi::types::Operators &amp;op)'],['../namespacecomfi_1_1util.html#a9542bf43dd5d549082e5fbc9013869c3',1,'comfi::util::getsumUE(const arma::vec &amp;x0)']]],
+  ['gettimestr',['gettimestr',['../namespacecomfi_1_1util.html#a1b591e6465dea1f591c8b33108b27e19',1,'comfi::util']]],
+  ['getupbc',['getUpBC',['../structcomfi_1_1types_1_1Operators.html#a872bf58ef575862e6ee5edb73efbb4ca',1,'comfi::types::Operators']]]
 ];

@@ -1,12 +1,10 @@
 var searchData=
 [
-  ['getdownbc',['getDownBC',['../structcomfi_1_1types_1_1Operators.html#ab97a60867b84542aeea611f03ac788ca',1,'comfi::types::Operators']]],
-  ['getleftbc',['getLeftBC',['../structcomfi_1_1types_1_1Operators.html#afea0b5923ab9f86ba634a7bfcd5f64a5',1,'comfi::types::Operators']]],
-  ['getmaxv',['getmaxV',['../namespacecomfi_1_1util.html#ad42be9a4b486aff5fe357e6297436f4d',1,'comfi::util::getmaxV(const vcl_mat &amp;x0, comfi::types::Context &amp;ctx)'],['../namespacecomfi_1_1util.html#a73b70390fc3c4488a2453dc35f302c46',1,'comfi::util::getmaxV(const vcl_vec &amp;x0, const comfi::types::Operators &amp;op)']]],
-  ['getrightbc',['getRightBC',['../structcomfi_1_1types_1_1Operators.html#acb150d5074bc4132d3481e59e759507a',1,'comfi::types::Operators']]],
-  ['getsumbe',['getsumBE',['../namespacecomfi_1_1util.html#acf5813e02fda59f6780630a23a1cdc35',1,'comfi::util::getsumBE(const vcl_vec &amp;x0, const comfi::types::Operators &amp;op)'],['../namespacecomfi_1_1util.html#ac6c2a660295fa994c0dc8adcaec876d9',1,'comfi::util::getsumBE(const arma::vec &amp;x0)']]],
-  ['getsumke',['getsumKE',['../namespacecomfi_1_1util.html#adfd0e4ec0685d0b916b2b857288428c5',1,'comfi::util::getsumKE(const vcl_vec &amp;x0, const comfi::types::Operators &amp;op)'],['../namespacecomfi_1_1util.html#aa4c1b6dbaeee28373a0171059b8f0f55',1,'comfi::util::getsumKE(const arma::vec &amp;x0)']]],
-  ['getsumue',['getsumUE',['../namespacecomfi_1_1util.html#a63ae3ce4db1a5739683f4294586b2618',1,'comfi::util::getsumUE(const vcl_vec &amp;x0, const comfi::types::Operators &amp;op)'],['../namespacecomfi_1_1util.html#a9542bf43dd5d549082e5fbc9013869c3',1,'comfi::util::getsumUE(const arma::vec &amp;x0)']]],
-  ['gettimestr',['gettimestr',['../namespacecomfi_1_1util.html#a1b591e6465dea1f591c8b33108b27e19',1,'comfi::util']]],
-  ['getupbc',['getUpBC',['../structcomfi_1_1types_1_1Operators.html#a09443c91f596f415b448d26acfc0c99b',1,'comfi::types::Operators']]]
+  ['fast_5fspeed_5fx',['fast_speed_x',['../namespacecomfi_1_1routines.html#ab1b2386fd0f4205142e18fe8983b45f2',1,'comfi::routines']]],
+  ['fast_5fspeed_5fx_5fmat',['fast_speed_x_mat',['../namespacecomfi_1_1routines.html#a80d75ac34304698422b402e3124a0501',1,'comfi::routines']]],
+  ['fast_5fspeed_5fz',['fast_speed_z',['../namespacecomfi_1_1routines.html#a5e1e392c2a6e8c0f6d95e51dbe063361',1,'comfi::routines::fast_speed_z(const vcl_mat &amp;xn, comfi::types::Context &amp;ctx)'],['../namespacecomfi_1_1routines.html#ad116f0187c200c0bd33198534967e52b',1,'comfi::routines::fast_speed_z(const vcl_vec &amp;xn, const comfi::types::Operators &amp;op)']]],
+  ['fast_5fspeed_5fz_5fmat',['fast_speed_z_mat',['../namespacecomfi_1_1routines.html#a732384c1952687300780fae7bbdcd862',1,'comfi::routines']]],
+  ['fluxl',['fluxl',['../namespacecomfi_1_1routines.html#a53569db5c280d3a8b15d787ea9da7ccc',1,'comfi::routines']]],
+  ['fx',['Fx',['../namespacecomfi_1_1routines.html#aff9d3fbe2877d9666c3b64da101709a7',1,'comfi::routines']]],
+  ['fz',['Fz',['../namespacecomfi_1_1routines.html#acc0e1a46f8a66938aa25fd3a2296fef5',1,'comfi::routines']]]
 ];

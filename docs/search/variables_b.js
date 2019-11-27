@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['m_5fe',['m_e',['../params_8h.html#af913577defdcc179f5db61d8bd22a1e8',1,'params.h']]],
-  ['m_5fi',['m_i',['../params_8h.html#a95e34675200d9d1e335e011232398b33',1,'params.h']]],
-  ['mu_5f0',['mu_0',['../params_8h.html#a5c043f2d3f53c186d2312b3788f2700d',1,'params.h']]]
+  ['m_5fe',['m_e',['../classcomfi_1_1types_1_1Context.html#a2da0e99400cba0c3805c4beb62ceb17f',1,'comfi::types::Context']]],
+  ['m_5fi',['m_i',['../classcomfi_1_1types_1_1Context.html#ab8abd05e2d902d266363606214cfce5b',1,'comfi::types::Context']]],
+  ['max_5ftime',['max_time',['../structcomfi_1_1util_1_1Settings.html#a74957f36f5dcdc47b3aa8682702ec887',1,'comfi::util::Settings']]],
+  ['max_5ftime_5fsteps',['max_time_steps',['../structcomfi_1_1util_1_1Settings.html#aa893a2418f90674bbc624a8f3dbb7607',1,'comfi::util::Settings']]],
+  ['mu_5f0',['mu_0',['../classcomfi_1_1types_1_1Context.html#ac511d3860e84d61bbdf6ef1572cf0b85',1,'comfi::types::Context']]]
 ];

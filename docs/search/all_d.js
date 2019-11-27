@@ -1,11 +1,9 @@
 var searchData=
 [
-  ['n_5f0',['n_0',['../params_8h.html#a41d3c8210c66503aba558f60096aa156',1,'params.h']]],
-  ['n_5fn',['n_n',['../params_8h.html#abd80fa79b1213f6923a48576946e8a11',1,'params.h']]],
-  ['n_5fp',['n_p',['../params_8h.html#af16eaea09735c08c6560464c0beff844',1,'params.h']]],
-  ['neumann',['NEUMANN',['../namespacecomfi_1_1types.html#a3c49ffcefd8a32399fdc2e020242f2a5a73ad77afd6df8f0b7111b992e33b629c',1,'comfi::types']]],
-  ['nns',['Nns',['../structcomfi_1_1types_1_1Operators.html#a1598b8fd65f4bf18bd9c190b166c224d',1,'comfi::types::Operators']]],
-  ['nps',['Nps',['../structcomfi_1_1types_1_1Operators.html#a2ac61a4156722c6dc717614e00163daf',1,'comfi::types::Operators']]],
-  ['nx',['nx',['../params_8h.html#add96857c241b5869600fd7fc105d3901',1,'params.h']]],
-  ['nz',['nz',['../params_8h.html#a7e292a0eb84bbd06720e1fedeb4a5a56',1,'params.h']]]
+  ['m_5fe',['m_e',['../classcomfi_1_1types_1_1Context.html#a2da0e99400cba0c3805c4beb62ceb17f',1,'comfi::types::Context']]],
+  ['m_5fi',['m_i',['../classcomfi_1_1types_1_1Context.html#ab8abd05e2d902d266363606214cfce5b',1,'comfi::types::Context']]],
+  ['max_5ftime',['max_time',['../structcomfi_1_1util_1_1Settings.html#a74957f36f5dcdc47b3aa8682702ec887',1,'comfi::util::Settings']]],
+  ['max_5ftime_5fsteps',['max_time_steps',['../structcomfi_1_1util_1_1Settings.html#aa893a2418f90674bbc624a8f3dbb7607',1,'comfi::util::Settings']]],
+  ['mirror',['MIRROR',['../namespacecomfi_1_1types.html#a3c49ffcefd8a32399fdc2e020242f2a5acb4729d1583f8cfd5114cdab1f1f4d0a',1,'comfi::types']]],
+  ['mu_5f0',['mu_0',['../classcomfi_1_1types_1_1Context.html#ac511d3860e84d61bbdf6ef1572cf0b85',1,'comfi::types::Context']]]
 ];

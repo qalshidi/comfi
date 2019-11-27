@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['k_5fb',['k_b',['../params_8h.html#ad1afc19e3b181b5ec8a9f49df8639ce3',1,'params.h']]]
+  ['jm1',['jm1',['../namespacecomfi_1_1operators.html#a87f5cbf1d6b650435b31462b35f03ad4',1,'comfi::operators']]],
+  ['jp1',['jp1',['../namespacecomfi_1_1operators.html#a53c65405853901b4ec8c8333b7e4420c',1,'comfi::operators']]]
 ];

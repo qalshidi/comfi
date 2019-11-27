@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['l_5f0',['l_0',['../params_8h.html#af5245dadd8807806a36eb7d0f3009e34',1,'params.h']]]
+  ['k_5fb',['k_b',['../classcomfi_1_1types_1_1Context.html#ac7bd75d1ac7d9915bb528622b139ccdc',1,'comfi::types::Context']]],
+  ['kappa_5f0',['kappa_0',['../classcomfi_1_1types_1_1Context.html#a72f7a9da9ed93ef0b1e108158a9fb05d',1,'comfi::types::Context']]],
+  ['kenergy',['kenergy',['../namespacecomfi.html#a20d9bd32b4d79af746d98bee471011fa',1,'comfi']]]
 ];
