@@ -17,6 +17,7 @@ vcl_mat comfi::operators::jm1(const vcl_mat &xn, comfi::types::Context ctx) {
   static viennacl::range jm1(0, ctx.num_of_grid()-ctx.nx);
   static viennacl::range j(ctx.nx, ctx.num_of_grid());
   viennacl::project(xn_jm1, j, eq) = viennacl::project(xn, jm1, eq);
+
   //boundary conditions
   if (ctx.bc_down == comfi::types::NEUMANN) {
     static viennacl::range edge(0, ctx.nx);
@@ -88,13 +89,14 @@ vcl_mat comfi::operators::ip1(const vcl_mat &xn, comfi::types::Context ctx) {
   static vcl_sp_mat Pip1(ctx.num_of_grid(), ctx.num_of_grid());
   static bool created = false;
   if (!created) { viennacl::copy(cpu_Pip1, Pip1); created = true; }
-  vcl_mat xn_ip1 = viennacl::zero_matrix<double>(xn.size1(), xn.size2());
-  for (uint eq = 0; eq < ctx.num_of_eq; eq++) {
-    viennacl::range r_eq(eq, eq+1);
-    const vcl_mat i_col = viennacl::project(xn, ctx.r_grid, r_eq);
-    const vcl_mat ip1_col = viennacl::linalg::prod(Pip1, i_col);
-    viennacl::project(xn_ip1, ctx.r_grid, r_eq) = ip1_col;
-  }
+  vcl_mat xn_ip1 = viennacl::linalg::prod(Pip1, xn);
+  /* vcl_mat xn_ip1 = viennacl::zero_matrix<double>(xn.size1(), xn.size2()); */
+  /* for (uint eq = 0; eq < ctx.num_of_eq; eq++) { */
+  /*   viennacl::range r_eq(eq, eq+1); */
+  /*   const vcl_mat i_col = viennacl::project(xn, ctx.r_grid, r_eq); */
+  /*   const vcl_mat ip1_col = viennacl::linalg::prod(Pip1, i_col); */
+  /*   viennacl::project(xn_ip1, ctx.r_grid, r_eq) = ip1_col; */
+  /* } */
 
   //boundary conditions
   if (ctx.bc_right == comfi::types::NEUMANN) {
@@ -138,13 +140,14 @@ vcl_mat comfi::operators::im1(const vcl_mat &xn, comfi::types::Context ctx) {
   static vcl_sp_mat Pim1(ctx.num_of_grid(), ctx.num_of_grid());
   static bool created = false;
   if (!created) { viennacl::copy(cpu_Pim1, Pim1); created = true; }
-  vcl_mat xn_im1 = viennacl::zero_matrix<double>(ctx.num_of_grid(), ctx.num_of_eq);
-  for (uint eq = 0; eq < ctx.num_of_eq; eq++) {
-    viennacl::range r_eq(eq, eq+1);
-    const vcl_mat i_col = viennacl::project(xn, ctx.r_grid, r_eq);
-    const vcl_mat im1_row = viennacl::linalg::prod(Pim1, i_col);
-    viennacl::project(xn_im1, ctx.r_grid, r_eq) = im1_row;
-  }
+  vcl_mat xn_im1 = viennacl::linalg::prod(Pim1, xn);
+  /* vcl_mat xn_im1 = viennacl::zero_matrix<double>(ctx.num_of_grid(), ctx.num_of_eq); */
+  /* for (uint eq = 0; eq < ctx.num_of_eq; eq++) { */
+  /*   viennacl::range r_eq(eq, eq+1); */
+  /*   const vcl_mat i_col = viennacl::project(xn, ctx.r_grid, r_eq); */
+  /*   const vcl_mat im1_row = viennacl::linalg::prod(Pim1, i_col); */
+  /*   viennacl::project(xn_im1, ctx.r_grid, r_eq) = im1_row; */
+  /* } */
 
   //boundary conditions
   if (ctx.bc_left == comfi::types::NEUMANN) {
@@ -166,7 +169,7 @@ const sp_mat comfi::operators::buildPip1(comfi::types::Context &ctx) {
   umat locations;
   urowvec loci = zeros<urowvec>(ctx.num_of_grid());
   urowvec locj = zeros<urowvec>(ctx.num_of_grid());
-  vec values = zeros<vec>(ctx.num_of_grid());
+  vec values = ones<vec>(ctx.num_of_grid());
   const comfi::types::BoundaryCondition BC = ctx.bc_right;
 
   #pragma omp parallel for collapse(2)
@@ -180,12 +183,10 @@ const sp_mat comfi::operators::buildPip1(comfi::types::Context &ctx) {
     else if (i==ctx.nx-1 && BC==comfi::types::PERIODIC) { ip1j = inds(0, j, ctx); }
     else if (BC==comfi::types::DIMENSIONLESS) { ip1j = inds(0, j, ctx); }
 
-    loci(ij) = ij;
-    locj(ij) = ip1j;
-    values(ij) = 1.0;
+    loci(ij) = ip1j;
+    locj(ij) = ij;
   }}
 
-  // Reorder to create sparse matrix
   locations.insert_rows(0, loci);
   locations.insert_rows(1, locj);
   return sp_mat(true, locations, values, ctx.num_of_grid(), ctx.num_of_grid());
@@ -209,11 +210,10 @@ const sp_mat comfi::operators::buildPim1(comfi::types::Context &ctx) {
     else if (i==0 && BC==comfi::types::PERIODIC) { im1j = inds(ctx.nx-1, j, ctx);}
     else if (BC==comfi::types::DIMENSIONLESS) { im1j = inds(0, j, ctx);}
 
-    loci(ij) = ij;
-    locj(ij) = im1j;
+    loci(ij) = im1j;
+    locj(ij) = ij;
   }}
 
-  // Reorder to create sparse matrix
   locations.insert_rows(0, loci);
   locations.insert_rows(1, locj);
   return sp_mat(true, locations, values, ctx.num_of_grid(), ctx.num_of_grid());

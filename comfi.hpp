@@ -28,7 +28,7 @@
 
 typedef viennacl::vector<double> vcl_vec; /*!< GPU arma::vector with ViennaCL */
 typedef viennacl::compressed_matrix<double> vcl_sp_mat; /*!< GPU sparse matrix with ViennaCL */
-typedef viennacl::matrix<double, viennacl::column_major> vcl_mat; /*!< GPU dense matrix with ViennaCL */
+typedef viennacl::matrix<double> vcl_mat; /*!< GPU dense matrix with ViennaCL */
 
 
 /*!
@@ -74,12 +74,6 @@ enum BoundaryCondition {PERIODIC, /*!< Periodic boundary condition (i+1 at right
                        };
 
 /*!
- * \brief This data structure holds all the important constants
- */
-struct Constants {
-};
-
-/*!
  * \brief The simulation context. Everything needed about the simulation is in here.
  */
 class Context {
@@ -96,8 +90,6 @@ public:
   const arma::uword nx;
   /// Number of grid points in z-direction (vertical).
   const arma::uword nz;
-  /// Settings passed on from main.
-  const Settings settings;
   /// Upper boundary condition in the z-direction.
   const BoundaryCondition bc_up;
   /// Lower boundary condition in the z-direction.
@@ -106,6 +98,9 @@ public:
   const BoundaryCondition bc_right;
   /// Left boundary condition in the x-direction.
   const BoundaryCondition bc_left;
+
+  /// Settings passed on from main.
+  const Settings settings;
 
   // Constants
   /// ratio of specific heats
@@ -383,13 +378,15 @@ namespace util
 std::string gettimestr();
 
 /*!
- * \brief saveSolution Saves the solution to the output folder
+ * \brief save_solution Saves the solution to the output folder
  * \param x0 Solution matrix.
  * \param ctx Simulation context.
- * \param final If this is the final solution then save under -1.
+ * \param data_name data set name to save it under in hdf5 tree. Defaults to "unknowns"
  * \return Success or fail.
  */
-bool saveSolution(const vcl_mat &x0, comfi::types::Context &ctx, const bool final = false);
+bool save_solution(const vcl_mat &x0,
+                   comfi::types::Context &ctx,
+                   const std::string &data_name = "unknowns");
 
 /*!
  * \brief sendtolog Send message to log file.

@@ -31,8 +31,7 @@
 
 using namespace std;
 
-int main(int argc, char** argv)
-{
+int main(int argc, char** argv) {
 
   // Create intermediate variable but use constant for safety
 	comfi::types::Settings __set;
@@ -51,7 +50,7 @@ int main(int argc, char** argv)
   //unique_ptr<vcl_mat> xn_vcl(new vcl_mat(comfi::util::shock_tube_ic(ctx)));
   unique_ptr<vcl_mat> xn_vcl(new vcl_mat(comfi::util::ot_vortex_ic(ctx)));
   unique_ptr<vcl_mat> xn1_vcl(new vcl_mat(*xn_vcl));
-  comfi::util::saveSolution(*xn_vcl, ctx);
+  comfi::util::save_solution(*xn_vcl, ctx);
 
   // Initial std output
   cout << "Begin CoMFi Simulation" << endl;
@@ -163,29 +162,22 @@ int main(int argc, char** argv)
 //    const double sol_error = my_solver_tag.error();
     /* double sol_error = 0; */
 
-    //mhdsim::util::saveSolution(x0_vcl, -1, op);
-    //mhdsim::util::saveSolution(xn_vcl, -2, op);
-    //mhdsim::util::saveSolution(xn1_vcl, -3, op);
+    //mhdsim::util::save_solution(x0_vcl, -1, op);
+    //mhdsim::util::save_solution(xn_vcl, -2, op);
+    //mhdsim::util::save_solution(xn1_vcl, -3, op);
 
     //Save solution every save_dt time
-    static double time_since_last_save = ctx.time_elapsed();
+    static double time_since_last_save = 0.0;
+    time_since_last_save += ctx.dt();
     if ((time_since_last_save > settings.save_dt) && (settings.save_dt > 0.0)) {
-      comfi::util::saveSolution(*x0_vcl, ctx);
+      comfi::util::save_solution(*x0_vcl, ctx);
       time_since_last_save = 0.0;
     }
 
     //Save solution every save_dn steps
-    if ((ctx.time_step()%settings.save_dn) == 0) {
-      comfi::util::saveSolution(*x0_vcl, ctx);
+    if ((ctx.time_step()%settings.save_dn == 0) && (settings.save_dn > 0)) {
+      comfi::util::save_solution(*x0_vcl, ctx);
     }
-
-    /* // Save tracking parameters */
-    /* const arma::vec div_save = avgdivB(arma::span(0,ctx.time_step()-1));  div_save.save(arma::hdf5_name("output/mhdsim.h5", "divB", arma::hdf5_opts::replace)); */
-    /* const arma::vec t_save = t(arma::span(0,ctx.time_step()-1));      t_save.save(arma::hdf5_name("output/mhdsim.h5", "t", arma::hdf5_opts::replace)); */
-    /* const arma::vec dtn_save = dt_n(arma::span(0,ctx.time_step()-1)); dtn_save.save(arma::hdf5_name("output/mhdsim.h5", "dt", arma::hdf5_opts::replace)); */
-    /* const arma::vec KE_save = KE(arma::span(0,ctx.time_step()-1));    KE_save.save(arma::hdf5_name("output/mhdsim.h5", "KE", arma::hdf5_opts::replace)); */
-    /* const arma::vec BE_save = BE(arma::span(0,ctx.time_step()-1));    BE_save.save(arma::hdf5_name("output/mhdsim.h5", "BE", arma::hdf5_opts::replace)); */
-    /* const arma::vec UE_save = UE(arma::span(0,ctx.time_step()-1));    UE_save.save(arma::hdf5_name("output/mhdsim.h5", "UE", arma::hdf5_opts::replace)); */
 
     // Move pointers before starting next step
     xn1_vcl = std::move(xn_vcl);
@@ -194,10 +186,6 @@ int main(int argc, char** argv)
   }
 
   cout << "Total exec time: " << vcl_timer[0].get() << endl;
-
-  // Save last 3 sol
-  //FIX LATER
-  comfi::util::saveSolution(*xn_vcl, ctx, true);
 
   return 0;
 }

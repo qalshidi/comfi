@@ -35,7 +35,7 @@ vcl_mat comfi::util::ot_vortex_ic(comfi::types::Context &ctx) {
     xn(ij, ctx.n_n) = n;
     xn(ij, ctx.E_p) = p/(ctx.gammamono-1.0);
     xn(ij, ctx.E_n) = p/(ctx.gammamono-1.0);
-    xn(ij, ctx.Bp) = b;
+    //xn(ij, ctx.Bp) = b;
     xn(ij, ctx.Bx) = -b*std::sin(2.0*arma::datum::pi*j*ctx.dz);
     xn(ij, ctx.Bz) = b*std::sin(4.0*arma::datum::pi*i*ctx.dx);
     xn(ij, ctx.Vx) = -1.0*n*std::sin(2.0*arma::datum::pi*j*ctx.dz);
@@ -107,10 +107,11 @@ void comfi::util::sendtolog(const std::string message, const std::string filenam
     logfile.close();
 }
 
-bool comfi::util::saveSolution(const vcl_mat &x0, comfi::types::Context &ctx, const bool final) {
+bool comfi::util::save_solution(const vcl_mat &x0,
+                                comfi::types::Context &ctx,
+                                const std::string &data_name) {
   bool success = true;
   int timestep = ctx.time_step();
-  if (final) { timestep = -1; }
 
   arma::mat savemat(x0.size1(), x0.size2());
   viennacl::copy(x0, savemat);
@@ -127,7 +128,7 @@ bool comfi::util::saveSolution(const vcl_mat &x0, comfi::types::Context &ctx, co
 
   std::string folder = "output/";
   std::string filename = folder + "mhdsim.h5";
-  std::string dataset = "/" + std::to_string(timestep) + "/unknowns";
+  std::string dataset = "/" + std::to_string(timestep) + "/" + data_name;
   std::string posset = "/" + std::to_string(timestep) + "/grid";
   savemat.save(arma::hdf5_name(filename, dataset, arma::hdf5_opts::append+arma::hdf5_opts::trans));
   gridmat.save(arma::hdf5_name(filename, posset, arma::hdf5_opts::append+arma::hdf5_opts::trans));
@@ -153,7 +154,7 @@ void comfi::util::interpret_arguments(comfi::types::Settings &settings, int argc
             settings.max_time = std::stod(value);
           } else if (argument == "-save_dt") {
             std::string value = argv[i+1];
-            settings.save_dt = stoi(value,nullptr,10);
+            settings.save_dt = std::atof(value.c_str());
           } else if (argument == "-save_dn") {
             std::string value = argv[i+1];
             settings.save_dn = stoi(value,nullptr,10);
