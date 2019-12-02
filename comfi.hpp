@@ -117,11 +117,11 @@ public:
   const double  e_ = arma::datum::ec;
   // Normalization constants
   /// Length normalization constant in meters.
-  const double l_0 = 2.1e6;
+  const double l_0 = 1.0;
   /// \f$m^{-3}\f$ density normalization constant.
-  const double n_0 = 1.e20;
+  const double n_0 = 25.0/(36.0*arma::datum::pi);
   /// Magnetic field normalization constant in Teslas.
-  const double B_0 = 0.1;
+  const double B_0 = 1.0/std::sqrt(4.0*arma::datum::pi);
   /// Width (x-direction) in normalized units.
   const double width = l_0;
   /// Height (z-direction) in normalized units.
