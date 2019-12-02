@@ -55,7 +55,9 @@ using namespace arma;
 /*  return comfi::util::syncSpMat(Avi, Avj, Avv);*/
 /*}*/
 
-vcl_mat comfi::routines::build_eig_matrix(const vcl_mat &p_eig, const vcl_mat &n_eig, comfi::types::Context &ctx) {
+vcl_mat comfi::routines::build_eig_matrix(const vcl_mat &p_eig,
+                                          const vcl_mat &n_eig,
+                                          comfi::types::Context &ctx) {
   vcl_mat eig_matrix(ctx.num_of_grid(), ctx.num_of_eq);
   ctx.v_Np(eig_matrix) = p_eig;
   ctx.v_Nn(eig_matrix) = n_eig;
@@ -68,7 +70,11 @@ vcl_mat comfi::routines::build_eig_matrix(const vcl_mat &p_eig, const vcl_mat &n
   ctx.v_Bx(eig_matrix) = p_eig;
   ctx.v_Bp(eig_matrix) = p_eig;
   ctx.v_Bz(eig_matrix) = p_eig;
-  ctx.v_GLM(eig_matrix) = p_eig;
+  ctx.v_Ep(eig_matrix) = p_eig;
+  ctx.v_En(eig_matrix) = n_eig;
+  const double ch = 7.0*ctx.ds/ctx.dt();
+  const vcl_mat GLM_eig = viennacl::scalar_matrix<double>(p_eig.size1(), p_eig.size2(), ch); 
+  ctx.v_GLM(eig_matrix) = GLM_eig;
   return eig_matrix;
 }
 
@@ -135,6 +141,7 @@ vcl_mat comfi::routines::Re_MUSCL(const vcl_mat &xn, comfi::types::Context &ctx)
   vcl_mat Lxn_jmh = xn_jm1 + 0.5*element_prod(comfi::routines::fluxl(r_jm1), dxn_jmh);
   vcl_mat Rxn_jph = xn_jp1 - 0.5*element_prod(comfi::routines::fluxl(r_jp1), dxn_jph);
   vcl_mat Rxn_jmh = xn     - 0.5*element_prod(comfi::routines::fluxl(r_j), dxn_jph);
+  
    // BOUNDARY CONDITIONS
   //mhdsim::routines::bottomBC(Lxn_jmh,Rxn_jmh,t,op,bg);
   //comfi::routines::bottombc_shock_tube(Lxn_jmh, Rxn_jmh, ctx);
@@ -144,150 +151,150 @@ vcl_mat comfi::routines::Re_MUSCL(const vcl_mat &xn, comfi::types::Context &ctx)
   //comfi::routines::bottombc_soler(Lxn_jmh, Rxn_jmh, op);
 
   // Fast mode speed eigenvalues
-  vcl_mat Leig_iph_p = comfi::routines::fast_speed_x_mat(Lxn_iph, ctx);
-  vcl_mat Reig_iph_p = comfi::routines::fast_speed_x_mat(Rxn_iph, ctx);
-  vcl_mat Leig_jph_p = comfi::routines::fast_speed_z_mat(Lxn_jph, ctx);
-  vcl_mat Reig_jph_p = comfi::routines::fast_speed_z_mat(Rxn_jph, ctx);
-  vcl_mat Leig_imh_p = comfi::routines::fast_speed_x_mat(Lxn_imh, ctx);
-  vcl_mat Reig_imh_p = comfi::routines::fast_speed_x_mat(Rxn_imh, ctx);
-  vcl_mat Leig_jmh_p = comfi::routines::fast_speed_z_mat(Lxn_jmh, ctx);
-  vcl_mat Reig_jmh_p = comfi::routines::fast_speed_z_mat(Rxn_jmh, ctx);
-  viennacl::ocl::program & eig_prog  = viennacl::ocl::current_context().get_program("element_max");
-  viennacl::ocl::kernel  & element_max = eig_prog.get_kernel("element_max");
+  vcl_mat eig_iph_p = comfi::routines::fast_speed_x_mat(0.5*(Lxn_iph+Rxn_iph), ctx);
+  vcl_mat eig_jph_p = comfi::routines::fast_speed_z_mat(0.5*(Lxn_jph+Rxn_jph), ctx);
+  vcl_mat eig_imh_p = comfi::routines::fast_speed_x_mat(0.5*(Lxn_imh+Rxn_imh), ctx);
+  vcl_mat eig_jmh_p = comfi::routines::fast_speed_z_mat(0.5*(Lxn_jmh+Rxn_jmh), ctx);
 
-  vcl_mat a_imh_p(Leig_iph_p.size1(), Leig_iph_p.size2());
-  viennacl::ocl::enqueue(element_max(Leig_imh_p, Reig_imh_p,
-                                     a_imh_p,
-                                     cl_uint(Leig_imh_p.size1())));
-  vcl_mat a_iph_p(Leig_iph_p.size1(), Leig_iph_p.size2());
-  viennacl::ocl::enqueue(element_max(Leig_iph_p, Reig_iph_p,
-                                     a_iph_p,
-                                     cl_uint(Leig_iph_p.size1())));
-  vcl_mat a_jmh_p(Leig_iph_p.size1(), Leig_iph_p.size2());
-  viennacl::ocl::enqueue(element_max(Leig_jmh_p, Reig_jmh_p,
-                                     a_jmh_p,
-                                     cl_uint(Leig_jmh_p.size1())));
-  vcl_mat a_jph_p(Leig_iph_p.size1(), Leig_iph_p.size2());
-  viennacl::ocl::enqueue(element_max(Leig_jph_p, Reig_jph_p,
-                                     a_jph_p,
-                                     cl_uint(Leig_jph_p.size1())));
-  Leig_iph_p = element_fabs(element_div(ctx.v_NVx(Lxn_iph), ctx.v_Np(Lxn_iph)));
-  viennacl::ocl::enqueue(element_max(Leig_iph_p, a_iph_p,
-                                     a_iph_p,
-                                     cl_uint(Leig_iph_p.size1())));
+  /* // Fast mode speed eigenvalues */
+  /* vcl_mat Leig_iph_p = comfi::routines::fast_speed_x_mat(Lxn_iph, ctx); */
+  /* vcl_mat Reig_iph_p = comfi::routines::fast_speed_x_mat(Rxn_iph, ctx); */
+  /* vcl_mat Leig_jph_p = comfi::routines::fast_speed_z_mat(Lxn_jph, ctx); */
+  /* vcl_mat Reig_jph_p = comfi::routines::fast_speed_z_mat(Rxn_jph, ctx); */
+  /* vcl_mat Leig_imh_p = comfi::routines::fast_speed_x_mat(Lxn_imh, ctx); */
+  /* vcl_mat Reig_imh_p = comfi::routines::fast_speed_x_mat(Rxn_imh, ctx); */
+  /* vcl_mat Leig_jmh_p = comfi::routines::fast_speed_z_mat(Lxn_jmh, ctx); */
+  /* vcl_mat Reig_jmh_p = comfi::routines::fast_speed_z_mat(Rxn_jmh, ctx); */
 
-  Reig_iph_p = element_fabs(element_div(ctx.v_NVx(Rxn_iph), ctx.v_Np(Rxn_iph)));
-  viennacl::ocl::enqueue(element_max(Reig_iph_p, a_iph_p,
-                                     a_iph_p,
-                                     cl_uint(Reig_iph_p.size1())));
+  /* viennacl::ocl::program & eig_prog  = viennacl::ocl::current_context().get_program("element_max"); */
+  /* viennacl::ocl::kernel  & element_max = eig_prog.get_kernel("element_max"); */
 
-  Leig_jph_p = element_fabs(element_div(ctx.v_NVz(Lxn_jph), ctx.v_Np(Lxn_jph)));
-  viennacl::ocl::enqueue(element_max(Leig_jph_p, a_jph_p,
-                                     a_jph_p,
-                                     cl_uint(Leig_jph_p.size1())));
+  /* vcl_mat a_imh_p(Leig_iph_p.size1(), Leig_iph_p.size2()); */
+  /* viennacl::ocl::enqueue(element_max(Leig_imh_p, Reig_imh_p, */
+  /*                                    a_imh_p, */
+  /*                                    cl_uint(Leig_imh_p.size1()))); */
+  /* vcl_mat a_iph_p(Leig_iph_p.size1(), Leig_iph_p.size2()); */
+  /* viennacl::ocl::enqueue(element_max(Leig_iph_p, Reig_iph_p, */
+  /*                                    a_iph_p, */
+  /*                                    cl_uint(Leig_iph_p.size1()))); */
+  /* vcl_mat a_jmh_p(Leig_iph_p.size1(), Leig_iph_p.size2()); */
+  /* viennacl::ocl::enqueue(element_max(Leig_jmh_p, Reig_jmh_p, */
+  /*                                    a_jmh_p, */
+  /*                                    cl_uint(Leig_jmh_p.size1()))); */
+  /* vcl_mat a_jph_p(Leig_iph_p.size1(), Leig_iph_p.size2()); */
+  /* viennacl::ocl::enqueue(element_max(Leig_jph_p, Reig_jph_p, */
+  /*                                    a_jph_p, */
+  /*                                    cl_uint(Leig_jph_p.size1()))); */
+  /* Leig_iph_p = element_fabs(element_div(ctx.v_NVx(Lxn_iph), ctx.v_Np(Lxn_iph))); */
+  /* viennacl::ocl::enqueue(element_max(Leig_iph_p, a_iph_p, */
+  /*                                    a_iph_p, */
+  /*                                    cl_uint(Leig_iph_p.size1()))); */
 
-  Reig_jph_p = element_fabs(element_div(ctx.v_NVz(Rxn_jph), ctx.v_Np(Rxn_jph)));
-  viennacl::ocl::enqueue(element_max(Reig_jph_p, a_jph_p,
-                                     a_jph_p,
-                                     cl_uint(Reig_jph_p.size1())));
+  /* Reig_iph_p = element_fabs(element_div(ctx.v_NVx(Rxn_iph), ctx.v_Np(Rxn_iph))); */
+  /* viennacl::ocl::enqueue(element_max(Reig_iph_p, a_iph_p, */
+  /*                                    a_iph_p, */
+  /*                                    cl_uint(Reig_iph_p.size1()))); */
+  /* Leig_jph_p = element_fabs(element_div(ctx.v_NVz(Lxn_jph), ctx.v_Np(Lxn_jph))); */
+  /* viennacl::ocl::enqueue(element_max(Leig_jph_p, a_jph_p, */
+  /*                                    a_jph_p, */
+  /*                                    cl_uint(Leig_jph_p.size1()))); */
+  /* Reig_jph_p = element_fabs(element_div(ctx.v_NVz(Rxn_jph), ctx.v_Np(Rxn_jph))); */
+  /* viennacl::ocl::enqueue(element_max(Reig_jph_p, a_jph_p, */
+  /*                                    a_jph_p, */
+  /*                                    cl_uint(Reig_jph_p.size1()))); */
+  /* Leig_imh_p = element_fabs(element_div(ctx.v_NVx(Lxn_imh), ctx.v_Np(Lxn_imh))); */
+  /* viennacl::ocl::enqueue(element_max(Leig_imh_p, a_imh_p, */
+  /*                                    a_imh_p, */
+  /*                                    cl_uint(Leig_imh_p.size1()))); */
+  /* Reig_imh_p = element_fabs(element_div(ctx.v_NVx(Rxn_imh), ctx.v_Np(Rxn_imh))); */
+  /* viennacl::ocl::enqueue(element_max(Reig_imh_p, a_imh_p, */
+  /*                                    a_imh_p, */
+  /*                                    cl_uint(Reig_imh_p.size1()))); */
+  /* Leig_jmh_p = element_fabs(element_div(ctx.v_NVz(Lxn_jmh), ctx.v_Np(Lxn_jmh))); */
+  /* viennacl::ocl::enqueue(element_max(Leig_jmh_p, a_jmh_p, */
+  /*                                    a_jmh_p, */
+  /*                                    cl_uint(Leig_jmh_p.size1()))); */
+  /* Reig_jmh_p = element_fabs(element_div(ctx.v_NVz(Rxn_jmh), ctx.v_Np(Rxn_jmh))); */
+  /* viennacl::ocl::enqueue(element_max(Reig_jmh_p, a_jmh_p, */
+  /*                                    a_jmh_p, */
+  /*                                    cl_uint(Reig_jmh_p.size1()))); */
 
-  Leig_imh_p = element_fabs(element_div(ctx.v_NVx(Lxn_imh), ctx.v_Np(Lxn_imh)));
-  viennacl::ocl::enqueue(element_max(Leig_imh_p, a_imh_p,
-                                     a_imh_p,
-                                     cl_uint(Leig_imh_p.size1())));
+  vcl_mat eig_iph_n = comfi::routines::sound_speed_neutral_mat(0.5*(Lxn_iph+Rxn_iph), ctx);
+  vcl_mat eig_jph_n = comfi::routines::sound_speed_neutral_mat(0.5*(Lxn_jph+Rxn_jph), ctx);
+  vcl_mat eig_imh_n = comfi::routines::sound_speed_neutral_mat(0.5*(Lxn_imh+Lxn_imh), ctx);
+  vcl_mat eig_jmh_n = comfi::routines::sound_speed_neutral_mat(0.5*(Lxn_jmh+Lxn_jmh), ctx);
 
-  Reig_imh_p = element_fabs(element_div(ctx.v_NVx(Rxn_imh), ctx.v_Np(Rxn_imh)));
-  viennacl::ocl::enqueue(element_max(Reig_imh_p, a_imh_p,
-                                     a_imh_p,
-                                     cl_uint(Reig_imh_p.size1())));
+  /* vcl_mat Leig_iph_n = comfi::routines::sound_speed_neutral_mat(Lxn_iph, ctx); */
+  /* vcl_mat Reig_iph_n = comfi::routines::sound_speed_neutral_mat(Rxn_iph, ctx); */
+  /* vcl_mat Leig_jph_n = comfi::routines::sound_speed_neutral_mat(Lxn_jph, ctx); */
+  /* vcl_mat Reig_jph_n = comfi::routines::sound_speed_neutral_mat(Rxn_jph, ctx); */
+  /* vcl_mat Leig_imh_n = comfi::routines::sound_speed_neutral_mat(Lxn_imh, ctx); */
+  /* vcl_mat Reig_imh_n = comfi::routines::sound_speed_neutral_mat(Rxn_imh, ctx); */
+  /* vcl_mat Leig_jmh_n = comfi::routines::sound_speed_neutral_mat(Lxn_jmh, ctx); */
+  /* vcl_mat Reig_jmh_n = comfi::routines::sound_speed_neutral_mat(Rxn_jmh, ctx); */
 
-  Leig_jmh_p = element_fabs(element_div(ctx.v_NVz(Lxn_jmh), ctx.v_Np(Lxn_jmh)));
-  viennacl::ocl::enqueue(element_max(Leig_jmh_p, a_jmh_p,
-                                     a_jmh_p,
-                                     cl_uint(Leig_jmh_p.size1())));
+  /* vcl_mat a_imh_n(Leig_iph_n.size1(), Leig_iph_n.size2()); */
+  /* if (ctx.bc_left != comfi::types::DIMENSIONLESS) { */
+  /*   viennacl::ocl::enqueue(element_max(Leig_imh_n, Reig_imh_n, */
+  /*                                      a_imh_n, */
+  /*                                      cl_uint(Leig_imh_n.size1()))); */
+  /* } */
+  /* vcl_mat a_iph_n(Leig_iph_n.size1(), Leig_iph_n.size2()); */
+  /* if (ctx.bc_right != comfi::types::DIMENSIONLESS) { */
+  /*   viennacl::ocl::enqueue(element_max(Leig_iph_n, Reig_iph_n, */
+  /*                                      a_iph_n, */
+  /*                                      cl_uint(Leig_iph_n.size1()))); */
+  /* } */
+  /* vcl_mat a_jmh_n(Leig_iph_n.size1(), Leig_iph_n.size2()); */
+  /* if (ctx.bc_down != comfi::types::DIMENSIONLESS) { */
+  /*   viennacl::ocl::enqueue(element_max(Leig_jmh_n, Reig_jmh_n, */
+  /*                                      a_jmh_n, */
+  /*                                      cl_uint(Leig_jmh_n.size1()))); */
+  /* } */
+  /* vcl_mat a_jph_n(Leig_iph_n.size1(), Leig_iph_n.size2()); */
+  /* if (ctx.bc_up != comfi::types::DIMENSIONLESS) { */
+  /*   viennacl::ocl::enqueue(element_max(Leig_jph_n, Reig_jph_n, */
+  /*                                      a_jph_n, */
+  /*                                      cl_uint(Leig_jph_n.size1()))); */
+  /* } */
 
-  Reig_jmh_p = element_fabs(element_div(ctx.v_NVz(Rxn_jmh), ctx.v_Np(Rxn_jmh)));
-  viennacl::ocl::enqueue(element_max(Reig_jmh_p, a_jmh_p,
-                                     a_jmh_p,
-                                     cl_uint(Reig_jmh_p.size1())));
+  /* Reig_jph_n = element_fabs(element_div(ctx.v_NUz(Rxn_jph), ctx.v_Nn(Rxn_jph))); */
+  /* viennacl::ocl::enqueue(element_max(Reig_jph_n, a_jph_n, */
+  /*                                    a_jph_n, */
+  /*                                    cl_uint(Reig_jph_n.size1()))); */
+  /* Reig_jmh_n = element_fabs(element_div(ctx.v_NUz(Rxn_jmh), ctx.v_Nn(Rxn_jmh))); */
+  /* viennacl::ocl::enqueue(element_max(Reig_jmh_n, a_jmh_n, */
+  /*                                    a_jmh_n, */
+  /*                                    cl_uint(Reig_jmh_n.size1()))); */
+  /* Reig_imh_n = element_fabs(element_div(ctx.v_NUx(Rxn_imh), ctx.v_Nn(Rxn_imh))); */
+  /* viennacl::ocl::enqueue(element_max(Reig_imh_n, a_imh_n, */
+  /*                                    a_imh_n, */
+  /*                                    cl_uint(Reig_imh_n.size1()))); */
+  /* Reig_iph_n = element_fabs(element_div(ctx.v_NUx(Rxn_iph), ctx.v_Nn(Rxn_iph))); */
+  /* viennacl::ocl::enqueue(element_max(Reig_iph_n, a_iph_n, */
+  /*                                    a_iph_n, */
+  /*                                    cl_uint(Reig_iph_n.size1()))); */
+  /* Leig_jph_n = element_fabs(element_div(ctx.v_NUz(Lxn_jph), ctx.v_Nn(Lxn_jph))); */
+  /* viennacl::ocl::enqueue(element_max(Leig_jph_n, a_jph_n, */
+  /*                                    a_jph_n, */
+  /*                                    cl_uint(Leig_jph_n.size1()))); */
+  /* Leig_jmh_n = element_fabs(element_div(ctx.v_NUz(Lxn_jmh), ctx.v_Nn(Lxn_jmh))); */
+  /* viennacl::ocl::enqueue(element_max(Leig_jmh_n, a_jmh_n, */
+  /*                                    a_jmh_n, */
+  /*                                    cl_uint(Leig_jmh_n.size1()))); */
+  /* Leig_imh_n = element_fabs(element_div(ctx.v_NUx(Lxn_imh), ctx.v_Nn(Lxn_imh))); */
+  /* viennacl::ocl::enqueue(element_max(Leig_imh_n, a_imh_n, */
+  /*                                    a_imh_n, */
+  /*                                    cl_uint(Leig_imh_n.size1()))); */
+  /* Leig_iph_n = element_fabs(element_div(ctx.v_NUx(Lxn_iph), ctx.v_Nn(Lxn_iph))); */
+  /* viennacl::ocl::enqueue(element_max(Leig_iph_n, a_iph_n, */
+  /*                                    a_iph_n, */
+  /*                                    cl_uint(Leig_iph_n.size1()))); */
 
-  vcl_mat Leig_iph_n = comfi::routines::sound_speed_neutral_mat(Lxn_iph, ctx);
-  vcl_mat Reig_iph_n = comfi::routines::sound_speed_neutral_mat(Rxn_iph, ctx);
-  vcl_mat Leig_jph_n = comfi::routines::sound_speed_neutral_mat(Lxn_jph, ctx);
-  vcl_mat Reig_jph_n = comfi::routines::sound_speed_neutral_mat(Rxn_jph, ctx);
-  vcl_mat Leig_imh_n = comfi::routines::sound_speed_neutral_mat(Lxn_imh, ctx);
-  vcl_mat Reig_imh_n = comfi::routines::sound_speed_neutral_mat(Rxn_imh, ctx);
-  vcl_mat Leig_jmh_n = comfi::routines::sound_speed_neutral_mat(Lxn_jmh, ctx);
-  vcl_mat Reig_jmh_n = comfi::routines::sound_speed_neutral_mat(Rxn_jmh, ctx);
-  vcl_mat a_imh_n(Leig_iph_n.size1(), Leig_iph_n.size2());
-  if (ctx.bc_left != comfi::types::DIMENSIONLESS) {
-    viennacl::ocl::enqueue(element_max(Leig_imh_n, Reig_imh_n,
-                                       a_imh_n,
-                                       cl_uint(Leig_imh_n.size1())));
-  }
-  vcl_mat a_iph_n(Leig_iph_n.size1(), Leig_iph_n.size2());
-  if (ctx.bc_right != comfi::types::DIMENSIONLESS) {
-    viennacl::ocl::enqueue(element_max(Leig_iph_n, Reig_iph_n,
-                                       a_iph_n,
-                                       cl_uint(Leig_iph_n.size1())));
-  }
-  vcl_mat a_jmh_n(Leig_iph_n.size1(), Leig_iph_n.size2());
-  if (ctx.bc_down != comfi::types::DIMENSIONLESS) {
-    viennacl::ocl::enqueue(element_max(Leig_jmh_n, Reig_jmh_n,
-                                       a_jmh_n,
-                                       cl_uint(Leig_jmh_n.size1())));
-  }
-  vcl_mat a_jph_n(Leig_iph_n.size1(), Leig_iph_n.size2());
-  if (ctx.bc_up != comfi::types::DIMENSIONLESS) {
-    viennacl::ocl::enqueue(element_max(Leig_jph_n, Reig_jph_n,
-                                       a_jph_n,
-                                       cl_uint(Leig_jph_n.size1())));
-  }
-
-  Reig_jph_n = element_fabs(element_div(ctx.v_NUz(Rxn_jph), ctx.v_Nn(Rxn_jph)));
-  viennacl::ocl::enqueue(element_max(Reig_jph_n, a_jph_n,
-                                     a_jph_n,
-                                     cl_uint(Reig_jph_n.size1())));
-
-  Reig_jmh_n = element_fabs(element_div(ctx.v_NUz(Rxn_jmh), ctx.v_Nn(Rxn_jmh)));
-  viennacl::ocl::enqueue(element_max(Reig_jmh_n, a_jmh_n,
-                                     a_jmh_n,
-                                     cl_uint(Reig_jmh_n.size1())));
-
-  Reig_imh_n = element_fabs(element_div(ctx.v_NUx(Rxn_imh), ctx.v_Nn(Rxn_imh)));
-  viennacl::ocl::enqueue(element_max(Reig_imh_n, a_imh_n,
-                                     a_imh_n,
-                                     cl_uint(Reig_imh_n.size1())));
-
-  Reig_iph_n = element_fabs(element_div(ctx.v_NUx(Rxn_iph), ctx.v_Nn(Rxn_iph)));
-  viennacl::ocl::enqueue(element_max(Reig_iph_n, a_iph_n,
-                                     a_iph_n,
-                                     cl_uint(Reig_iph_n.size1())));
-
-  Leig_jph_n = element_fabs(element_div(ctx.v_NUz(Lxn_jph), ctx.v_Nn(Lxn_jph)));
-  viennacl::ocl::enqueue(element_max(Leig_jph_n, a_jph_n,
-                                     a_jph_n,
-                                     cl_uint(Leig_jph_n.size1())));
-
-  Leig_jmh_n = element_fabs(element_div(ctx.v_NUz(Lxn_jmh), ctx.v_Nn(Lxn_jmh)));
-  viennacl::ocl::enqueue(element_max(Leig_jmh_n, a_jmh_n,
-                                     a_jmh_n,
-                                     cl_uint(Leig_jmh_n.size1())));
-
-  Leig_imh_n = element_fabs(element_div(ctx.v_NUx(Lxn_imh), ctx.v_Nn(Lxn_imh)));
-  viennacl::ocl::enqueue(element_max(Leig_imh_n, a_imh_n,
-                                     a_imh_n,
-                                     cl_uint(Leig_imh_n.size1())));
-
-  Leig_iph_n = element_fabs(element_div(ctx.v_NUx(Lxn_iph), ctx.v_Nn(Lxn_iph)));
-  viennacl::ocl::enqueue(element_max(Leig_iph_n, a_iph_n,
-                                     a_iph_n,
-                                     cl_uint(Leig_iph_n.size1())));
-
-  const vcl_mat a_imh = build_eig_matrix(a_imh_p, a_imh_n, ctx);
-  const vcl_mat a_iph = build_eig_matrix(a_iph_p, a_iph_n, ctx);
-  const vcl_mat a_jmh = build_eig_matrix(a_jmh_p, a_jmh_n, ctx);
-  const vcl_mat a_jph = build_eig_matrix(a_jph_p, a_jph_n, ctx);
+  const vcl_mat a_imh = build_eig_matrix(eig_imh_p, eig_imh_n, ctx);
+  const vcl_mat a_iph = build_eig_matrix(eig_iph_p, eig_iph_n, ctx);
+  const vcl_mat a_jmh = build_eig_matrix(eig_jmh_p, eig_jmh_n, ctx);
+  const vcl_mat a_jph = build_eig_matrix(eig_jph_p, eig_jph_n, ctx);
 
   // LAX-FRIEDRICHS FLUX
   const vcl_mat Fximh = 0.5*(comfi::routines::Fx(Lxn_imh, xn, ctx)+comfi::routines::Fx(Rxn_imh, xn, ctx))
@@ -335,10 +342,11 @@ vcl_mat comfi::routines::computeRHS_RK4(const vcl_mat &xn, comfi::types::Context
   const vcl_mat k4 = Re_MUSCL(xn+k3, ctx)*dt;
 
   vcl_mat result = xn + (k1+2.0*k2+2.0*k3+k4)/6.0;
+
   // GLM exact solution
-  const double a = 0.5;
-  const double ch = ctx.ds/ctx.dt();
-  ctx.v_GLM(result) *= std::exp(-a*ch/(ctx.ds/ctx.dt()));
+  const double cr = 0.18;
+  const double ch = 7.0*ctx.ds/ctx.dt();
+  ctx.v_GLM(result) *= std::exp(-ctx.dt()*ch/cr);
 
   return result;
 }
@@ -349,9 +357,9 @@ vcl_mat comfi::routines::computeRHS_Euler(const vcl_mat &xn, comfi::types::Conte
   vcl_mat result = xn + comfi::routines::Re_MUSCL(xn, ctx)*ctx.dt();
 
   // GLM exact solution
-  const double a = 0.5;
-  const double ch = ctx.ds/ctx.dt();
-  ctx.v_GLM(result) *= std::exp(-a*ch/(ctx.ds/ctx.dt()));
+  const double cr = 0.01;
+  const double ch = 7.0*ctx.ds/ctx.dt();
+  ctx.v_GLM(result) *= std::exp(-ctx.dt()*ch/cr);
 
   return result;
 }
@@ -424,9 +432,9 @@ vcl_mat comfi::routines::Fx(const vcl_mat &xn, const vcl_mat &xn_ij, comfi::type
   ctx.v_NUx(F) += Pn;
 
   // Magnetic pressure
-  vcl_mat pmag = 0.5*(element_prod(ctx.v_Bx(xn), ctx.v_Bx(xn))
-                       +element_prod(ctx.v_Bz(xn), ctx.v_Bz(xn))
-                       +element_prod(ctx.v_Bp(xn), ctx.v_Bp(xn)));
+  const vcl_mat pmag = 0.5*(element_prod(ctx.v_Bx(xn), ctx.v_Bx(xn))
+                            + element_prod(ctx.v_Bz(xn), ctx.v_Bz(xn))
+                            + element_prod(ctx.v_Bp(xn), ctx.v_Bp(xn)));
   ctx.v_NVx(F) += pmag;
   ctx.v_NVz(F) -= element_prod(ctx.v_Bz(xn), ctx.v_Bz(xn));
   ctx.v_NVx(F) -= element_prod(ctx.v_Bz(xn), ctx.v_Bx(xn));
@@ -438,7 +446,7 @@ vcl_mat comfi::routines::Fx(const vcl_mat &xn, const vcl_mat &xn_ij, comfi::type
   ctx.v_En(F) += element_prod(Pn, U_x);
 
   // Flux part of GLM
-  const double ch = ctx.ds/ctx.dt();
+  const double ch = 7.0*ctx.ds/ctx.dt();
   ctx.v_GLM(F) = ch*ch*ctx.v_Bx(xn);
 
   return F;
@@ -497,7 +505,7 @@ vcl_mat comfi::routines::Fz(const vcl_mat &xn, const vcl_mat &xn_ij, comfi::type
   ctx.v_En(F) += element_prod(Pn, U_z);
 
   // Flux part of GLM
-  const double ch = ctx.ds/ctx.dt();
+  const double ch = 7.0*ctx.ds/ctx.dt();
   ctx.v_GLM(F) = ch*ch*ctx.v_Bz(xn);
 
   return F;
