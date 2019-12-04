@@ -41,14 +41,14 @@ int main(int argc, char** argv) {
   const comfi::types::Settings settings = __set;
 
   // Create context
-  comfi::types::Context ctx(64,
-                            64,
-                            comfi::types::PERIODIC,
-                            comfi::types::PERIODIC,
-                            comfi::types::PERIODIC,
-                            comfi::types::PERIODIC);
-  //unique_ptr<vcl_mat> xn_vcl(new vcl_mat(comfi::util::shock_tube_ic(ctx)));
-  unique_ptr<vcl_mat> xn_vcl(new vcl_mat(comfi::util::ot_vortex_ic(ctx)));
+  comfi::types::Context ctx(1,
+                            400,
+                            comfi::types::NEUMANN,
+                            comfi::types::NEUMANN,
+                            comfi::types::NEUMANN,
+                            comfi::types::NEUMANN);
+  unique_ptr<vcl_mat> xn_vcl(new vcl_mat(comfi::util::shock_tube_ic(ctx)));
+  //unique_ptr<vcl_mat> xn_vcl(new vcl_mat(comfi::util::ot_vortex_ic(ctx)));
   unique_ptr<vcl_mat> xn1_vcl(new vcl_mat(*xn_vcl));
   comfi::util::save_solution(*xn_vcl, ctx);
 
@@ -150,8 +150,8 @@ int main(int argc, char** argv) {
     //viennacl::linalg::gmres_tag my_solver_tag(tolerance, 100, 20);
     //viennacl::linalg::bicgstab_tag my_solver_tag(tolerance, 100, 20);
     //unique_ptr<vcl_vec> x0_vcl(new vcl_vec(viennacl::linalg::solve(LHS, RHS, my_solver_tag, vcl_precond)));
-    unique_ptr<vcl_mat> x0_vcl(new vcl_mat(comfi::routines::computeRHS_Euler(*xn_vcl, ctx)));
-    /* unique_ptr<vcl_mat> x0_vcl(new vcl_mat(comfi::routines::computeRHS_RK4(*xn_vcl, ctx))); */
+    /* unique_ptr<vcl_mat> x0_vcl(new vcl_mat(comfi::routines::computeRHS_Euler(*xn_vcl, ctx))); */
+    unique_ptr<vcl_mat> x0_vcl(new vcl_mat(comfi::routines::computeRHS_RK4(*xn_vcl, ctx)));
     ctx.advance();
     solve_time = vcl_timer[1].get();
 

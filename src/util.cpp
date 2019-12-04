@@ -75,7 +75,7 @@ vcl_mat comfi::util::shock_tube_ic(comfi::types::Context &ctx) {
       xn(ij, ctx.Bz) = b;
     }
   }}
-  std::cout << "Sod\'s Shock Tube (" << ctx.nx << "," << ctx.nz <<
+  std::cout << "Shock Tube (" << ctx.nx << "," << ctx.nz <<
                ") Size: " << xn.size() << std::endl;
 
   vcl_mat xn_vcl(xn.n_rows, xn.n_cols);
@@ -203,11 +203,11 @@ double comfi::util::getmaxV(const vcl_mat &x0, comfi::types::Context &ctx) {
   const double local_n_z = viennacl::linalg::max(local_n_z_vec);
   std::cout << "Max local (p): (" << local_p_x << "," << local_p_z << ") | ";
   std::cout << "Max local (n): (" << local_n_x << "," << local_n_z << ")" << std::endl;
-  const double fast_p_x = viennacl::linalg::max(viennacl::column(comfi::routines::fast_speed_x_mat(x0, ctx), 0));
-  const double fast_p_z = viennacl::linalg::max(viennacl::column(comfi::routines::fast_speed_z_mat(x0, ctx), 0));
+  const double fast_p_x = viennacl::linalg::max(viennacl::column(comfi::routines::fast_speed_x(x0, ctx), 0));
+  const double fast_p_z = viennacl::linalg::max(viennacl::column(comfi::routines::fast_speed_z(x0, ctx), 0));
   std::cout << "Max fast (p): (" << fast_p_x << "," << fast_p_z << ") | ";
-  const double sound_n_x = viennacl::linalg::max(viennacl::column(comfi::routines::sound_speed_neutral_mat(x0, ctx), 0));
-  const double sound_n_z = viennacl::linalg::max(viennacl::column(comfi::routines::sound_speed_neutral_mat(x0, ctx), 0));
+  const double sound_n_x = viennacl::linalg::max(viennacl::column(comfi::routines::sound_speed_n(x0, ctx), 0));
+  const double sound_n_z = viennacl::linalg::max(viennacl::column(comfi::routines::sound_speed_n(x0, ctx), 0));
   std::cout << "Max sound speed (n): (" << sound_n_x << "," << sound_n_z << ")";
   std::cout << std::endl;
 

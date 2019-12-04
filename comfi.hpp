@@ -104,17 +104,20 @@ public:
 
   // Constants
   /// ratio of specific heats
-  const double gammamono = 5.0/3.0;
+  //const double gammamono = 5.0/3.0;
+  const double gammamono = 2.0;
+  /// \f$alpha_p\f$ divergence error propogation parameter
+  const double alpha_p = 0.18;
   /// π
-  const double  pi = arma::datum::pi;
+  const double pi = arma::datum::pi;
   /// mass of proton in kg
   const double m_i = arma::datum::m_p;
   /// permeability of free space
-  const double  mu_0 = arma::datum::mu_0;
+  const double mu_0 = arma::datum::mu_0;
   /// boltzmann constant in SI
-  const double  k_b = arma::datum::k;
+  const double k_b = arma::datum::k;
   /// elementary charge in C
-  const double  e_ = arma::datum::ec;
+  const double e_ = arma::datum::ec;
   // Normalization constants
   /// Length normalization constant in meters.
   const double l_0 = 1.0;
@@ -183,12 +186,6 @@ public:
   const arma::uword E_p   = 12;
   /// Result vector top level index
   const arma::uword GLM   = 13;
-  /// Field vector top level index
-  const arma::uword _x    = 0;
-   /// Field vector top level index
-  const arma::uword _z    = 1;
-  /// Field vector top level index
-  const arma::uword _p    = 2;
 
   // Ranges
   const viennacl::range r_grid = viennacl::range(0, nx*nz);
@@ -248,6 +245,8 @@ public:
     m_time_step++;
   }
 
+  /// Getter of \f$\c_h\f$
+  double c_h() const { return ds/m_dt; }
   /// Getter of \f$\Delta t\f$
   double dt() const { return m_dt; }
   /// Getter of \f$t\f$
@@ -476,11 +475,18 @@ namespace routines
 {
 
 /*!
- * \brief Build an eigenvalue matrix (wave speeds) for the Lax-Friedrichs scheme.
+ * \brief Build an eigenvalue matrix (wave speeds) for the Lax-Friedrichs scheme in the \f$x\f$-direction.
  * \param p_eig Ion wave speeds.
  * \param n_eig Neutral wave speeds.
  */
-vcl_mat build_eig_matrix(const vcl_mat &p_eig, const vcl_mat &n_eig, comfi::types::Context &ctx);
+vcl_mat build_eig_matrix_x(const vcl_mat &xn, comfi::types::Context &ctx);
+
+/*!
+ * \brief Build an eigenvalue matrix (wave speeds) for the Lax-Friedrichs scheme in the \f$z\f$-direction.
+ * \param p_eig Ion wave speeds.
+ * \param n_eig Neutral wave speeds.
+ */
+vcl_mat build_eig_matrix_z(const vcl_mat &xn, comfi::types::Context &ctx);
 
 /*!
  * \brief pressure_n Returns the plasma pressure based on the type of energy being used
@@ -532,20 +538,20 @@ vcl_mat Re_MUSCL(const vcl_mat &xn, comfi::types::Context &ctx);
 vcl_mat fluxl(const vcl_mat &r);
 
 /*!
- * \brief Get neutral sound speed
+ * \brief Get plasma sound speed
  * \param xn matrix of results
  * \param ctx Simulation context
- * \return vector (vcl_mat) of neutral sound speed
+ * \return vector (vcl_mat) of plasma sound speed
  */
-vcl_mat sound_speed_neutral_mat(const vcl_mat &xn, comfi::types::Context &ctx);
+vcl_mat sound_speed_p(const vcl_mat &xn, comfi::types::Context &ctx);
 
 /*!
  * \brief Get neutral sound speed
  * \param xn matrix of results
  * \param ctx Simulation context
- * \return vector of neutral sound speed
+ * \return vector (vcl_mat) of neutral sound speed
  */
-vcl_vec sound_speed_neutral(const vcl_mat &xn, const comfi::types::Context &ctx);
+vcl_mat sound_speed_n(const vcl_mat &xn, comfi::types::Context &ctx);
 
 /*!
  * \brief fast_speed_z Get vertical fast mode speed
@@ -553,15 +559,7 @@ vcl_vec sound_speed_neutral(const vcl_mat &xn, const comfi::types::Context &ctx)
  * \param ctx Simulation context.
  * \return Column vector vcl_mat of vertical fast mode speed of ions.
  */
-vcl_mat fast_speed_z_mat(const vcl_mat &xn, comfi::types::Context &ctx);
-
-/*!
- * \brief fast_speed_z Get vertical fast mode speed
- * \param xn result matrix
- * \param ctx Simulation context.
- * \return Column vector of vertical fast mode speed of ions.
- */
-vcl_vec fast_speed_z(const vcl_mat &xn, comfi::types::Context &ctx);
+vcl_mat fast_speed_z(const vcl_mat &xn, comfi::types::Context &ctx);
 
 /*!
  * \brief fast_speed_x Get horizontal fast mode speed
@@ -569,15 +567,7 @@ vcl_vec fast_speed_z(const vcl_mat &xn, comfi::types::Context &ctx);
  * \param ctx	Simulation context.
  * \return Column vector (vcl_mat) of horizontal fast mode speeds.
  */
-vcl_mat fast_speed_x_mat(const vcl_mat &xn, comfi::types::Context &ctx);
-
-/*!
- * \brief fast_speed_x Get horizontal fast mode speed
- * \param xn Result matrix.
- * \param ctx	Simulation context.
- * \return Column vector of horizontal fast mode speeds.
- */
-vcl_vec fast_speed_x(const vcl_mat &xn, comfi::types::Context &ctx);
+vcl_mat fast_speed_x(const vcl_mat &xn, comfi::types::Context &ctx);
 
 /*!
  * \brief polyval compute's polynomial using Herner's scheme
@@ -832,7 +822,6 @@ inline double ionization_coeff(const double &T, const comfi::types::Context &ctx
 } // namespace sol
 
 } // namespace mhdsim
-
 
 /*!
  * \brief Find scalar vector index.
